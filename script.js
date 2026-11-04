@@ -334,5 +334,4 @@ function addToCartFromModal() {
    ================================================================ */
 
 console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
-console.log('%c تماس: 09179131037 | delaris0cake@gmail.com ', 'font-size:12px; color:#B8B8B8;');
-console.log('%c آدرس: قشم، دولاب ', 'font-size:12px; color:#B8B8B8;');
+
