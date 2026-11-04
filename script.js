@@ -8,11 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (splash) splash.classList.add('hidden');
     }, 1200);
 
-    renderCakes();
-    renderIdeas();
+    refreshDelarisPrices();
     renderReviews();
     updateCartCount();
-    renderCart();
     loadDelarisUsdRate();
     setInterval(loadDelarisUsdRate, 30 * 60 * 1000);
 
@@ -112,7 +110,6 @@ async function loadDelarisUsdRate() {
     refreshDelarisPrices();
 }
 
-
 const reviewsData = [
     { name: 'سارا محمدی', text: 'بهترین کیکی که تا حالا خوردم! طراحی و طعم فوق‌العاده بود.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg' },
     { name: 'رضا کریمی', text: 'ارسال سریع و بسته‌بندی بسیار لوکس. قطعاً دوباره سفارش می‌دم.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg' },
@@ -130,7 +127,7 @@ function renderCakes() {
         <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
             <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
             <h3>${cake.name}</h3>
-            <p class="price price-usd">${cake.priceUSD.toFixed(2)} USD <span>· ${cake.weightKg} کیلوگرم</span></p>
+            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· ${cake.weightKg} کیلوگرم</span></p>
             <p class="price price-toman">${formatToman(cake.price)}</p>
             <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
             <p class="cake-desc">${cake.desc}</p>
@@ -146,7 +143,7 @@ function renderIdeas() {
         <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
             <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
             <h3>${cake.name}</h3>
-            <p class="price price-usd">${cake.priceUSD.toFixed(2)} USD <span>· ${cake.weightKg} کیلوگرم</span></p>
+            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· ${cake.weightKg} کیلوگرم</span></p>
             <p class="price price-toman">${formatToman(cake.price)}</p>
             <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
             <p class="cake-desc">${cake.desc}</p>
@@ -234,7 +231,7 @@ function renderCart() {
             <div style="flex:1;min-width:0;text-align:right">
                 <h3 style="font-size:15px;margin:0 0 4px">${item.cake.name}</h3>
                 <p style="font-size:12px;color:#aaa;margin:0">تعداد: ${Number(item.quantity)}</p>
-                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">${(item.cake.priceUSD * item.quantity).toFixed(2)} USD · ${item.cake.weightKg} کیلوگرم</p>
+                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">USD ${(item.cake.priceUSD * item.quantity).toFixed(2)} · ${item.cake.weightKg} کیلوگرم</p>
                 <p style="font-size:13px;margin:5px 0 0">${formatToman(item.cake.price * item.quantity)}</p>
             </div>
             <button type="button" onclick="removeFromCart(${item.cake.id})" style="padding:8px 10px;border:1px solid rgba(255,255,255,.15);color:#e8c97a;border-radius:8px">حذف</button>
@@ -356,28 +353,6 @@ function openModal(id) {
     document.getElementById('modalName').textContent = cake.name;
     document.getElementById('modalDesc').textContent = cake.desc;
     document.getElementById('modalPrice').textContent = 'USD ' + cake.priceUSD.toFixed(2) + ' · ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
-    document.getElementById('cakeModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('cakeModal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function addToCartFromModal() {
-    if (activeCakeId) {
-        addToCart(activeCakeId);
-        closeModal();
-    }
-}
-
-/* ================================================================
-   برندینگ در کنسول
-   ================================================================ */
-
-console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
-
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
