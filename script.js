@@ -355,7 +355,7 @@ function openModal(id) {
     document.getElementById('modalImage').src = cake.img;
     document.getElementById('modalName').textContent = cake.name;
     document.getElementById('modalDesc').textContent = cake.desc;
-    document.getElementById('modalPrice').textContent = '
+    document.getElementById('modalPrice').textContent = 'USD ' + cake.priceUSD.toFixed(2) + ' · ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -378,7 +378,6 @@ function addToCartFromModal() {
 
 console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
 
- + cake.priceUSD.toFixed(2) + ' USD · ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
