@@ -143,7 +143,7 @@ function renderIdeas() {
         <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
             <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
             <h3>${cake.name}</h3>
-            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· ${cake.weightKg} کیلوگرم</span></p>
+            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· وزن تقریبی ${cake.weightKg} کیلوگرم · قیمت پایه</span></p>
             <p class="price price-toman">${formatToman(cake.price)}</p>
             <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
             <p class="cake-desc">${cake.desc}</p>
@@ -231,7 +231,7 @@ function renderCart() {
             <div style="flex:1;min-width:0;text-align:right">
                 <h3 style="font-size:15px;margin:0 0 4px">${item.cake.name}</h3>
                 <p style="font-size:12px;color:#aaa;margin:0">تعداد: ${Number(item.quantity)}</p>
-                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">USD ${(item.cake.priceUSD * item.quantity).toFixed(2)} · ${item.cake.weightKg} کیلوگرم</p>
+                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">USD ${(item.cake.priceUSD * item.quantity).toFixed(2)} · هر کیک ${item.cake.weightKg} کیلوگرم</p>
                 <p style="font-size:13px;margin:5px 0 0">${formatToman(item.cake.price * item.quantity)}</p>
             </div>
             <button type="button" onclick="removeFromCart(${item.cake.id})" style="padding:8px 10px;border:1px solid rgba(255,255,255,.15);color:#e8c97a;border-radius:8px">حذف</button>
@@ -352,7 +352,7 @@ function openModal(id) {
     document.getElementById('modalImage').src = cake.img;
     document.getElementById('modalName').textContent = cake.name;
     document.getElementById('modalDesc').textContent = cake.desc;
-    document.getElementById('modalPrice').textContent = 'USD ' + cake.priceUSD.toFixed(2) + ' · ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
+    document.getElementById('modalPrice').textContent = 'قیمت پایه: USD ' + cake.priceUSD.toFixed(2) + ' · وزن تقریبی ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
