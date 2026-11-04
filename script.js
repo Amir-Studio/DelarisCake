@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     renderReviews();
     updateCartCount();
     renderCart();
+    loadDelarisUsdRate();
+    setInterval(loadDelarisUsdRate, 30 * 60 * 1000);
 
     // ===== ثبت‌نام =====
     const registerForm = document.getElementById('registerForm');
@@ -63,17 +65,53 @@ document.addEventListener('DOMContentLoaded', function() {
    ================================================================ */
 
 const cakes = [
-    { id: 1, name: 'کیک شکوفه', price: 650000, desc: 'شکلات تلخ بلژیکی با خامه طبیعی و برش‌های طلایی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg' },
-    { id: 2, name: 'کیک رویایی', price: 680000, desc: 'طراحی سه‌طبقه با گل‌های طبیعی و فوندانت لوکس', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg' },
-    { id: 3, name: 'کیک بامزه', price: 550000, desc: 'اسفنج وانیلی با توت‌فرنگی تازه و خامه گل‌بهی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg' },
-    { id: 4, name: 'کیک میوه‌ای', price: 640000, desc: 'لایه‌های اسفنجی با میوه‌های تازه و خامه سبک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg' },
-    { id: 5, name: 'کیک یاس سفید', price: 700000, desc: 'طراحی مینیمال با گل یاس سفید و خامه وانیلی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/0094fa55-dc95-48de-9800-c74823d8d1c2.jpg' },
+    { id: 1, name: 'کیک شکوفه', priceUSD: 55, weightKg: 1, desc: 'شکلات تلخ بلژیکی با خامه طبیعی و برش‌های طلایی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg', priceSource: 'https://www.nanakcakes.com/menus?menu=cakes' },
+    { id: 2, name: 'کیک رویایی', priceUSD: 150, weightKg: 2, desc: 'طراحی سه‌طبقه با گل‌های طبیعی و فوندانت لوکس', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg', priceSource: 'https://barcookbakery.com/site/?product_types=custom-cake' },
+    { id: 3, name: 'کیک بامزه', priceUSD: 45, weightKg: 1, desc: 'اسفنج وانیلی با توت‌فرنگی تازه و خامه گل‌بهی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg', priceSource: 'https://www.nanakcakes.com/menus?menu=cakes' },
+    { id: 4, name: 'کیک میوه‌ای', priceUSD: 55, weightKg: 1, desc: 'لایه‌های اسفنجی با میوه‌های تازه و خامه سبک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg', priceSource: 'https://www.nurturecakes.com/' },
+    { id: 5, name: 'کیک یاس سفید', priceUSD: 65, weightKg: 1, desc: 'طراحی مینیمال با گل یاس سفید و خامه وانیلی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/0094fa55-dc95-48de-9800-c74823d8d1c2.jpg', priceSource: 'https://www.nurturecakes.com/' },
 ];
 
 const ideaCakes = [
-    { id: 101, name: 'کیک رمانتیک', price: 800000, desc: 'طراحی عاشقانه با گل‌های رز و خامه تمشک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/fb6430b5-b573-49ee-99bf-09907c2578bc.jpg' },
-    { id: 102, name: 'کیک توت‌فرنگی', price: 900000, desc: 'اسفنج نرم با توت‌فرنگی تازه و خامه طبیعی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/750116b6-6f0c-4b8b-b2ca-1ffa0da15e21.jpg' },
+    { id: 101, name: 'کیک رمانتیک', priceUSD: 140, weightKg: 2, desc: 'طراحی عاشقانه با گل‌های رز و خامه تمشک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/fb6430b5-b573-49ee-99bf-09907c2578bc.jpg', priceSource: 'https://barcookbakery.com/site/?product_types=custom-cake' },
+    { id: 102, name: 'کیک توت‌فرنگی', priceUSD: 60, weightKg: 1, desc: 'اسفنج نرم با توت‌فرنگی تازه و خامه طبیعی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/750116b6-6f0c-4b8b-b2ca-1ffa0da15e21.jpg', priceSource: 'https://www.nurturecakes.com/' },
 ];
+
+let delarisUsdRate = 268716;
+let delarisRateLabel = 'نرخ مرجع ثبت‌شده · ۴ نوامبر ۲۰۲۶';
+function tomanFromUsd(usd) {
+    return Math.round((Number(usd || 0) * delarisUsdRate) / 1000) * 1000;
+}
+function formatToman(amount) {
+    return Number(amount || 0).toLocaleString('fa-IR') + ' تومان';
+}
+function refreshDelarisPrices() {
+    [...cakes, ...ideaCakes].forEach(cake => { cake.price = tomanFromUsd(cake.priceUSD); });
+    renderCakes();
+    renderIdeas();
+    renderCart();
+    document.querySelectorAll('[data-delaris-rate]').forEach(el => {
+        el.textContent = 'نرخ دلار بازار آزاد: ' + delarisUsdRate.toLocaleString('fa-IR') + ' تومان · ' + delarisRateLabel;
+    });
+}
+async function loadDelarisUsdRate() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/iran-market/iran-market.github.io/main/data/popular.json?v=' + Date.now(), { cache: 'no-store' });
+        if (!response.ok) throw new Error('rate unavailable');
+        const payload = await response.json();
+        const item = (payload.data || []).find(row => row.symbol === 'USD_IRR_FREE');
+        const timestamp = Date.parse(item && item.timestamp || payload.meta && payload.meta.updated_at || '');
+        if (!item || item.stale || !Number.isFinite(Number(item.price)) || Number(item.price) <= 0 || !Number.isFinite(timestamp) || Date.now() - timestamp > 2 * 60 * 60 * 1000) {
+            throw new Error('stale rate');
+        }
+        delarisUsdRate = Number(item.price);
+        delarisRateLabel = 'نرخ زنده · ' + new Date(timestamp).toLocaleString('fa-IR');
+    } catch (error) {
+        delarisRateLabel = 'آخرین نرخ مرجع ثبت‌شده · ۴ نوامبر ۲۰۲۶';
+    }
+    refreshDelarisPrices();
+}
+
 
 const reviewsData = [
     { name: 'سارا محمدی', text: 'بهترین کیکی که تا حالا خوردم! طراحی و طعم فوق‌العاده بود.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg' },
@@ -92,7 +130,9 @@ function renderCakes() {
         <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
             <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
             <h3>${cake.name}</h3>
-            <p class="price">${cake.price.toLocaleString()} تومان</p>
+            <p class="price price-usd">${cake.priceUSD.toFixed(2)} USD <span>· ${cake.weightKg} کیلوگرم</span></p>
+            <p class="price price-toman">${formatToman(cake.price)}</p>
+            <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
             <p class="cake-desc">${cake.desc}</p>
             <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${cake.id})">افزودن به سبد</button>
         </div>
@@ -106,7 +146,9 @@ function renderIdeas() {
         <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
             <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
             <h3>${cake.name}</h3>
-            <p class="price">${cake.price.toLocaleString()} تومان</p>
+            <p class="price price-usd">${cake.priceUSD.toFixed(2)} USD <span>· ${cake.weightKg} کیلوگرم</span></p>
+            <p class="price price-toman">${formatToman(cake.price)}</p>
+            <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
             <p class="cake-desc">${cake.desc}</p>
             <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${cake.id})">افزودن به سبد</button>
         </div>
@@ -192,7 +234,8 @@ function renderCart() {
             <div style="flex:1;min-width:0;text-align:right">
                 <h3 style="font-size:15px;margin:0 0 4px">${item.cake.name}</h3>
                 <p style="font-size:12px;color:#aaa;margin:0">تعداد: ${Number(item.quantity)}</p>
-                <p style="font-size:13px;margin:5px 0 0">${(item.cake.price * item.quantity).toLocaleString('fa-IR')} تومان</p>
+                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">${(item.cake.priceUSD * item.quantity).toFixed(2)} USD · ${item.cake.weightKg} کیلوگرم</p>
+                <p style="font-size:13px;margin:5px 0 0">${formatToman(item.cake.price * item.quantity)}</p>
             </div>
             <button type="button" onclick="removeFromCart(${item.cake.id})" style="padding:8px 10px;border:1px solid rgba(255,255,255,.15);color:#e8c97a;border-radius:8px">حذف</button>
         </article>
@@ -312,7 +355,30 @@ function openModal(id) {
     document.getElementById('modalImage').src = cake.img;
     document.getElementById('modalName').textContent = cake.name;
     document.getElementById('modalDesc').textContent = cake.desc;
-    document.getElementById('modalPrice').textContent = cake.price.toLocaleString() + ' تومان';
+    document.getElementById('modalPrice').textContent = '
+    document.getElementById('cakeModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('cakeModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function addToCartFromModal() {
+    if (activeCakeId) {
+        addToCart(activeCakeId);
+        closeModal();
+    }
+}
+
+/* ================================================================
+   برندینگ در کنسول
+   ================================================================ */
+
+console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
+
+ + cake.priceUSD.toFixed(2) + ' USD · ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
