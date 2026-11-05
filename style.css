@@ -1430,3 +1430,65 @@ textarea {
         overflow-wrap:anywhere;
     }
 }
+
+/* Refined gallery separator */
+.gallery-luxe-divider{
+    display:flex;align-items:center;justify-content:center;gap:18px;
+    max-width:620px;margin:58px auto 8px;padding:0 18px;
+    color:#b99b5c;font-family:var(--font-display);font-size:.68rem;
+    letter-spacing:3.5px;opacity:.82;
+}
+.gallery-luxe-divider span{
+    height:1px;flex:1;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,.48),transparent);
+}
+.gallery-luxe-divider b{font-weight:500;white-space:nowrap}
+
+/* Compact footer contact composition */
+#contact.info-section{max-width:690px;margin:42px auto 0;padding:0 18px 30px}
+#contact .contact-luxury-card{padding:27px 30px;border-radius:24px}
+#contact .contact-heading{margin-bottom:18px}
+#contact .contact-heading h3{font-size:1.55rem}
+#contact .contact-heading p{font-size:.82rem}
+#contact .address-feature,#contact .instagram-feature{
+    min-height:0;padding:14px 18px;margin:8px 0;border-radius:14px;gap:3px
+}
+#contact .address-feature strong{font-size:1.05rem}
+#contact .instagram-feature strong{font-size:1.05rem;letter-spacing:.2px;text-align:right}
+#contact .address-feature>span:last-child,#contact .instagram-action{font-size:.72rem}
+#contact .contact-details-grid{margin-top:12px;gap:10px}
+#contact .contact-detail{padding:12px 14px;border-radius:12px}
+#contact .contact-detail a{font-size:.82rem}
+#contact .contact-hours{margin-top:13px;padding-top:12px}
+#contact .contact-hours p{display:inline-block;margin:3px 9px;font-size:.76rem}
+
+/* A separate, smaller seller-information popup */
+#infoModal .modal-content{width:min(92vw,440px);max-height:88vh;overflow-y:auto;border:1px solid rgba(212,175,55,.28);border-radius:24px}
+#infoModal .seller-modal{padding:24px 22px 20px;text-align:center}
+#infoModal .seller-modal .info-logo{width:66px;height:66px;object-fit:contain;margin:0 auto 8px}
+.seller-modal-kicker{display:block;color:#b99b5c;font-size:.62rem;letter-spacing:3px}
+#infoModal .seller-modal h3{margin:4px 0 5px;font-size:1.3rem;color:#f0dfb6}
+.seller-modal-intro{margin:0 auto 15px;color:#aaa;font-size:.78rem;line-height:1.9}
+.seller-contact-list{display:flex;flex-direction:column;gap:7px;text-align:right}
+.seller-contact-row{
+    display:flex;align-items:center;gap:12px;min-width:0;
+    padding:10px 12px;border:1px solid rgba(212,175,55,.14);
+    border-radius:12px;background:rgba(255,255,255,.025);text-decoration:none;
+}
+.seller-row-icon{display:grid;place-items:center;flex:0 0 32px;height:32px;border-radius:10px;background:rgba(212,175,55,.10);color:#d5b66e;font-size:1rem}
+.seller-contact-row>span:nth-child(2){display:flex;flex:1;flex-direction:column;gap:2px;min-width:0}
+.seller-contact-row small{color:#a9956a;font-size:.66rem}
+.seller-contact-row strong{color:#eee;font-size:.8rem;font-weight:500;overflow-wrap:anywhere}
+.seller-row-arrow{color:#c9a85f;font-size:.9rem}
+.seller-hours{margin-top:13px;padding-top:11px;border-top:1px solid rgba(212,175,55,.14);color:#aaa}
+.seller-hours>span{display:block;color:#b99b5c;font-size:.68rem;margin-bottom:4px}
+.seller-hours p{display:inline-block;margin:2px 7px;font-size:.7rem}
+@media(max-width:600px){
+ .gallery-luxe-divider{margin:42px auto 4px;gap:12px;font-size:.6rem}
+ #contact.info-section{padding-left:12px;padding-right:12px;margin-top:32px}
+ #contact .contact-luxury-card{padding:21px 16px;border-radius:20px}
+ #contact .contact-details-grid{grid-template-columns:1fr}
+ #contact .contact-hours p{display:block;margin:3px 0}
+ #infoModal .modal-content{width:min(92vw,390px)}
+ #infoModal .seller-modal{padding:21px 16px 17px}
+}
