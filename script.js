@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     renderCakes();
     renderIdeas();
-    renderReviews();
 
     // ===== ثبت‌نام =====
     const registerForm = document.getElementById('registerForm');
@@ -95,11 +94,6 @@ function renderIdeas() {
     if (grid) grid.innerHTML = ideaCakes.map(cakeCard).join('');
 }
 
-function renderReviews() {
-    const slider = document.getElementById('reviewsSlider');
-    if (!slider) return;
-    slider.innerHTML = '<div class="reviews-empty">هنوز نظری ثبت نشده است. تجربه‌تان را پس از سفارش با ما به اشتراک بگذارید.</div>';
-}
 
 /* ================================================================
    ارتباط سفارش با اینستاگرام
