@@ -57,18 +57,30 @@
     <!-- ============================================================ -->
     <!-- سایدبار                                                      -->
     <!-- ============================================================ -->
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar" id="sidebar" aria-label="منوی اصلی">
         <div class="sidebar-header">
-            <span class="sidebar-close" onclick="toggleSidebar()">✕</span>
-            <span class="sidebar-brand">Delaris Cake</span>
+            <div class="sidebar-brand-wrap">
+                <span class="sidebar-kicker">DELARIS CAKE</span>
+                <span class="sidebar-brand">Delaris Cake</span>
+            </div>
+            <button class="sidebar-close" type="button" onclick="toggleSidebar()" aria-label="بستن منو">×</button>
         </div>
-        <ul>
-            <li onclick="goToDashboard()">🏠 صفحه اصلی</li>
-            <li onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'}); toggleSidebar();">🍰 کیک‌ها</li>
-            <li onclick="document.getElementById('ideas').scrollIntoView({behavior:'smooth'}); toggleSidebar();">✨ ایده‌ها</li>
-            <li onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'}); toggleSidebar();">📍 تماس با ما</li>
-            <li onclick="logout()" class="logout-btn">🚪 خروج</li>
-        </ul>
+        <div class="sidebar-intro">
+            <span>منوی دسترسی</span>
+            <p>جهت مشاهده مجموعه و ارتباط با دلاریس</p>
+        </div>
+        <nav class="sidebar-nav" aria-label="بخش‌های سایت">
+            <a href="#gallery" onclick="toggleSidebar()"><span class="nav-index">01</span><span>کیک‌های ویژه</span><span class="nav-arrow">↗</span></a>
+            <a href="#ideas" onclick="toggleSidebar()"><span class="nav-index">02</span><span>ایده‌های طراحی</span><span class="nav-arrow">↗</span></a>
+            <a href="#contact" onclick="toggleSidebar()"><span class="nav-index">03</span><span>ارتباط با ما</span><span class="nav-arrow">↗</span></a>
+        </nav>
+        <div class="sidebar-connect">
+            <span class="sidebar-connect-title">راه‌های ارتباطی</span>
+            <a href="https://www.instagram.com/delaris_cake07/" target="_blank" rel="noopener noreferrer"><span>Instagram</span><strong dir="ltr">@delaris_cake07</strong><span class="nav-arrow">↗</span></a>
+            <a href="tel:+989179131037"><span>تلفن تماس</span><strong dir="ltr">۰۹۱۷۹۱۳۱۰۳۷</strong><span class="nav-arrow">↗</span></a>
+            <a href="https://www.google.com/maps/search/?api=1&query=%D9%82%D8%B4%D9%85%20%D8%AF%D9%88%D9%84%D8%A7%D8%A8" target="_blank" rel="noopener noreferrer"><span>نشانی</span><strong>قشم، دولاب</strong><span class="nav-arrow">↗</span></a>
+        </div>
+        <div class="sidebar-bottom"><span></span> DELARIS CAKE <span></span></div>
     </div>
 
     <!-- ============================================================ -->
@@ -90,7 +102,7 @@
         <!-- ===== بخش ایده ===== -->
         <section class="gallery ideas-section" id="ideas">
             <div class="section-header">
-                <h2 class="section-title">✨ ایده</h2>
+                <h2 class="section-title">ایده‌های طراحی</h2>
                 <p class="section-sub">برای خاص‌ترین لحظه‌ها</p>
             </div>
             <div class="cake-grid two-col" id="ideaGrid"></div>
