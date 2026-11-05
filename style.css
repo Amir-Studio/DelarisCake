@@ -1696,3 +1696,60 @@ textarea {
  #contact .contact-luxury-card{padding:19px 11px}
  #contact .address-feature strong,#contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:.82rem}
 }
+
+
+/* Luxury frosted-glass navigation — Delaris Cake */
+.dashboard-header{
+ position:sticky;top:0;z-index:900;align-items:center;min-height:88px;padding:12px 28px;
+ background:rgba(12,12,13,.58);backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);
+ border-bottom:1px solid rgba(220,190,125,.13);box-shadow:0 10px 34px rgba(0,0,0,.16)
+}
+.header-left,.header-right,.header-brand{padding-bottom:0;align-items:center}
+.brand-name{font-size:2.55rem;letter-spacing:5px}
+.menu-icon{width:48px;height:44px;align-items:center;justify-content:center;gap:6px;padding:10px;border:1px solid rgba(212,175,55,.24);border-radius:14px;background:rgba(255,255,255,.035);transition:all .3s ease}
+.menu-icon:hover{border-color:rgba(232,201,122,.62);background:rgba(212,175,55,.08);transform:translateY(-1px)}
+.menu-icon span{width:21px;height:1.5px;border-radius:2px;background:#d8bd7d}
+.menu-icon span:nth-child(2){width:15px;align-self:flex-end;margin-right:4px}
+.sidebar{
+ position:fixed;top:14px;right:14px;bottom:14px;left:auto;width:min(390px,calc(100vw - 28px));height:auto;
+ padding:27px 25px 20px;overflow-y:auto;z-index:1200;visibility:hidden;opacity:0;transform:translateX(18px) scale(.985);pointer-events:none;
+ border:1px solid rgba(232,201,122,.23);border-radius:25px;
+ background:linear-gradient(145deg,rgba(35,33,29,.84),rgba(13,13,15,.88) 58%,rgba(18,17,15,.91));
+ backdrop-filter:blur(32px) saturate(155%);-webkit-backdrop-filter:blur(32px) saturate(155%);
+ box-shadow:0 28px 90px rgba(0,0,0,.66),inset 0 1px 0 rgba(255,255,255,.07);
+ transition:opacity .32s ease,transform .42s cubic-bezier(.2,.7,.2,1),visibility .32s
+}
+.sidebar.active{right:14px;visibility:visible;opacity:1;transform:translateX(0) scale(1);pointer-events:auto}
+.sidebar-header{display:flex;justify-content:space-between;align-items:center;margin:0;padding:0 0 22px;border-bottom:1px solid rgba(212,175,55,.17)}
+.sidebar-brand-wrap{display:flex;flex-direction:column;gap:4px}
+.sidebar-kicker{font:500 .58rem var(--font-body);letter-spacing:3px;color:#b99c5c}
+.sidebar-brand{font:600 1.55rem var(--font-display);letter-spacing:2px;color:#f0dfb8}
+.sidebar-close{display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid rgba(212,175,55,.2);border-radius:12px;background:rgba(255,255,255,.035);color:#e4cc91;font:300 1.6rem var(--font-body);line-height:1;cursor:pointer;transition:.25s}
+.sidebar-close:hover{background:rgba(212,175,55,.1);border-color:rgba(232,201,122,.55);transform:rotate(90deg)}
+.sidebar-intro{padding:23px 2px 17px}
+.sidebar-intro>span,.sidebar-connect-title{display:block;color:#e5d4ae;font-size:.92rem;font-weight:600}
+.sidebar-intro p{margin-top:4px;color:#928c80;font-size:.72rem;line-height:1.9}
+.sidebar-nav{display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
+.sidebar-nav a{display:grid;grid-template-columns:34px 1fr 18px;align-items:center;gap:10px;padding:15px 3px;color:#e6e1d7;font-size:.91rem;border-bottom:1px solid rgba(255,255,255,.055);transition:color .25s,padding .25s}
+.sidebar-nav a:last-child{border-bottom:0}
+.sidebar-nav a:hover{color:#e8c97a;padding-right:9px}
+.nav-index{font:500 .65rem var(--font-display);letter-spacing:1px;color:#aa8e54}
+.nav-arrow{color:#b89a5a;font-size:.9rem;justify-self:end}
+.sidebar-connect{padding-top:23px}
+.sidebar-connect-title{margin-bottom:10px;font-size:.78rem;color:#bca36f}
+.sidebar-connect>a{display:grid;grid-template-columns:76px minmax(0,1fr) 18px;align-items:center;gap:8px;padding:12px 11px;margin-top:7px;border:1px solid rgba(255,255,255,.065);border-radius:12px;background:rgba(255,255,255,.027);transition:.25s}
+.sidebar-connect>a:hover{border-color:rgba(212,175,55,.32);background:rgba(212,175,55,.055)}
+.sidebar-connect>a>span:first-child{font-size:.69rem;color:#9c927e}
+.sidebar-connect>a strong{min-width:0;overflow-wrap:anywhere;color:#e8e1d2;font-size:.76rem;font-weight:500;text-align:right}
+.sidebar-bottom{display:flex;align-items:center;gap:10px;justify-content:center;margin-top:26px;color:#84734e;font:500 .55rem var(--font-display);letter-spacing:3px}
+.sidebar-bottom span{height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(212,175,55,.35))}
+.sidebar-bottom span:last-child{transform:rotate(180deg)}
+@media(max-width:600px){
+ .dashboard-header{min-height:74px;padding:10px 15px}
+ .brand-name{font-size:1.75rem;letter-spacing:2.5px}
+ .profile-logo{width:43px;height:43px}
+ .menu-icon{width:43px;height:41px;border-radius:12px}
+ .sidebar{top:9px;right:9px;bottom:9px;width:min(370px,calc(100vw - 18px));padding:22px 19px 17px;border-radius:21px}
+ .sidebar.active{right:9px}
+}
+@media(prefers-reduced-motion:reduce){.sidebar,.sidebar-nav a,.sidebar-connect>a,.menu-icon{transition:none}}
