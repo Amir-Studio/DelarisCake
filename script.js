@@ -69,7 +69,7 @@ const ideaCakes = [
     {id:105,img:"https://images.unsplash.com/photo-1670529774874-601ce26eec53?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""}
 ];
 
-const INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake/';
+const INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake07/';
 
 const reviewsData = []; // نظرات واقعی پس از اتصال سامانه ثبت نظر نمایش داده می‌شوند.
 
@@ -81,7 +81,7 @@ function cakeCard(cake) {
     return `
         <article class="cake-card">
             <img src="${cake.img}" alt="نمونه کیک Delaris Cake" loading="lazy" />
-            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده و سفارش در اینستاگرام · @delaris_cake</a>
+            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده و سفارش در اینستاگرام · @delaris_cake07</a>
         </article>
     `;
 }
