@@ -1835,3 +1835,39 @@ textarea {
   width:min(70vw,370px);
  }
 }
+
+
+/* Sidebar: one clear Instagram call-to-action, no contact details */
+.sidebar-instagram-button{
+ display:grid;
+ grid-template-columns:38px minmax(0,1fr) 18px;
+ align-items:center;
+ gap:11px;
+ margin-top:24px;
+ padding:14px 13px;
+ min-height:58px;
+ border:1px solid rgba(212,175,55,.28);
+ border-radius:14px;
+ background:linear-gradient(110deg,rgba(212,175,55,.12),rgba(255,255,255,.035));
+ color:#f0dfb8;
+ font-size:.86rem;
+ font-weight:600;
+ transition:background .25s ease,border-color .25s ease,transform .25s ease;
+}
+.sidebar-instagram-button:hover{
+ border-color:rgba(232,201,122,.7);
+ background:linear-gradient(110deg,rgba(212,175,55,.2),rgba(255,255,255,.05));
+ transform:translateY(-2px);
+}
+.sidebar-instagram-icon{
+ display:grid;
+ place-items:center;
+ width:36px;
+ height:36px;
+ border:1px solid rgba(212,175,55,.28);
+ border-radius:11px;
+ color:#e8c97a;
+ font-size:1.45rem;
+ line-height:1;
+}
+.sidebar-instagram-button .nav-arrow{justify-self:end}
