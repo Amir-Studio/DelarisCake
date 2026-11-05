@@ -1871,3 +1871,57 @@ textarea {
  line-height:1;
 }
 .sidebar-instagram-button .nav-arrow{justify-self:end}
+
+
+/* Final menu refinement: 75% width, quiet typography and corner close control */
+.sidebar{
+ width:min(75vw,520px);
+}
+.sidebar-header{
+ position:relative;
+ justify-content:flex-start;
+ padding:0 0 22px;
+}
+.sidebar-close{
+ position:absolute;
+ top:0;
+ left:0;
+}
+.sidebar-brand-wrap{
+ padding-left:48px;
+}
+.sidebar-nav a{
+ grid-template-columns:34px minmax(0,1fr);
+}
+.sidebar-instagram-button{
+ display:block;
+ width:100%;
+ margin-top:24px;
+ padding:13px 4px;
+ min-height:0;
+ border:0;
+ border-top:1px solid rgba(212,175,55,.16);
+ border-bottom:1px solid rgba(212,175,55,.16);
+ border-radius:0;
+ background:transparent;
+ color:#e8d9b8;
+ text-align:right;
+ font-family:var(--font-body);
+ font-size:.88rem;
+ font-weight:500;
+ transition:color .2s ease;
+}
+.sidebar-instagram-button:hover{
+ border-color:rgba(212,175,55,.3);
+ background:transparent;
+ color:#e8c97a;
+ transform:none;
+}
+@media(max-width:600px){
+ .sidebar{
+  width:75vw;
+ }
+ .sidebar-header{padding-bottom:19px}
+ .sidebar-close{top:0;left:0}
+ .sidebar-brand-wrap{padding-left:46px}
+}
