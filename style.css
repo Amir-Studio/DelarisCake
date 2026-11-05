@@ -1306,9 +1306,15 @@ textarea {
    پایان فایل
    ================================================================ */
 
-/* Global cake price reference + live USD conversion */
-.price-usd{color:#d9c18f;font-size:14px;letter-spacing:.02em;margin-bottom:2px}
-.price-usd span{color:#a6a6a6;font-size:11px}
-.price-toman{font-size:12px!important;color:#d9d2c5;margin-top:0}
-.cake-price-source{display:inline-block;margin:0 0 12px;color:#c8aa78;font-size:10px;text-decoration:underline;text-underline-offset:3px}
-.delaris-price-note{margin:18px auto 26px;padding:13px 16px;max-width:980px;border:1px solid rgba(200,170,120,.25);background:rgba(200,170,120,.05);color:#bdb5a8;font-size:11px;line-height:2;text-align:center}
+
+
+/* Delaris gallery refinements */
+.cake-grid.two-col{max-width:1120px;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.cake-card{overflow:hidden;padding:12px 12px 18px}
+.cake-card img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:12px}
+.cake-inquiry{display:inline-flex;justify-content:center;align-items:center;margin-top:14px;padding:10px 16px;border:1px solid rgba(212,175,55,.3);border-radius:40px;color:#d9c18f;text-decoration:none;font-size:.82rem;line-height:1.8;transition:all .25s ease}
+.cake-inquiry:hover{background:rgba(212,175,55,.12);border-color:#d4af37;transform:translateY(-2px)}
+.cake-inquiry-modal{display:inline-flex;text-decoration:none;justify-content:center}
+.reviews-empty{width:100%;padding:28px 18px;text-align:center;color:#aaa;border:1px solid var(--glass-border);border-radius:18px;background:rgba(255,255,255,.02)}
+@media(max-width:768px){.cake-grid.two-col{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.cake-card{padding:9px}.cake-inquiry{font-size:.72rem;padding:8px 10px}}
+@media(max-width:480px){.cake-grid.two-col{grid-template-columns:1fr;max-width:420px}.cake-card{padding:12px}.cake-inquiry{font-size:.8rem}}
