@@ -62,7 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const cakes = [{"id":2,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg"},{"id":3,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg"},{"id":10,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004053604.jpg"},{"id":11,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004116618.jpg"},{"id":12,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004134269.jpg"},{"id":13,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004150436.jpg"},{"id":14,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004206076.jpg"},{"id":15,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004232074.jpg"},{"id":16,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004252675.jpg"},{"id":17,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004337861.jpg"},{"id":18,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004355798.jpg"},{"id":19,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004410992.jpg"},{"id":20,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004428443.jpg"},{"id":21,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004446722.jpg"},{"id":22,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004503430.jpg"}].map((item, index) => ({ ...item, name: '', desc: '' }));
 
-const ideaCakes = [{"id":101,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg","name":"","desc":""},{"id":102,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/0094fa55-dc95-48de-9800-c74823d8d1c2.jpg","name":"","desc":""},{"id":103,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/fb6430b5-b573-49ee-99bf-09907c2578bc.jpg","name":"","desc":""},{"id":104,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/750116b6-6f0c-4b8b-b2ca-1ffa0da15e21.jpg","name":"","desc":""},{"id":105,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg","name":"","desc":""}];
+const ideaCakes = [
+    {id:101,img:"https://images.unsplash.com/photo-1565987164841-7132b384293b?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""},
+    {id:102,img:"https://images.unsplash.com/photo-1759316985388-fed01eee1d30?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""},
+    {id:103,img:"https://images.unsplash.com/photo-1771305145464-01a595836294?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""},
+    {id:104,img:"https://images.unsplash.com/photo-1758143011476-a70bd88f9db8?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""},
+    {id:105,img:"https://images.unsplash.com/photo-1670529774874-601ce26eec53?auto=format&fit=crop&fm=jpg&q=85&w=1200",name:"",desc:""}
+];
 
 const INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake/';
 
@@ -76,7 +82,7 @@ function cakeCard(cake) {
     return `
         <article class="cake-card">
             <img src="${cake.img}" alt="نمونه کیک Delaris Cake" loading="lazy" />
-            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">برای اطلاع از قیمت، در اینستاگرام پیام دهید</a>
+            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده و سفارش در اینستاگرام · @delaris_cake</a>
         </article>
     `;
 }
