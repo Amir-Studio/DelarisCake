@@ -1492,3 +1492,151 @@ textarea {
  #infoModal .modal-content{width:min(92vw,390px)}
  #infoModal .seller-modal{padding:21px 16px 17px}
 }
+
+
+/* Final visual pass: clearer gallery split, restrained cards, compact contact */
+.gallery-luxe-divider{
+    width:min(760px,88%);
+    max-width:760px;
+    margin:68px auto 42px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    opacity:1;
+}
+.gallery-luxe-divider span{
+    display:block;
+    height:1px;
+    flex:1;
+    background:linear-gradient(90deg,transparent,rgba(201,168,95,.62),transparent);
+}
+.gallery-luxe-divider i{
+    display:block;
+    width:7px;
+    height:7px;
+    border:1px solid rgba(212,175,55,.8);
+    transform:rotate(45deg);
+    background:#171511;
+}
+.ideas-section{
+    padding-top:4px;
+    border-top:0;
+}
+.ideas-section .section-header{
+    margin-bottom:28px;
+}
+.ideas-section .section-title{
+    color:#e8d7b0;
+}
+#ideaGrid .cake-card{
+    padding:0;
+    border:1px solid rgba(212,175,55,.16);
+    background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+    box-shadow:0 14px 38px rgba(0,0,0,.25);
+}
+#ideaGrid .cake-card img{
+    aspect-ratio:4/5;
+    border-radius:10px;
+}
+#cakeGrid .cake-card img{
+    aspect-ratio:4/3;
+}
+#cakeGrid .cake-inquiry{
+    min-height:38px;
+    padding:7px 18px;
+    margin-top:12px;
+    font-size:.78rem;
+    letter-spacing:.1px;
+}
+#ideaGrid .cake-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(212,175,55,.42);
+}
+
+/* Footer contact: horizontal, compact and balanced */
+#contact.info-section{
+    width:min(100% - 36px,980px);
+    max-width:980px;
+    margin:58px auto 24px;
+    padding:0;
+}
+#contact .contact-luxury-card{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-areas:
+      "heading heading"
+      "address instagram"
+      "details hours";
+    align-items:stretch;
+    gap:12px;
+    padding:26px 30px;
+    border-radius:22px;
+    background:
+      radial-gradient(ellipse at 12% 0%,rgba(212,175,55,.075),transparent 45%),
+      linear-gradient(135deg,#151412,#0c0c0d 72%);
+}
+#contact .contact-heading{grid-area:heading;margin:0 0 4px;text-align:center}
+#contact .contact-heading h3{font-size:1.45rem;margin:5px 0}
+#contact .contact-heading p{font-size:.78rem;margin:0}
+#contact .address-feature{
+    grid-area:address;
+    margin:0;
+    min-height:88px;
+    padding:14px 18px;
+    justify-content:center;
+    border-radius:13px;
+    gap:3px;
+}
+#contact .instagram-feature{
+    grid-area:instagram;
+    margin:0;
+    min-height:88px;
+    padding:14px 18px;
+    justify-content:center;
+    border-radius:13px;
+    gap:3px;
+}
+#contact .address-feature strong,
+#contact .instagram-feature strong{font-size:1rem}
+#contact .address-feature>span:last-child,
+#contact .instagram-action{font-size:.7rem}
+#contact .contact-details-grid{
+    grid-area:details;
+    align-self:center;
+    margin:0;
+    gap:8px;
+}
+#contact .contact-detail{padding:10px 12px;border-radius:12px}
+#contact .contact-detail a{font-size:.76rem}
+#contact .contact-hours{
+    grid-area:hours;
+    align-self:center;
+    margin:0;
+    padding:10px 12px;
+    border:1px solid rgba(212,175,55,.12);
+    border-radius:12px;
+    text-align:center;
+}
+#contact .contact-hours>span{font-size:.7rem;margin-bottom:5px}
+#contact .contact-hours p{display:block;margin:3px 0;font-size:.72rem}
+@media(max-width:680px){
+    .gallery-luxe-divider{margin:48px auto 30px}
+    #contact.info-section{width:calc(100% - 28px);margin-top:42px}
+    #contact .contact-luxury-card{
+        grid-template-columns:minmax(0,1fr);
+        grid-template-areas:"heading" "address" "instagram" "details" "hours";
+        gap:10px;
+        padding:20px 16px;
+    }
+    #contact .contact-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    #contact .contact-detail{padding:10px 8px}
+    #contact .contact-detail a{font-size:.7rem}
+    #contact .contact-hours p{display:inline-block;margin:3px 7px}
+}
+@media(max-width:420px){
+    #contact .contact-details-grid{grid-template-columns:minmax(0,1fr)}
+    #contact .contact-detail a{font-size:.78rem}
+}
+#infoModal .seller-contact-row{direction:rtl;text-align:right}
+#infoModal .seller-contact-row>span:nth-child(2){text-align:right}
+#infoModal .seller-contact-row strong[dir="ltr"]{direction:ltr;text-align:right}
