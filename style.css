@@ -1623,19 +1623,28 @@ textarea {
     .gallery-luxe-divider{margin:48px auto 30px}
     #contact.info-section{width:calc(100% - 28px);margin-top:42px}
     #contact .contact-luxury-card{
-        grid-template-columns:minmax(0,1fr);
-        grid-template-areas:"heading" "address" "instagram" "details" "hours";
-        gap:10px;
-        padding:20px 16px;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        grid-template-areas:"heading heading" "address instagram" "details details" "hours hours";
+        gap:9px;
+        padding:18px 12px;
     }
+    #contact .contact-heading{padding:0 4px}
+    #contact .address-feature,#contact .instagram-feature{
+        min-height:82px;
+        padding:11px 9px;
+        gap:4px;
+    }
+    #contact .address-feature strong,#contact .instagram-feature strong{font-size:.78rem}
+    #contact .address-feature>span:last-child,#contact .instagram-action{font-size:.62rem;line-height:1.6}
+    #contact .address-kicker,#contact .instagram-label{font-size:.58rem;letter-spacing:1.2px}
     #contact .contact-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     #contact .contact-detail{padding:10px 8px}
     #contact .contact-detail a{font-size:.7rem}
     #contact .contact-hours p{display:inline-block;margin:3px 7px}
 }
 @media(max-width:420px){
-    #contact .contact-details-grid{grid-template-columns:minmax(0,1fr)}
-    #contact .contact-detail a{font-size:.78rem}
+    #contact .contact-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    #contact .contact-detail a{font-size:.68rem}
 }
 #infoModal .seller-contact-row{direction:rtl;text-align:right}
 #infoModal .seller-contact-row>span:nth-child(2){text-align:right}
