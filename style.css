@@ -1824,3 +1824,14 @@ textarea {
  .sidebar-connect{padding-top:17px}
  .sidebar-connect>a{min-height:49px;padding:10px 10px}
 }
+
+
+/* Navigation panel width: keep the page visible beside the menu */
+.sidebar{
+ width:min(66vw,460px);
+}
+@media(max-width:600px){
+ .sidebar{
+  width:min(70vw,370px);
+ }
+}
