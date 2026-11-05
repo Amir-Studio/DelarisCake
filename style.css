@@ -1318,3 +1318,28 @@ textarea {
 .reviews-empty{width:100%;padding:28px 18px;text-align:center;color:#aaa;border:1px solid var(--glass-border);border-radius:18px;background:rgba(255,255,255,.02)}
 @media(max-width:768px){.cake-grid.two-col{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.cake-card{padding:9px}.cake-inquiry{font-size:.72rem;padding:8px 10px}}
 @media(max-width:480px){.cake-grid.two-col{grid-template-columns:1fr;max-width:420px}.cake-card{padding:12px}.cake-inquiry{font-size:.8rem}}
+
+
+/* Delaris premium contact and address */
+.contact-luxury-card{width:min(100%,760px);margin:0 auto;padding:clamp(22px,5vw,42px);border:1px solid rgba(212,175,55,.24);border-radius:28px;background:radial-gradient(ellipse at 85% 0%,rgba(212,175,55,.10),transparent 48%),linear-gradient(145deg,#151412,#0c0c0d 68%);box-shadow:0 24px 80px rgba(0,0,0,.42);text-align:right}
+.contact-heading{text-align:center;margin-bottom:28px}
+.contact-eyebrow,.address-kicker,.instagram-label{display:block;color:#c9a85f;font-size:.68rem;letter-spacing:2.4px;font-family:var(--font-display)}
+.contact-heading h3{color:#f1dfb2;font-size:1.8rem;margin:8px 0}
+.contact-heading p{color:#aaa;font-size:.9rem}
+.address-feature{display:flex;flex-direction:column;gap:7px;padding:22px 24px;margin:14px 0;border:1px solid rgba(212,175,55,.28);border-radius:20px;background:linear-gradient(110deg,rgba(212,175,55,.12),rgba(255,255,255,.025));transition:.25s ease}
+.address-feature:hover,.instagram-feature:hover{border-color:rgba(232,201,122,.72);transform:translateY(-2px);background-color:rgba(212,175,55,.07)}
+.address-feature strong{font-size:1.3rem;color:#fff;letter-spacing:.2px}
+.address-feature>span:last-child{font-size:.78rem;color:#c9a85f}
+.instagram-feature{display:flex;flex-direction:column;gap:6px;padding:22px 24px;margin:14px 0;border:1px solid rgba(212,175,55,.35);border-radius:20px;background:linear-gradient(110deg,rgba(212,175,55,.09),rgba(255,255,255,.025));transition:.25s ease}
+.instagram-feature strong{font-family:var(--font-display);font-size:1.55rem;letter-spacing:.7px;color:#f3dfad;direction:ltr;text-align:right}
+.instagram-action{font-size:.8rem;color:#c7c1b5}
+.contact-details-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.contact-detail{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.025);min-width:0}
+.contact-detail>span,.contact-hours>span{font-size:.72rem;color:#b69b62}
+.contact-detail a{color:#eee;font-size:.9rem;overflow-wrap:anywhere}
+.contact-hours{margin-top:18px;padding-top:18px;border-top:1px solid rgba(212,175,55,.15);text-align:center}
+.contact-hours>span{display:block;margin-bottom:8px}
+.contact-hours p{font-size:.82rem;color:#aaa}
+.info-modal-body .instagram-feature,.info-modal-body .address-feature{margin:12px 0;text-align:right}
+.info-modal-body .contact-detail{margin:8px 0}
+@media(max-width:480px){.contact-luxury-card{padding:20px 15px;border-radius:22px}.contact-details-grid{grid-template-columns:1fr}.instagram-feature strong{font-size:1.35rem}.address-feature,.instagram-feature{padding:18px}}
