@@ -81,7 +81,7 @@ function cakeCard(cake) {
     return `
         <article class="cake-card">
             <img src="${cake.img}" alt="نمونه کیک Delaris Cake" loading="lazy" />
-            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده و سفارش در اینستاگرام · @delaris_cake07</a>
+            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده و سفارش در اینستاگرام: @delaris_cake07</a>
         </article>
     `;
 }
