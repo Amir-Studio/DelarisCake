@@ -8,11 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (splash) splash.classList.add('hidden');
     }, 1200);
 
-    refreshDelarisPrices();
+    renderCakes();
+    renderIdeas();
     renderReviews();
-    updateCartCount();
-    loadDelarisUsdRate();
-    setInterval(loadDelarisUsdRate, 30 * 60 * 1000);
 
     // ===== ثبت‌نام =====
     const registerForm = document.getElementById('registerForm');
@@ -62,120 +60,39 @@ document.addEventListener('DOMContentLoaded', function() {
    داده‌های کیک‌ها (با لینک‌های اصلاح‌شده)
    ================================================================ */
 
-const cakes = [
-    { id: 1, name: 'کیک شکوفه', priceUSD: 55, weightKg: 1, desc: 'شکلات تلخ بلژیکی با خامه طبیعی و برش‌های طلایی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg', priceSource: 'https://www.nanakcakes.com/menus?menu=cakes' },
-    { id: 2, name: 'کیک رویایی', priceUSD: 145, weightKg: 2, desc: 'طراحی سه‌طبقه با گل‌های طبیعی و فوندانت لوکس', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg', priceSource: 'https://barcookbakery.com/site/?product_types=custom-cake' },
-    { id: 3, name: 'کیک بامزه', priceUSD: 49, weightKg: 1, desc: 'اسفنج وانیلی با توت‌فرنگی تازه و خامه گل‌بهی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg', priceSource: 'https://www.nanakcakes.com/menus?menu=cakes' },
-    { id: 4, name: 'کیک میوه‌ای', priceUSD: 55, weightKg: 1, desc: 'لایه‌های اسفنجی با میوه‌های تازه و خامه سبک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg', priceSource: 'https://www.nurturecakes.com/' },
-    { id: 5, name: 'کیک یاس سفید', priceUSD: 65, weightKg: 1, desc: 'طراحی مینیمال با گل یاس سفید و خامه وانیلی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/0094fa55-dc95-48de-9800-c74823d8d1c2.jpg', priceSource: 'https://www.nurturecakes.com/' },
-];
+const cakes = [{"id":2,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg"},{"id":3,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/eb0f40a7-4e83-425a-be88-e11c59343653.jpg"},{"id":10,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004053604.jpg"},{"id":11,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004116618.jpg"},{"id":12,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004134269.jpg"},{"id":13,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004150436.jpg"},{"id":14,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004206076.jpg"},{"id":15,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004232074.jpg"},{"id":16,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004252675.jpg"},{"id":17,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004337861.jpg"},{"id":18,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004355798.jpg"},{"id":19,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004410992.jpg"},{"id":20,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004428443.jpg"},{"id":21,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004446722.jpg"},{"id":22,"img":"https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/InShot_20261105_004503430.jpg"}].map((item, index) => ({ ...item, name: '', desc: '' }));
 
-const ideaCakes = [
-    { id: 101, name: 'کیک رمانتیک', priceUSD: 135, weightKg: 2, desc: 'طراحی عاشقانه با گل‌های رز و خامه تمشک', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/fb6430b5-b573-49ee-99bf-09907c2578bc.jpg', priceSource: 'https://barcookbakery.com/site/?product_types=custom-cake' },
-    { id: 102, name: 'کیک توت‌فرنگی', priceUSD: 60, weightKg: 1, desc: 'اسفنج نرم با توت‌فرنگی تازه و خامه طبیعی', img: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/750116b6-6f0c-4b8b-b2ca-1ffa0da15e21.jpg', priceSource: 'https://www.nurturecakes.com/' },
-];
+const ideaCakes = [{"id":101,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg","name":"","desc":""},{"id":102,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/0094fa55-dc95-48de-9800-c74823d8d1c2.jpg","name":"","desc":""},{"id":103,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/fb6430b5-b573-49ee-99bf-09907c2578bc.jpg","name":"","desc":""},{"id":104,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/750116b6-6f0c-4b8b-b2ca-1ffa0da15e21.jpg","name":"","desc":""},{"id":105,"img":"https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg","name":"","desc":""}];
 
-let delarisUsdRate = 268716;
-let delarisRateLabel = 'نرخ مرجع ثبت‌شده · ۴ نوامبر ۲۰۲۶';
-function tomanFromUsd(usd) {
-    return Math.round((Number(usd || 0) * delarisUsdRate) / 1000) * 1000;
-}
-function formatToman(amount) {
-    return Number(amount || 0).toLocaleString('fa-IR') + ' تومان';
-}
-function refreshDelarisPrices() {
-    [...cakes, ...ideaCakes].forEach(cake => { cake.price = tomanFromUsd(cake.priceUSD); });
-    renderCakes();
-    renderIdeas();
-    renderCart();
-    document.querySelectorAll('[data-delaris-rate]').forEach(el => {
-        el.textContent = 'نرخ دلار بازار آزاد: ' + delarisUsdRate.toLocaleString('fa-IR') + ' تومان · ' + delarisRateLabel;
-    });
-}
-async function loadDelarisUsdRate() {
-    try {
-        const response = await fetch('https://raw.githubusercontent.com/iran-market/iran-market.github.io/main/data/popular.json?v=' + Date.now(), { cache: 'no-store' });
-        if (!response.ok) throw new Error('rate unavailable');
-        const payload = await response.json();
-        const item = (payload.data || []).find(row => row.symbol === 'USD_IRR_FREE');
-        const timestamp = Date.parse(item && item.timestamp || payload.meta && payload.meta.updated_at || '');
-        if (!item || item.stale || !Number.isFinite(Number(item.price)) || Number(item.price) <= 0 || !Number.isFinite(timestamp) || Date.now() - timestamp > 2 * 60 * 60 * 1000) {
-            throw new Error('stale rate');
-        }
-        delarisUsdRate = Number(item.price);
-        delarisRateLabel = 'نرخ زنده · ' + new Date(timestamp).toLocaleString('fa-IR');
-    } catch (error) {
-        delarisRateLabel = 'آخرین نرخ مرجع ثبت‌شده · ۴ نوامبر ۲۰۲۶';
-    }
-    refreshDelarisPrices();
-}
+const INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake/';
 
-const reviewsData = [
-    { name: 'سارا محمدی', text: 'بهترین کیکی که تا حالا خوردم! طراحی و طعم فوق‌العاده بود.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/75612c98-f883-417e-a2e6-26ffb256e771.jpg' },
-    { name: 'رضا کریمی', text: 'ارسال سریع و بسته‌بندی بسیار لوکس. قطعاً دوباره سفارش می‌دم.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/01305b06-e1f1-45c9-b02d-98814c9fbba2.jpg' },
-    { name: 'نرگس شیری', text: 'کیک تولد دخترم رو از اینجا گرفتم، همه مهمون‌ها شگفت‌زده شدن.', stars: 5, avatar: 'https://i.supaimg.com/d3484bf0-3568-4b4d-83d8-32004cd9b325/d08d8f3c-45d9-481a-80f5-0a4a1b5382d4.png' },
-];
+const reviewsData = []; // نظرات واقعی پس از اتصال سامانه ثبت نظر نمایش داده می‌شوند.
 
 /* ================================================================
    رندر گالری، ایده، نظرات
    ================================================================ */
 
+function cakeCard(cake) {
+    return `
+        <article class="cake-card">
+            <img src="${cake.img}" alt="نمونه کیک Delaris Cake" loading="lazy" />
+            <a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">برای اطلاع از قیمت، در اینستاگرام پیام دهید</a>
+        </article>
+    `;
+}
 function renderCakes() {
     const grid = document.getElementById('cakeGrid');
-    if (!grid) return;
-    grid.innerHTML = cakes.map(cake => `
-        <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
-            <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
-            <h3>${cake.name}</h3>
-            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· وزن تقریبی ${cake.weightKg} کیلوگرم · قیمت پایه</span></p>
-            <p class="price price-toman">${formatToman(cake.price)}</p>
-            <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
-            <p class="cake-desc">${cake.desc}</p>
-            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${cake.id})">افزودن به سبد</button>
-        </div>
-    `).join('');
+    if (grid) grid.innerHTML = cakes.map(cakeCard).join('');
 }
-
 function renderIdeas() {
     const grid = document.getElementById('ideaGrid');
-    if (!grid) return;
-    grid.innerHTML = ideaCakes.map(cake => `
-        <div class="cake-card" data-id="${cake.id}" onclick="toggleCake(${cake.id})">
-            <img src="${cake.img}" alt="${cake.name}" loading="lazy" />
-            <h3>${cake.name}</h3>
-            <p class="price price-usd">USD ${cake.priceUSD.toFixed(2)} <span>· وزن تقریبی ${cake.weightKg} کیلوگرم · قیمت پایه</span></p>
-            <p class="price price-toman">${formatToman(cake.price)}</p>
-            <a class="cake-price-source" href="${cake.priceSource}" target="_blank" rel="noopener noreferrer">مرجع قیمت جهانی ↗</a>
-            <p class="cake-desc">${cake.desc}</p>
-            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${cake.id})">افزودن به سبد</button>
-        </div>
-    `).join('');
+    if (grid) grid.innerHTML = ideaCakes.map(cakeCard).join('');
 }
 
 function renderReviews() {
     const slider = document.getElementById('reviewsSlider');
     if (!slider) return;
-    const doubled = [...reviewsData, ...reviewsData];
-    slider.innerHTML = doubled.map(review => `
-        <div class="review-card">
-            <img src="${review.avatar}" alt="${review.name}" class="review-avatar" loading="lazy" />
-            <p class="review-name">${review.name}</p>
-            <p class="review-text">"${review.text}"</p>
-            <p class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</p>
-        </div>
-    `).join('');
-
-    // اسکرول اتوماتیک نظرات
-    let scrollPos = 0;
-    const slideWidth = 320 + 24;
-    setInterval(() => {
-        if (!slider) return;
-        scrollPos += slideWidth;
-        if (scrollPos >= slider.scrollWidth / 2) {
-            scrollPos = 0;
-        }
-        slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
-    }, 3000);
+    slider.innerHTML = '<div class="reviews-empty">هنوز نظری ثبت نشده است. تجربه‌تان را پس از سفارش با ما به اشتراک بگذارید.</div>';
 }
 
 /* ================================================================
@@ -346,13 +263,10 @@ function toggleCake(id) {
    ================================================================ */
 
 function openModal(id) {
-    const allCakes = [...cakes, ...ideaCakes];
-    const cake = allCakes.find(c => c.id === id);
+    const cake = [...cakes, ...ideaCakes].find(item => item.id === id);
     if (!cake) return;
     document.getElementById('modalImage').src = cake.img;
-    document.getElementById('modalName').textContent = cake.name;
-    document.getElementById('modalDesc').textContent = cake.desc;
-    document.getElementById('modalPrice').textContent = 'قیمت پایه: USD ' + cake.priceUSD.toFixed(2) + ' · وزن تقریبی ' + cake.weightKg + ' کیلوگرم · ' + formatToman(cake.price);
+    document.getElementById('modalDesc').textContent = 'برای سفارش و اطلاع از جزئیات، از طریق اینستاگرام با ما در ارتباط باشید.';
     document.getElementById('cakeModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -360,13 +274,6 @@ function openModal(id) {
 function closeModal() {
     document.getElementById('cakeModal').classList.remove('active');
     document.body.style.overflow = '';
-}
-
-function addToCartFromModal() {
-    if (activeCakeId) {
-        addToCart(activeCakeId);
-        closeModal();
-    }
 }
 
 /* ================================================================
