@@ -1753,3 +1753,74 @@ textarea {
  .sidebar.active{right:9px}
 }
 @media(prefers-reduced-motion:reduce){.sidebar,.sidebar-nav a,.sidebar-connect>a,.menu-icon{transition:none}}
+
+
+/* Contact cards: two balanced actions, address centered beneath */
+#contact.info-section{width:min(calc(100% - 40px),900px);max-width:900px;margin:66px auto 38px;padding:0}
+#contact .contact-luxury-card{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ grid-template-areas:"heading heading" "instagram phone" "address address";
+ gap:16px;padding:34px clamp(22px,4vw,42px);
+ border:1px solid rgba(212,175,55,.22);border-radius:26px;
+ background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.085),transparent 54%),linear-gradient(145deg,#171614 0%,#0c0c0d 76%);
+}
+#contact .contact-heading{grid-area:heading;margin:0 0 8px}
+#contact .instagram-feature{grid-area:instagram}
+#contact .contact-phone-feature{grid-area:phone}
+#contact .address-feature{grid-area:address}
+#contact .instagram-feature,#contact .contact-phone-feature{
+ min-height:154px;padding:24px 22px;gap:10px;border-radius:17px;
+ justify-content:center;align-items:center;text-align:center;
+}
+#contact .address-feature{
+ min-height:112px;padding:19px 24px;margin:0;border-radius:16px;
+ display:flex;flex-direction:row;align-items:center;justify-content:center;gap:14px;
+ text-align:center;background:linear-gradient(110deg,rgba(212,175,55,.075),rgba(255,255,255,.025));
+}
+#contact .address-feature strong{font-size:1.08rem}
+#contact .address-feature>span:last-child{font-size:.72rem}
+#contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:1.2rem}
+#contact .contact-heading h3{font-size:1.72rem}
+#contact .contact-heading p{font-size:.86rem}
+@media(max-width:600px){
+ #contact.info-section{width:calc(100% - 28px);margin:48px auto 30px}
+ #contact .contact-luxury-card{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"heading heading" "instagram phone" "address address";gap:12px;padding:24px 17px;border-radius:22px}
+ #contact .contact-heading{margin-bottom:5px}
+ #contact .instagram-feature,#contact .contact-phone-feature{min-height:132px;padding:17px 10px;gap:8px;border-radius:14px}
+ #contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:.94rem}
+ #contact .address-feature{min-height:94px;padding:15px 12px;flex-direction:column;gap:4px}
+ #contact .address-feature strong{font-size:.96rem}
+ #contact .address-feature>span:last-child{font-size:.68rem}
+ #contact .contact-heading h3{font-size:1.48rem}
+ #contact .contact-heading p{font-size:.77rem;line-height:1.9}
+}
+@media(max-width:360px){
+ #contact .contact-luxury-card{padding:20px 12px;gap:10px}
+ #contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:.83rem}
+}
+
+/* Navigation cleanup: consistent panel, clear backdrop and stable spacing */
+.sidebar-backdrop{
+ position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,.56);
+ backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+ opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s ease
+}
+.sidebar-backdrop.active{opacity:1;visibility:visible;pointer-events:auto}
+.sidebar{box-sizing:border-box;direction:rtl;text-align:right;display:flex;flex-direction:column;gap:0}
+.sidebar *{box-sizing:border-box}
+.sidebar-header{flex:0 0 auto}
+.sidebar-intro{padding:21px 2px 16px}
+.sidebar-nav{flex:0 0 auto}
+.sidebar-nav a{direction:rtl;min-height:54px;grid-template-columns:34px minmax(0,1fr) 18px}
+.sidebar-connect{padding-top:20px}
+.sidebar-connect>a{direction:rtl;min-height:52px;grid-template-columns:76px minmax(0,1fr) 18px}
+.sidebar-connect>a strong{direction:rtl;text-align:right}
+.sidebar-bottom{margin-top:auto;padding-top:24px}
+.sidebar-close{flex:0 0 38px;min-width:38px;border:1px solid rgba(212,175,55,.2);background:rgba(255,255,255,.035)}
+@media(max-width:600px){
+ .sidebar{top:10px;right:10px;bottom:10px;width:min(370px,calc(100vw - 20px));padding:22px 19px 18px;gap:0}
+ .sidebar.active{right:10px}
+ .sidebar-intro{padding:18px 2px 14px}
+ .sidebar-connect{padding-top:17px}
+ .sidebar-connect>a{min-height:49px;padding:10px 10px}
+}
