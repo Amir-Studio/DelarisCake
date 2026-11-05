@@ -1649,3 +1649,50 @@ textarea {
 #infoModal .seller-contact-row{direction:rtl;text-align:right}
 #infoModal .seller-contact-row>span:nth-child(2){text-align:right}
 #infoModal .seller-contact-row strong[dir="ltr"]{direction:ltr;text-align:right}
+
+
+/* Contact section — three clear, balanced contact choices */
+#contact.info-section{width:min(calc(100% - 40px),1040px);max-width:1040px;margin:64px auto 36px;padding:0}
+#contact .contact-luxury-card{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ grid-template-areas:"heading heading heading" "address instagram phone";
+ gap:14px;align-items:stretch;padding:32px;
+ border:1px solid rgba(212,175,55,.22);border-radius:24px;
+ background:radial-gradient(ellipse at 50% 0%,rgba(212,175,55,.09),transparent 55%),linear-gradient(145deg,#171614 0%,#0c0c0d 75%);
+ box-shadow:0 22px 60px rgba(0,0,0,.32)
+}
+#contact .contact-heading{grid-area:heading;margin:0 0 8px;text-align:center}
+#contact .contact-eyebrow{font-size:.65rem;letter-spacing:2.6px}
+#contact .contact-heading h3{margin:8px 0 6px;color:#f1dfb6;font-size:1.7rem;font-weight:600}
+#contact .contact-heading p{margin:0;color:#b9b4a9;font-size:.88rem;line-height:1.9}
+#contact .address-feature,#contact .instagram-feature,#contact .contact-phone-feature{
+ display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;
+ min-width:0;min-height:128px;margin:0;padding:18px 14px;text-align:center;text-decoration:none;
+ border:1px solid rgba(212,175,55,.2);border-radius:16px;
+ background:linear-gradient(145deg,rgba(212,175,55,.075),rgba(255,255,255,.018));
+ transition:border-color .25s ease,transform .25s ease,background .25s ease
+}
+#contact .address-feature:hover,#contact .instagram-feature:hover,#contact .contact-phone-feature:hover{
+ border-color:rgba(232,201,122,.72);transform:translateY(-3px);
+ background:linear-gradient(145deg,rgba(212,175,55,.13),rgba(255,255,255,.025))
+}
+#contact .address-feature{grid-area:address}
+#contact .instagram-feature{grid-area:instagram}
+#contact .contact-phone-feature{grid-area:phone}
+#contact .address-kicker,#contact .instagram-label,#contact .contact-phone-feature>span:first-child{color:#c9a85f;font-size:.68rem;letter-spacing:1.7px}
+#contact .address-feature strong,#contact .instagram-feature strong,#contact .contact-phone-feature strong{color:#f2e4c4;font-size:1.12rem;font-weight:600;overflow-wrap:anywhere}
+#contact .address-feature>span:last-child,#contact .instagram-action,#contact .contact-phone-feature>span:last-child{color:#b9b2a3;font-size:.76rem;line-height:1.8}
+@media(max-width:680px){
+ #contact.info-section{width:calc(100% - 28px);margin:46px auto 28px}
+ #contact .contact-luxury-card{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"heading heading" "address instagram" "phone phone";gap:10px;padding:22px 16px;border-radius:20px}
+ #contact .contact-heading{margin-bottom:5px}
+ #contact .contact-heading h3{font-size:1.5rem}
+ #contact .contact-heading p{font-size:.8rem}
+ #contact .address-feature,#contact .instagram-feature,#contact .contact-phone-feature{min-height:112px;padding:14px 9px;gap:6px;border-radius:13px}
+ #contact .address-feature strong,#contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:.92rem}
+ #contact .address-feature>span:last-child,#contact .instagram-action,#contact .contact-phone-feature>span:last-child{font-size:.68rem}
+}
+@media(max-width:390px){
+ #contact .contact-luxury-card{padding:19px 11px}
+ #contact .address-feature strong,#contact .instagram-feature strong,#contact .contact-phone-feature strong{font-size:.82rem}
+}
