@@ -96,95 +96,20 @@ function renderReviews() {
 }
 
 /* ================================================================
-   سبد خرید
+   ارتباط سفارش با اینستاگرام
    ================================================================ */
 
-let cart = JSON.parse(localStorage.getItem('delaris-cart')) || [];
-
-function saveCart() {
-    localStorage.setItem('delaris-cart', JSON.stringify(cart));
-    updateCartCount();
+function addToCart() {
+    window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
 }
-
-function updateCartCount() {
-    const countEl = document.getElementById('cartCount');
-    if (countEl) {
-        const total = cart.reduce((s, i) => s + i.quantity, 0);
-        countEl.textContent = total;
-        countEl.style.display = total > 0 ? 'inline' : 'none';
-    }
+function goToCart() {
+    window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
 }
-
-function addToCart(id) {
-    const existing = cart.find(item => item.id === id);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ id, quantity: 1 });
-    }
-    saveCart();
-    showToast('به سبد خرید اضافه شد 🎂');
-}
-
-function renderCart() {
-    const root = document.getElementById('cartItems');
-    if (!root) return;
-    const totalEl = document.getElementById('cartTotal');
-    const allCakes = [...cakes, ...ideaCakes];
-    const validItems = cart.map(item => ({
-        ...item,
-        cake: allCakes.find(cake => cake.id === Number(item.id))
-    })).filter(item => item.cake && Number(item.quantity) > 0);
-
-    if (!validItems.length) {
-        root.innerHTML = '<div class="empty-cart" style="padding:28px;text-align:center;color:#aaa">سبد خریدت خالی است. از منوی فروشگاه یک کیک انتخاب کن.</div>';
-        if (totalEl) totalEl.textContent = '۰ تومان';
-        return;
-    }
-
-    root.innerHTML = validItems.map(item => `
-        <article class="cart-item" style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08)">
-            <img src="${item.cake.img}" alt="${item.cake.name}" loading="lazy" style="width:82px;height:82px;object-fit:cover;border-radius:12px">
-            <div style="flex:1;min-width:0;text-align:right">
-                <h3 style="font-size:15px;margin:0 0 4px">${item.cake.name}</h3>
-                <p style="font-size:12px;color:#aaa;margin:0">تعداد: ${Number(item.quantity)}</p>
-                <p style="font-size:12px;color:#c8aa78;margin:5px 0 0">USD ${(item.cake.priceUSD * item.quantity).toFixed(2)} · هر کیک ${item.cake.weightKg} کیلوگرم</p>
-                <p style="font-size:13px;margin:5px 0 0">${formatToman(item.cake.price * item.quantity)}</p>
-            </div>
-            <button type="button" onclick="removeFromCart(${item.cake.id})" style="padding:8px 10px;border:1px solid rgba(255,255,255,.15);color:#e8c97a;border-radius:8px">حذف</button>
-        </article>
-    `).join('');
-
-    const total = validItems.reduce((sum, item) => sum + item.cake.price * item.quantity, 0);
-    if (totalEl) totalEl.textContent = total.toLocaleString('fa-IR') + ' تومان';
-}
-
-function removeFromCart(id) {
-    cart = cart.filter(item => Number(item.id) !== Number(id));
-    saveCart();
-    renderCart();
-}
-
-function clearCart() {
-    if (!cart.length) return;
-    if (!confirm('سبد خرید پاک شود؟')) return;
-    cart = [];
-    saveCart();
-    renderCart();
-}
-
-function goToCart() { window.location.href = 'cart.html'; }
-
 function goToPayment() {
-    if (!cart.length) {
-        alert('سبد خرید خالی است.');
-        return;
-    }
-    window.location.href = 'payment.html';
+    window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
 }
-
 function processPayment() {
-    alert('پرداخت آنلاین هنوز به درگاه واقعی متصل نشده است؛ هیچ پرداخت یا سفارشی ثبت نشد. برای سفارش، لطفاً با فروشنده هماهنگ کن.');
+    window.open(INSTAGRAM_URL, '_blank', 'noopener,noreferrer');
 }
 
 function showToast(msg) {
