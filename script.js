@@ -76,21 +76,24 @@ const reviewsData = []; // نظرات واقعی پس از اتصال سامان
    رندر گالری، ایده، نظرات
    ================================================================ */
 
-function cakeCard(cake, isIdea = false) {
+function cakeCard(cake, isIdea = false, index = 0) {
+    const imageAlt = isIdea
+        ? `تصویر الهام‌بخش برای طراحی کیک، شماره ${index + 1}؛ نمونه‌کار دلاریس کیک نیست`
+        : `نمونه‌کار واقعی کیک دلاریس کیک در دولاب قشم، تصویر ${index + 1}`;
     return `
         <article class="cake-card ${isIdea ? 'idea-card' : 'portfolio-cake-card'}">
-            <img src="${cake.img}" alt="${isIdea ? 'ایده طراحی کیک' : 'نمونه کیک Delaris Cake'}" loading="lazy" />
+            <img src="${cake.img}" alt="${imageAlt}" loading="lazy" decoding="async" />
             ${isIdea ? '' : `<a class="cake-inquiry" href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">مشاهده در پیج اینستاگرام ↗</a>`}
         </article>
     `;
 }
 function renderCakes() {
     const grid = document.getElementById('cakeGrid');
-    if (grid) grid.innerHTML = cakes.map(cake => cakeCard(cake, false)).join('');
+    if (grid) grid.innerHTML = cakes.map((cake, index) => cakeCard(cake, false, index)).join('');
 }
 function renderIdeas() {
     const grid = document.getElementById('ideaGrid');
-    if (grid) grid.innerHTML = ideaCakes.map(cake => cakeCard(cake, true)).join('');
+    if (grid) grid.innerHTML = ideaCakes.map((cake, index) => cakeCard(cake, true, index)).join('');
 }
 
 
