@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /menu.html
 
 Sitemap: https://amir-studio.github.io/DelarisCake/sitemap.xml
