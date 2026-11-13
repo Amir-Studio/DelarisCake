@@ -234,14 +234,32 @@ console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D
 
 async function loadCloudCakes(){
  const db=window.delarisSupabase,grid=document.getElementById('cakeGrid');
- if(!db||!grid)return;
- const {data,error}=await db.from('delaris_gallery_images').select('id,file_path,alt_text').order('created_at',{ascending:false});
- if(error||!data?.length)return;
- data.forEach(item=>{
-  const url=db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
-  const card=document.createElement('article');card.className='cake-card portfolio-cake-card';
-  const img=document.createElement('img');img.src=url;img.alt=item.alt_text||'نمونه کیک دلاریس کیک';img.loading='lazy';img.decoding='async';
-  const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';
-  card.append(img,link);grid.append(card);
- });
+ if(!db||!grid||grid.dataset.cloudImagesLoading==='true'||grid.dataset.cloudImagesLoaded==='true')return;
+ grid.dataset.cloudImagesLoading='true';
+ try{
+  const {data,error}=await db.from('delaris_gallery_images').select('id,file_path,alt_text').order('created_at',{ascending:false});
+  if(error||!data?.length)return;
+  data.forEach(item=>{
+   if(Array.from(grid.children).some(card=>card.dataset.cloudId===String(item.id)))return;
+   const url=db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
+   const card=document.createElement('article');card.className='cake-card portfolio-cake-card';card.dataset.cloudId=String(item.id);
+   const img=document.createElement('img');
+   img.src=url;
+   img.alt=item.alt_text||'نمونه کیک دلاریس کیک';
+   img.width=720;
+   img.height=540;
+   img.style.aspectRatio='4 / 3';
+   img.style.objectFit='cover';
+   img.style.width='100%';
+   img.style.height='auto';
+   img.style.display='block';
+   img.loading='lazy';
+   img.decoding='async';
+   const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';
+   card.append(img,link);grid.append(card);
+  });
+ }finally{
+  grid.dataset.cloudImagesLoading='false';
+  grid.dataset.cloudImagesLoaded='true';
+ }
 }
