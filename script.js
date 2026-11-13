@@ -237,9 +237,12 @@ async function loadCloudCakes(){
  if(!db||!grid||grid.dataset.cloudImagesLoading==='true'||grid.dataset.cloudImagesLoaded==='true')return;
  grid.dataset.cloudImagesLoading='true';
  try{
-  const {data,error}=await db.from('delaris_gallery_images').select('id,file_path,alt_text').order('created_at',{ascending:false});
-  if(error||!data?.length)return;
-  data.forEach(item=>{
+  const {data,error}=await db.from('delaris_gallery_images')
+   .select('id,file_path,alt_text')
+   // Append in upload order so the newest upload is the final portfolio card.
+   .order('created_at',{ascending:true});
+  if(error)throw error;
+  (data||[]).forEach(item=>{
    if(Array.from(grid.children).some(card=>card.dataset.cloudId===String(item.id)))return;
    const url=db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
    const card=document.createElement('article');card.className='cake-card portfolio-cake-card';card.dataset.cloudId=String(item.id);
@@ -258,8 +261,11 @@ async function loadCloudCakes(){
    const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';
    card.append(img,link);grid.append(card);
   });
+  grid.dataset.cloudImagesLoaded='true';
+ }catch(error){
+  // Keep the gallery usable and allow a later retry instead of silently caching a failed request.
+  console.warn('Delaris cloud gallery could not be loaded:',error);
  }finally{
   grid.dataset.cloudImagesLoading='false';
-  grid.dataset.cloudImagesLoaded='true';
  }
 }
