@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0b0d"><title>مدیریت دلاریس | Delaris Cake</title><link rel="stylesheet" href="style.css">
+<style>
+.admin-page{min-height:100vh;padding:34px 16px;background:radial-gradient(ellipse at 50% 0,rgba(212,175,55,.08),transparent 55%),#0b0b0d;color:#eee}
+.admin-wrap{max-width:760px;margin:auto}.admin-card{padding:26px;border:1px solid #d4af3733;border-radius:20px;background:#ffffff06;margin:18px 0}
+.admin-kicker{color:#d4af37;letter-spacing:3px;font:11px Georgia,serif}.admin-wrap h1{color:#f7e7b4;margin:8px 0 20px}
+.admin-form{display:grid;gap:14px}.admin-form label{display:grid;gap:7px;color:#d7c8a8}.admin-form input{padding:12px;border-radius:9px;background:#151412;border:1px solid #b8955540;color:#fff;font:inherit}
+.admin-form button,.admin-action{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#d4af37,#e8c97a);color:#111;font-weight:700}
+.admin-form button:disabled{opacity:.5}#adminStatus{min-height:28px;line-height:1.8;color:#d7bd82}
+.admin-gallery-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #ffffff16}.admin-gallery-item img{width:84px;height:84px;object-fit:cover;border-radius:12px}.admin-gallery-item button{color:#ffaaa0;border:1px solid #ffaaa055;border-radius:8px;padding:8px 12px;margin-right:auto}
+.admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.admin-top a{color:#d4af37}.admin-small{color:#aaa;font-size:13px;line-height:1.9}
+</style></head>
+<body><main class="admin-page"><div class="admin-wrap">
+<div class="admin-top"><span class="admin-kicker">DELARIS CAKE · PRIVATE</span><a href="dashboard.html">بازگشت به سایت ↗</a></div>
+<h1>پنل مدیریت دلاریس</h1>
+<section id="adminLoginCard" class="admin-card"><h2>ورود مدیر</h2><p class="admin-small">با ایمیل و رمز حساب مدیریتی وارد شوید.</p>
+<form id="adminLoginForm" class="admin-form"><label>ایمیل<input id="adminEmail" type="email" autocomplete="username" required></label><label>رمز عبور<input id="adminPassword" type="password" autocomplete="current-password" required></label><button type="submit">ورود امن به پنل</button></form></section>
+<section id="adminPanel" class="admin-card" hidden><div class="admin-top"><h2>افزودن نمونه‌کیک</h2><button id="adminLogout" type="button" class="admin-action">خروج</button></div>
+<p class="admin-small">تصاویر JPG، PNG یا WEBP تا حجم ۵ مگابایت پذیرفته می‌شوند و پس از ثبت در گالری عمومی نمایش داده خواهند شد.</p>
+<form id="cakeUploadForm" class="admin-form"><label>انتخاب تصویر کیک<input id="cakeImage" type="file" accept="image/jpeg,image/png,image/webp" required></label><label>توضیح تصویر<input id="cakeAlt" type="text" maxlength="120" value="نمونه کیک دلاریس کیک"></label><button type="submit">بارگذاری و انتشار تصویر</button></form>
+<h3 style="margin-top:26px;color:#e8c97a">تصاویر منتشرشده</h3><div id="adminGalleryList"></div></section>
+<p id="adminStatus" role="status" aria-live="polite"></p>
+</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script><script src="supabase-config.js"></script><script src="admin.js"></script>
+</body></html>
