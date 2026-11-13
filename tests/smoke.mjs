@@ -81,7 +81,13 @@ try {
         if (gallery.count !== 15) failures.push("gallery " + viewport.name + ": expected 15 images, found " + gallery.count);
         if (gallery.firstLoading !== "eager" || gallery.firstPriority !== "high") failures.push("gallery " + viewport.name + ": first image is not eager/high priority");
         if (!gallery.allHaveDimensions || !gallery.allHaveSrcset) failures.push("gallery " + viewport.name + ": image dimensions/srcset missing");
-        const clsBeforeScroll = await page.evaluate(() => window.__measuredCLS || 0);
+        const clsBeforeScroll = await page.evaluate(() => ({
+          value: window.__measuredCLS || 0,
+          scrollY: window.scrollY,
+          hash: location.hash,
+          activeElement: document.activeElement?.tagName + (document.activeElement?.id ? "#" + document.activeElement.id : ""),
+          viewport: { width: window.innerWidth, height: window.innerHeight }
+        }));
         await page.locator("#cakeGrid img").evaluateAll(async images => {
           for (const img of images) {
             img.scrollIntoView();
