@@ -3,6 +3,10 @@ name: Optimize website images
 on:
   push:
     branches: [main]
+    paths:
+      - ".github/workflows/optimize-images.yml"
+      - "scripts/optimize-images.mjs"
+      - "image/**"
   workflow_dispatch:
 
 permissions:
