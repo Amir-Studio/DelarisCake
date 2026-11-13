@@ -84,6 +84,13 @@ try {
   results.push({ feature: "registration", passed: Boolean(storedUser), redirect: signup.url() });
   await signup.close();
 
+  const loginRoute = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await loginRoute.goto(base + "/menu.html", { waitUntil: "domcontentloaded" });
+  await loginRoute.locator(".register-footer a").click();
+  await loginRoute.waitForURL("**/dashboard.html", { timeout: 10000 });
+  results.push({ feature: "existing-user-login-route", passed: loginRoute.url().endsWith("/dashboard.html") });
+  await loginRoute.close();
+
   if (failures.length) {
     console.error(JSON.stringify({ passed: false, failures, results }, null, 2));
     process.exitCode = 1;
