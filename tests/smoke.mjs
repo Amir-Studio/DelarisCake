@@ -126,9 +126,14 @@ try {
         }));
         if (!menuA11y.main || !menuA11y.description || !menuA11y.labels || menuA11y.robots.includes("noindex")) failures.push("menu " + viewport.name + ": SEO or form accessibility metadata missing");
         if (viewport.name === "mobile") {
-          await page.keyboard.press("Tab");
-          const focused = await page.evaluate(() => document.activeElement?.id);
-          if (focused !== "fullName") failures.push("menu keyboard: first form input is not keyboard reachable");
+          const focusedIds = [];
+          for (let i = 0; i < 3; i++) {
+            await page.keyboard.press("Tab");
+            focusedIds.push(await page.evaluate(() => document.activeElement?.id || ""));
+          }
+          if (!["registerTab", "loginTab", "fullName"].every(id => focusedIds.includes(id))) {
+            failures.push("menu keyboard: register/login tabs and first field are not all reachable " + JSON.stringify(focusedIds));
+          }
         }
       }
 
@@ -141,24 +146,37 @@ try {
     }
   }
 
-  const signup = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  await signup.goto(base + "/menu.html", { waitUntil: "domcontentloaded" });
-  await signup.locator("#fullName").fill("تست خودکار");
-  await signup.locator("#age").fill("25");
-  await signup.locator("#email").fill("qa@example.com");
-  await signup.locator('#registerForm button[type="submit"]').click();
-  await signup.waitForURL("**/dashboard.html", { timeout: 10000 });
-  const storedUser = await signup.evaluate(() => JSON.parse(localStorage.getItem("user") || "null"));
-  if (!storedUser || storedUser.email !== "qa@example.com") failures.push("registration: localStorage user not saved or redirect failed");
-  results.push({ feature: "registration", passed: Boolean(storedUser), redirect: signup.url() });
-  await signup.close();
-
-  const loginRoute = await browser.newPage({ viewport: { width: 390, height: 844 } });
-  await loginRoute.goto(base + "/menu.html", { waitUntil: "domcontentloaded" });
-  await loginRoute.locator(".register-footer a").click();
-  await loginRoute.waitForURL("**/dashboard.html", { timeout: 10000 });
-  results.push({ feature: "existing-user-login-route", passed: loginRoute.url().endsWith("/dashboard.html") });
-  await loginRoute.close();
+  const authPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await authPage.goto(base + "/menu.html", { waitUntil: "domcontentloaded" });
+  await authPage.waitForLoadState("networkidle", { timeout: 12000 }).catch(() => {});
+  const authReady = await authPage.evaluate(() => ({
+    client: Boolean(window.delarisSupabase?.auth?.signUp && window.delarisSupabase?.auth?.signInWithPassword),
+    registerVisible: !document.querySelector("#registerForm")?.hidden,
+    loginHidden: Boolean(document.querySelector("#loginForm")?.hidden),
+    statusRegion: Boolean(document.querySelector('#authMessage[aria-live="polite"]')),
+    passwordMinLength: Number(document.querySelector("#password")?.minLength || 0)
+  }));
+  if (!authReady.client || !authReady.registerVisible || !authReady.loginHidden || !authReady.statusRegion || authReady.passwordMinLength < 8) {
+    failures.push("authentication UI or Supabase client initialization failed " + JSON.stringify(authReady));
+  }
+  await authPage.locator("#loginTab").click();
+  const loginMode = await authPage.evaluate(() => ({
+    registerHidden: Boolean(document.querySelector("#registerForm")?.hidden),
+    loginVisible: !document.querySelector("#loginForm")?.hidden
+  }));
+  if (!loginMode.registerHidden || !loginMode.loginVisible) failures.push("login tab did not reveal the login form");
+  await authPage.locator("#registerTab").click();
+  const registerMode = await authPage.evaluate(() => ({
+    registerVisible: !document.querySelector("#registerForm")?.hidden,
+    loginHidden: Boolean(document.querySelector("#loginForm")?.hidden)
+  }));
+  if (!registerMode.registerVisible || !registerMode.loginHidden) failures.push("registration tab did not restore the registration form");
+  results.push({
+    feature: "authentication-ui-and-supabase-client",
+    passed: authReady.client && loginMode.registerHidden && loginMode.loginVisible && registerMode.registerVisible && registerMode.loginHidden,
+    liveSignUpAndLoginSubmitted: false
+  });
+  await authPage.close();
 
   if (failures.length) {
     console.error(JSON.stringify({ passed: false, failures, results }, null, 2));
