@@ -3,10 +3,26 @@
    ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        const splash = document.getElementById('splash');
-        if (splash) splash.classList.add('hidden');
-    }, 1200);
+    // اسپلش Delaris فقط پس از انتخاب «مشاهده نمونه‌کیک‌ها» نمایش داده می‌شود.
+    const splash = document.getElementById('splash');
+    const viewCakesLink = document.querySelector('.hero-buttons .btn-primary');
+    let openingGallery = false;
+
+    if (splash && viewCakesLink) {
+        viewCakesLink.addEventListener('click', function(event) {
+            if (openingGallery) {
+                event.preventDefault();
+                return;
+            }
+            openingGallery = true;
+            event.preventDefault();
+            splash.classList.remove('hidden');
+            splash.setAttribute('aria-hidden', 'false');
+            window.setTimeout(function() {
+                window.location.href = viewCakesLink.href;
+            }, 1200);
+        });
+    }
 
     renderCakes();
     renderIdeas();
