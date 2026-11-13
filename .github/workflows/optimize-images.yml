@@ -1,0 +1,37 @@
+name: Optimize website images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/optimize-images.yml"
+      - "scripts/optimize-images.mjs"
+      - "image/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: delaris-image-optimization
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install image processor
+        run: npm install --no-save sharp
+      - name: Generate optimized WebP images and update references
+        run: node scripts/optimize-images.mjs
+      - name: Commit optimized assets and HTML references
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "perf: optimize website images and references"
+          file_pattern: "assets/optimized/** index.html dashboard.html about.html script.js"
