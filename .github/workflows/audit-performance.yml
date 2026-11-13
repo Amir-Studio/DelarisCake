@@ -14,6 +14,7 @@ on:
       - "script.js"
       - "home.js"
       - "assets/optimized/**"
+      - "scripts/optimize-images.mjs"
       - "scripts/validate-site.mjs"
       - "scripts/summarize-lighthouse.mjs"
       - "tests/**"
@@ -37,7 +38,7 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Wait for responsive image deployment
-        run: npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-240.webp https://amir-studio.github.io/DelarisCake/assets/optimized/cakes/cake-2-360.webp
+        run: npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-240.webp https://amir-studio.github.io/DelarisCake/assets/optimized/hero-360.webp https://amir-studio.github.io/DelarisCake/assets/optimized/cakes/cake-2-360.webp
       - name: Validate HTML, CSS, JavaScript and image references
         run: node scripts/validate-site.mjs
       - name: Browser smoke tests on mobile and desktop
