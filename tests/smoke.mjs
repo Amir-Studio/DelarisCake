@@ -16,6 +16,11 @@ try {
       const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height } });
       await page.addInitScript(() => {
         window.__measuredCLS = 0;
+        window.__measuredLCP = 0;
+        new PerformanceObserver(list => {
+          const entries = list.getEntries();
+          if (entries.length) window.__measuredLCP = entries[entries.length - 1].startTime;
+        }).observe({ type: "largest-contentful-paint", buffered: true });
         new PerformanceObserver(list => {
           for (const entry of list.getEntries()) {
             if (!entry.hadRecentInput) window.__measuredCLS += entry.value;
@@ -95,6 +100,9 @@ try {
         if (!hero.srcset || hero.srcset !== hero.preloadSrcset) failures.push("homepage " + viewport.name + ": hero preload/srcset mismatch " + JSON.stringify(hero));
         if (hero.loading === "lazy" || hero.priority !== "high") failures.push("homepage " + viewport.name + ": hero image priority incorrect");
         if (heroRequests.length !== 1) failures.push("homepage " + viewport.name + ": expected one hero image request, saw " + heroRequests.length);
+        const observedLCP = await page.evaluate(() => window.__measuredLCP || 0);
+        if (viewport.name === "mobile" && observedLCP >= 2500) failures.push("homepage mobile: browser-observed LCP " + Math.round(observedLCP) + "ms exceeds 2500ms");
+        results.push({ route, viewport: viewport.name, browserObservedLCP: observedLCP });
       }
 
       if (route === "/menu.html") {
