@@ -14,7 +14,7 @@ for (const file of htmlFiles) {
 }
 const css = await fs.readFile(path.join(root, "style.css"), "utf8");
 postcss.parse(css, { from: "style.css" });
-for (const file of ["script.js", "home.js", "scripts/optimize-images.mjs"]) {
+for (const file of ["script.js", "home.js", "scripts/optimize-images.mjs", "tests/smoke.mjs"]) {
   const { spawnSync } = await import("node:child_process");
   const result = spawnSync(process.execPath, ["--check", file], { encoding: "utf8" });
   if (result.status !== 0) errors.push(file + ": " + (result.stderr || result.stdout));
