@@ -2157,3 +2157,14 @@ textarea {
         opacity: .65;
     }
 }
+
+
+/* Do not animate the hidden splash overlay during the initial page render. */
+.splash.hidden .splash-content {
+    animation: none;
+}
+@media (max-width: 480px) {
+    .hero-glow-ring-square {
+        filter: blur(28px);
+    }
+}
