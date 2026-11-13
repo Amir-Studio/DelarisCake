@@ -15,7 +15,11 @@ try {
     for (const route of pages) {
       const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height } });
       const pageErrors = [];
+      const heroRequests = [];
       page.on("pageerror", error => pageErrors.push(error.message));
+      page.on("request", request => {
+        if (/\\/assets\\/optimized\\/hero-(?:240|360|480|960)\\.webp(?:\\?|$)/.test(request.url())) heroRequests.push(request.url());
+      });
       const response = await page.goto(base + route, { waitUntil: "domcontentloaded" });
       if (!response || !response.ok()) failures.push(route + " " + viewport.name + ": HTTP " + (response?.status() ?? "no response"));
       await page.waitForLoadState("networkidle", { timeout: 12000 }).catch(() => {});
@@ -63,6 +67,22 @@ try {
         const loaded = await page.locator("#cakeGrid img").evaluateAll(images => images.filter(img => img.complete && img.naturalWidth > 0).length);
         if (loaded !== 15) failures.push("gallery " + viewport.name + ": only " + loaded + "/15 gallery images decoded");
         results.push({ route, viewport: viewport.name, gallery });
+      }
+
+      if (route === "/") {
+        const hero = await page.evaluate(() => {
+          const image = document.querySelector(".hero-image-square");
+          const preload = document.querySelector('link[rel="preload"][as="image"]');
+          return {
+            srcset: image?.getAttribute("srcset") || "",
+            preloadSrcset: preload?.getAttribute("imagesrcset") || "",
+            loading: image?.loading || "",
+            priority: image?.getAttribute("fetchpriority") || ""
+          };
+        });
+        if (!hero.srcset || hero.srcset !== hero.preloadSrcset) failures.push("homepage " + viewport.name + ": hero preload/srcset mismatch");
+        if (hero.loading === "lazy" || hero.priority !== "high") failures.push("homepage " + viewport.name + ": hero image priority incorrect");
+        if (heroRequests.length !== 1) failures.push("homepage " + viewport.name + ": expected one hero image request, saw " + heroRequests.length);
       }
 
       if (route === "/menu.html") {
