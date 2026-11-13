@@ -2142,3 +2142,16 @@ textarea {
 .register-page .input-group label {
     color: #c9c0b1;
 }
+
+
+/* Keep the mobile hero visually stable without delaying its first paint. */
+@media (max-width: 480px) {
+    .hero-content {
+        animation: none;
+    }
+    .hero-glow-ring-square {
+        animation: none;
+        transform: scale(1);
+        opacity: .65;
+    }
+}
