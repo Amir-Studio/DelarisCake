@@ -2125,7 +2125,9 @@ textarea {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    /* Use each image's intrinsic ratio from its HTML width/height attributes.
+       A single forced 4:3 ratio contradicted portrait and landscape assets. */
+    aspect-ratio: auto;
     object-fit: cover;
 }
 .section-sub {
