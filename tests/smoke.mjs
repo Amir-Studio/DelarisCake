@@ -29,7 +29,7 @@ try {
               value: entry.value,
               hadRecentInput: entry.hadRecentInput,
               sources: (entry.sources || []).map(source => ({
-                selector: source.node ? source.node.tagName.toLowerCase() + (source.node.id ? "#" + source.node.id : "") + (typeof source.node.className === "string" && source.node.className.trim() ? "." + source.node.className.trim().split(/\\s+/).join(".") : "") : null,
+                selector: source.node ? (source.node.tagName?.toLowerCase?.() || source.node.nodeName || "node") + (source.node.id ? "#" + source.node.id : "") + (typeof source.node.className === "string" && source.node.className.trim() ? "." + source.node.className.trim().split(/\\s+/).join(".") : "") : null,
                 previousRect: source.previousRect,
                 currentRect: source.currentRect
               }))
