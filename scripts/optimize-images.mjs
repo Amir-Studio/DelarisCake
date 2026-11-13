@@ -42,7 +42,7 @@ async function createResponsiveVariants(input, targetPath, sourceWidth, relative
     const variantMeta = await sharp(variantPath).metadata();
     manifest.push({
       name: name + "-" + width,
-      sourceBytes,
+      sourceBytes: 0,
       output: path.relative(root, variantPath).split(path.sep).join("/"),
       outputBytes: (await fs.stat(variantPath)).size,
       width: variantMeta.width,
