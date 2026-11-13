@@ -1,64 +1,10 @@
 <!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ثبت‌نام و ورود | دلاریس کیک (Delaris Cake)</title>
-    <meta name="description" content="برای ثبت‌نام در دلاریس کیک، اطلاعات تماس خود را وارد کنید یا اگر قبلاً ثبت‌نام کرده‌اید به صفحه گالری بازگردید.">
-    <link rel="canonical" href="https://amir-studio.github.io/DelarisCake/menu.html">
-    <meta name="robots" content="index,follow">
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/svg+xml" href="/DelarisCake/favicon.svg">
-</head>
-<body>
-    <main class="register-page">
-        <div class="register-card glass-card">
-            <h1>ثبت‌نام / ورود</h1>
-            <p>برای دسترسی به منوی اختصاصی، ثبت‌نام کنید</p>
-            <form id="registerForm">
-                <div class="input-group">
-                    <input type="text" id="fullName" name="fullName" autocomplete="name" placeholder=" " required aria-required="true" />
-                    <label for="fullName">نام و نام خانوادگی</label>
-                </div>
-                <div class="input-group">
-                    <input type="number" id="age" name="age" min="1" max="120" inputmode="numeric" placeholder=" " required aria-required="true" />
-                    <label for="age">سن</label>
-                </div>
-                <div class="input-group">
-                    <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required aria-required="true" />
-                    <label for="email">ایمیل</label>
-                </div>
-                <button type="submit" class="btn-enter btn-full gold-btn">
-                    <span class="btn-text">ثبت‌نام</span>
-                    <span class="btn-shimmer"></span>
-                </button>
-            </form>
-            <div class="register-footer">
-                <p>قبلاً ثبت‌نام کردید؟ <a href="dashboard.html">ورود به حساب</a></p>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer" style="margin-top:0; padding:20px 0; border-top: 1px solid rgba(255,255,255,0.04);">
-        <div class="container">
-            <div class="footer-content" style="grid-template-columns:1fr; text-align:center;">
-                <div class="footer-brand">
-                    <span class="footer-icon">🍰</span>
-                    <h2>Delaris <span class="gold">Cake</span></h2>
-                    <p>تماس با ما:</p>
-                    <p style="margin:4px 0;">📞 ۰۹۱۷۹۱۳۱۰۳۷</p>
-                    <p style="margin:4px 0;">📧 delaris0cake@gmail.com</p>
-                    <p style="margin:4px 0;">📍 قشم، دولاب</p>
-                    <p style="margin:4px 0;">📷 @delaris_cake07</p>
-                </div>
-            </div>
-            <div class="footer-divider"></div>
-            <div class="footer-bottom" style="opacity:1;color:#aaa;">
-                <span>&copy; ۱۴۰۵ تمامی حقوق محفوظ است.</span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ثبت‌نام و ورود | دلاریس کیک</title><meta name="description" content="ساخت حساب و ورود امن برای ثبت و پیگیری درخواست سفارش دلاریس کیک در قشم."><link rel="canonical" href="https://amir-studio.github.io/DelarisCake/menu.html"><link rel="stylesheet" href="style.css"><link rel="icon" type="image/svg+xml" href="/DelarisCake/favicon.svg">
+<style>.auth-tabs{display:flex;gap:10px;margin:22px 0}.auth-tabs button{flex:1;padding:12px;border:1px solid rgba(212,175,55,.25);background:transparent;color:#ddd;border-radius:10px;font:inherit;cursor:pointer}.auth-tabs button.active{background:rgba(212,175,55,.13);border-color:#b89555;color:#e7cb8c}.auth-form{display:grid;gap:14px}.auth-form[hidden]{display:none}.auth-form input{width:100%;box-sizing:border-box}.auth-message{min-height:28px;line-height:1.9;font-size:13px;margin-top:14px}.auth-note{color:#aaa;font-size:12px;line-height:2;margin-top:16px}</style></head><body>
+<main class="register-page"><div class="register-card glass-card"><h1>حساب کاربری دلاریس</h1><p>برای ثبت و پیگیری درخواست سفارش، وارد حساب شو یا حساب جدید بساز.</p>
+<div class="auth-tabs"><button type="button" id="registerTab" class="active">ثبت‌نام</button><button type="button" id="loginTab">ورود</button></div>
+<form id="registerForm" class="auth-form"><div class="input-group"><input type="text" id="fullName" autocomplete="name" placeholder=" " required maxlength="100"><label for="fullName">نام و نام خانوادگی</label></div><div class="input-group"><input type="email" id="email" autocomplete="email" placeholder=" " required><label for="email">ایمیل</label></div><div class="input-group"><input type="password" id="password" autocomplete="new-password" placeholder=" " minlength="8" required><label for="password">رمز عبور (حداقل ۸ کاراکتر)</label></div><button type="submit" class="btn-enter btn-full gold-btn"><span class="btn-text">ساخت حساب کاربری</span><span class="btn-shimmer"></span></button></form>
+<form id="loginForm" class="auth-form" hidden><div class="input-group"><input type="email" id="loginEmail" autocomplete="email" placeholder=" " required><label for="loginEmail">ایمیل</label></div><div class="input-group"><input type="password" id="loginPassword" autocomplete="current-password" placeholder=" " required><label for="loginPassword">رمز عبور</label></div><button type="submit" class="btn-enter btn-full gold-btn"><span class="btn-text">ورود به حساب</span><span class="btn-shimmer"></span></button></form>
+<p id="authMessage" class="auth-message" role="status" aria-live="polite"></p><p class="auth-note">سن در ثبت‌نام دریافت نمی‌شود. رمز عبور به‌صورت امن توسط سامانه احراز هویت Supabase مدیریت می‌شود.</p><div class="register-footer"><p><a href="dashboard.html">بازگشت به گالری کیک‌ها</a></p></div></div></main>
+<footer class="footer" style="margin-top:0;padding:20px 0;border-top:1px solid rgba(255,255,255,.04)"><div class="container"><div class="footer-content" style="grid-template-columns:1fr;text-align:center"><div class="footer-brand"><span class="footer-icon">🍰</span><h2>Delaris <span class="gold">Cake</span></h2><p>۰۹۱۷۹۱۳۱۰۳۷ · قشم، دولاب</p><p>delaris0cake@gmail.com</p><p>@delaris_cake07</p></div></div><div class="footer-divider"></div><div class="footer-bottom" style="opacity:1;color:#aaa"><span>&copy; ۱۴۰۵ تمامی حقوق محفوظ است.</span></div></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script><script src="supabase-config.js"></script><script src="auth.js"></script></body></html>
