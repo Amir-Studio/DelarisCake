@@ -37,6 +37,18 @@ async function loadGallery(){
   row.append(img,label,del);list.append(row);
  });
 }
+document.querySelectorAll('.password-toggle').forEach(button=>{
+ button.addEventListener('click',()=>{
+  const input=$(button.dataset.target);
+  if(!input)return;
+  const reveal=input.type==='password';
+  input.type=reveal?'text':'password';
+  button.setAttribute('aria-pressed',String(reveal));
+  button.setAttribute('aria-label',reveal?'مخفی‌کردن رمز':'نمایش رمز');
+  button.title=reveal?'مخفی‌کردن رمز':'نمایش یا مخفی‌کردن رمز';
+  input.focus();
+ });
+});
 const setupToken=new URLSearchParams(location.search).get('setup');
 if(setupToken){setupCard.hidden=false;loginCard.hidden=true;}
 $('setupForm').addEventListener('submit',async e=>{
