@@ -18,7 +18,8 @@ try {
       const heroRequests = [];
       page.on("pageerror", error => pageErrors.push(error.message));
       page.on("request", request => {
-        if (/\\/assets\\/optimized\\/hero-(?:240|360|480|960)\\.webp(?:\\?|$)/.test(request.url())) heroRequests.push(request.url());
+        const pathname = new URL(request.url()).pathname;
+        if (pathname.includes("/assets/optimized/hero-") && pathname.endsWith(".webp")) heroRequests.push(request.url());
       });
       const response = await page.goto(base + route, { waitUntil: "domcontentloaded" });
       if (!response || !response.ok()) failures.push(route + " " + viewport.name + ": HTTP " + (response?.status() ?? "no response"));
