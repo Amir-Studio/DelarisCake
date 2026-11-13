@@ -45,7 +45,7 @@ jobs:
           for attempt in $(seq 1 60); do
             html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/?audit=${GITHUB_SHA}" || true)"
             if grep -Fq 'imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
-               grep -Fq 'srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html"; then
+               grep -Fq ' srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html"; then
               exit 0
             fi
             sleep 5
