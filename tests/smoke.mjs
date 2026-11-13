@@ -77,11 +77,12 @@ try {
           return {
             srcset: image?.getAttribute("srcset") || "",
             preloadSrcset: preload?.getAttribute("imagesrcset") || "",
+            hasPreload: Boolean(preload),
             loading: image?.loading || "",
             priority: image?.getAttribute("fetchpriority") || ""
           };
         });
-        if (!hero.srcset || hero.srcset !== hero.preloadSrcset) failures.push("homepage " + viewport.name + ": hero preload/srcset mismatch");
+        if (!hero.srcset || hero.srcset !== hero.preloadSrcset) failures.push("homepage " + viewport.name + ": hero preload/srcset mismatch " + JSON.stringify(hero));
         if (hero.loading === "lazy" || hero.priority !== "high") failures.push("homepage " + viewport.name + ": hero image priority incorrect");
         if (heroRequests.length !== 1) failures.push("homepage " + viewport.name + ": expected one hero image request, saw " + heroRequests.length);
       }
