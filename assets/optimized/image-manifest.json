@@ -16,6 +16,14 @@
     "height": 240
   },
   {
+    "name": "hero-360",
+    "sourceBytes": 1953177,
+    "output": "assets/optimized/hero-360.webp",
+    "outputBytes": 19522,
+    "width": 360,
+    "height": 360
+  },
+  {
     "name": "hero-480",
     "sourceBytes": 1953177,
     "output": "assets/optimized/hero-480.webp",
