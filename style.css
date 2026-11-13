@@ -2168,3 +2168,18 @@ textarea {
         filter: blur(28px);
     }
 }
+
+/* Accessible return links and readable studio footer. */
+.cart-page > p a,
+.payment-page > p a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+#amirstudio-brand-footer span {
+    color: #aaa !important;
+    opacity: 1 !important;
+}
