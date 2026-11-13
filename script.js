@@ -105,11 +105,11 @@ function cakeCard(cake, isIdea = false, index = 0) {
 }
 function renderCakes() {
     const grid = document.getElementById('cakeGrid');
-    if (grid) grid.innerHTML = cakes.map((cake, index) => cakeCard(cake, false, index)).join('');
+    if (grid && !grid.children.length) grid.innerHTML = cakes.map((cake, index) => cakeCard(cake, false, index)).join('');
 }
 function renderIdeas() {
     const grid = document.getElementById('ideaGrid');
-    if (grid) grid.innerHTML = ideaCakes.map((cake, index) => cakeCard(cake, true, index)).join('');
+    if (grid && !grid.children.length) grid.innerHTML = ideaCakes.map((cake, index) => cakeCard(cake, true, index)).join('');
 }
 
 
