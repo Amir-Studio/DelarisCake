@@ -17,6 +17,26 @@ async function api(action,extra={},file=null){
  if(!response.ok)throw new Error(result.error||'درخواست انجام نشد.');
  return result;
 }
+async function uploadFile(file,altText,onProgress){
+ const body=new FormData();
+ body.append('action','upload');body.append('password',adminPassword);
+ body.append('file',file);body.append('alt_text',altText||'نمونه کیک دلاریس کیک');
+ return await new Promise((resolve,reject)=>{
+  const xhr=new XMLHttpRequest();
+  xhr.open('POST',endpoint);xhr.setRequestHeader('apikey',cfg.publishableKey);xhr.timeout=90000;
+  xhr.upload.addEventListener('progress',event=>{
+   if(event.lengthComputable)onProgress(Math.min(100,Math.round(event.loaded/event.total*100)));
+  });
+  xhr.addEventListener('load',()=>{
+   let result={};try{result=JSON.parse(xhr.responseText||'{}');}catch(_){result={error:'پاسخ سرور قابل خواندن نیست.'};}
+   if(xhr.status>=200&&xhr.status<300)resolve(result);
+   else reject(new Error(result.error||'بارگذاری تصویر انجام نشد.'));
+  });
+  xhr.addEventListener('error',()=>reject(new Error('ارتباط با سرور هنگام آپلود قطع شد.')));
+  xhr.addEventListener('timeout',()=>reject(new Error('آپلود بیش از ۹۰ ثانیه طول کشید؛ دوباره تلاش کنید.')));
+  xhr.send(body);
+ });
+}
 function imageUrl(path){return cfg.url+'/storage/v1/object/public/delaris-cakes/'+encodeURIComponent(path);}
 async function loadGallery(){
  list.textContent='در حال دریافت تصاویر…';
@@ -81,16 +101,37 @@ $('adminLoginForm').addEventListener('submit',async e=>{
  }catch(err){adminPassword=null;say(err.message,true);}
  finally{b.disabled=false;}
 });
-$('cakeUploadForm').addEventListener('submit',async e=>{
- e.preventDefault();const file=$('cakeImage').files[0],b=e.currentTarget.querySelector('button');
- if(!file)return;
- if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024){say('فقط JPG، PNG یا WEBP تا حجم ۵ مگابایت مجاز است.',true);return;}
- b.disabled=true;say('در حال بارگذاری تصویر…');
+const cakeForm=$('cakeUploadForm'),cakeInput=$('cakeImage'),previewBox=$('cakePreviewBox'),previewImg=$('cakePreview'),progressBox=$('cakeUploadProgress'),progressBar=$('cakeUploadBar'),progressPercent=$('cakeUploadPercent'),progressState=$('cakeUploadState');
+let previewObjectUrl=null;
+const MAX_IMAGE_SIZE=5*1024*1024,ALLOWED_IMAGE_TYPES=['image/jpeg','image/png','image/webp'];
+function clearPreview(){
+ if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null;}
+ previewImg.removeAttribute('src');previewBox.hidden=true;progressBox.hidden=true;
+}
+cakeInput.addEventListener('change',()=>{
+ clearPreview();const file=cakeInput.files&&cakeInput.files[0];if(!file)return;
+ if(!ALLOWED_IMAGE_TYPES.includes(file.type)){cakeInput.value='';say('فرمت تصویر معتبر نیست؛ فقط JPG، PNG یا WEBP مجاز است.',true);return;}
+ if(file.size>MAX_IMAGE_SIZE){cakeInput.value='';say('حجم تصویر بیشتر از ۵ مگابایت است؛ لطفاً عکس کوچک‌تری انتخاب کنید.',true);return;}
+ previewObjectUrl=URL.createObjectURL(file);previewImg.src=previewObjectUrl;
+ $('cakeFileName').textContent=file.name;$('cakeFileSize').textContent=(file.size/1024/1024).toFixed(2)+' مگابایت';
+ previewBox.hidden=false;say('تصویر انتخاب شد و آماده بارگذاری است.');
+});
+cakeForm.addEventListener('submit',async e=>{
+ e.preventDefault();const form=e.currentTarget,file=cakeInput.files&&cakeInput.files[0],b=form.querySelector('button');
+ if(!file){say('ابتدا یک تصویر انتخاب کنید.',true);return;}
+ if(!ALLOWED_IMAGE_TYPES.includes(file.type)||file.size>MAX_IMAGE_SIZE){say('فقط JPG، PNG یا WEBP تا حجم ۵ مگابایت مجاز است.',true);return;}
+ const label=b.textContent;b.disabled=true;b.setAttribute('aria-busy','true');
+ progressBox.hidden=false;progressBar.style.width='0%';progressPercent.textContent='۰٪';progressState.textContent='در حال ارسال تصویر…';say('آپلود تصویر شروع شد…');
  try{
-  await api('upload',{alt_text:$('cakeAlt').value.trim()||'نمونه کیک دلاریس کیک'},file);
-  e.currentTarget.reset();$('cakeAlt').value='نمونه کیک دلاریس کیک';say('تصویر با موفقیت در گالری منتشر شد.');await loadGallery();
- }catch(err){say(err.message,true);}
- finally{b.disabled=false;}
+  await uploadFile(file,$('cakeAlt').value.trim()||'نمونه کیک دلاریس کیک',percent=>{
+   progressBar.style.width=percent+'%';progressPercent.textContent=percent.toLocaleString('fa-IR')+'٪';
+   progressState.textContent=percent>=100?'تصویر ارسال شد؛ در حال ثبت در گالری…':'در حال آپلود تصویر…';
+  });
+  progressBar.style.width='100%';progressPercent.textContent='۱۰۰٪';progressState.textContent='آپلود کامل شد؛ در حال تازه‌سازی گالری…';
+  form.reset();$('cakeAlt').value='نمونه کیک دلاریس کیک';clearPreview();
+  say('تصویر با موفقیت در گالری منتشر شد.');await loadGallery();
+ }catch(err){say(err.message,true);progressState.textContent='آپلود ناموفق بود؛ می‌توانید دوباره تلاش کنید.';}
+ finally{b.disabled=false;b.removeAttribute('aria-busy');}
 });
 $('adminLogout').addEventListener('click',()=>{
  adminPassword=null;panel.hidden=true;loginCard.hidden=false;list.replaceChildren();say('از پنل خارج شدید.');
