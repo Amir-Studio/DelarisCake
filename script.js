@@ -27,23 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCakes();
     renderIdeas();
 
-    // ===== ثبت‌نام =====
-    const registerForm = document.getElementById('registerForm');
-    if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('fullName').value.trim();
-            const age = document.getElementById('age').value.trim();
-            const email = document.getElementById('email').value.trim();
-            if (name && age && email) {
-                localStorage.setItem('user', JSON.stringify({ name, age, email }));
-                window.location.href = 'dashboard.html';
-            } else {
-                alert('لطفاً همه فیلدها را پر کنید.');
-            }
-        });
-    }
-
     // ===== سایدبار =====
     document.addEventListener('click', function(e) {
         const sidebar = document.getElementById('sidebar');
@@ -196,12 +179,7 @@ function closeInfoModal() {
     syncPageScrollLock();
 }
 
-function logout() {
-    if (confirm('آیا از خروج از حساب خود مطمئن هستید؟')) {
-        localStorage.removeItem('user');
-        window.location.href = 'index.html';
-    }
-}
+function logout() { if (window.delarisLogout) window.delarisLogout(); }
 
 /* ================================================================
    افکت بزرگ‌نمایی کیک
