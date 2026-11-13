@@ -10,6 +10,35 @@
 .admin-form button{transition:transform .18s ease,filter .18s ease,opacity .18s ease;cursor:pointer}.admin-form button:not(:disabled):active{transform:scale(.985)}.admin-form button:disabled{opacity:.72;cursor:wait;filter:saturate(.7)}.admin-form button .admin-spinner{display:inline-block;width:14px;height:14px;margin-left:8px;border:2px solid #1115;border-top-color:#111;border-radius:50%;vertical-align:-2px;animation:adminSpin .7s linear infinite}@keyframes adminSpin{to{transform:rotate(360deg)}}.admin-feedback{min-height:30px;margin:4px 0 0;padding:9px 12px;border-radius:9px;line-height:1.8;font-size:13px;background:#ffffff08;color:#e8c97a}.admin-feedback:empty{display:none}.admin-feedback.is-error{background:#ff6b6b14;color:#ffaaa0;border:1px solid #ff6b6b35}.admin-feedback.is-success{background:#6bd69a14;color:#9ce6b8;border:1px solid #6bd69a35}#adminStatus{min-height:28px;line-height:1.8;color:#d7bd82}
 .admin-gallery-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #ffffff16}.admin-gallery-item img{width:84px;height:84px;object-fit:cover;border-radius:12px}.admin-gallery-item button{color:#ffaaa0;border:1px solid #ffaaa055;border-radius:8px;padding:8px 12px;margin-right:auto}
 .admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.admin-top a{color:#d4af37}.admin-small{color:#aaa;font-size:13px;line-height:1.9}
+
+/* Responsive polish for the private admin and one-time setup screen */
+.admin-page,.admin-page *{box-sizing:border-box}
+.admin-page{width:100%;overflow-x:hidden;padding:clamp(20px,5vw,38px) 14px}
+.admin-wrap{width:100%;max-width:680px;min-width:0}
+.admin-card{width:100%;min-width:0;padding:clamp(18px,4vw,28px);overflow:hidden}
+.admin-form{width:100%;min-width:0}
+.admin-form label{width:100%;min-width:0}
+.admin-form input{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+.password-field{width:100%;min-width:0;gap:8px}
+.password-field input{flex:1 1 0;width:1%;min-width:0}
+.admin-form button:not(.password-toggle),.admin-action{min-height:46px}
+.admin-form button.password-toggle{width:46px;min-width:46px;min-height:46px;padding:0;flex:0 0 46px}
+.admin-form button:focus-visible,.admin-action:focus-visible,.admin-top a:focus-visible{outline:2px solid #e8c97a;outline-offset:3px}
+.admin-feedback{overflow-wrap:anywhere}
+.admin-gallery-item{min-width:0;flex-wrap:wrap}
+.admin-gallery-item span{min-width:0;overflow-wrap:anywhere}
+.admin-gallery-item img{flex:0 0 84px}
+.admin-gallery-item button{flex:0 0 auto}
+#setupCard[hidden],#adminLoginCard[hidden],#adminPanel[hidden],.admin-form[hidden]{display:none!important}
+@media(max-width:480px){
+ .admin-page{padding:18px 12px}
+ .admin-top{align-items:flex-start;flex-wrap:wrap}
+ .admin-wrap h1{font-size:24px;line-height:1.5}
+ .admin-card{border-radius:16px}
+ .admin-gallery-item{gap:10px}
+ .admin-gallery-item img{width:68px;height:68px;flex-basis:68px}
+}
+
 </style></head>
 <body><main class="admin-page"><div class="admin-wrap">
 <div class="admin-top"><span class="admin-kicker">DELARIS CAKE · PRIVATE</span><a href="dashboard.html">بازگشت به سایت ↗</a></div>
