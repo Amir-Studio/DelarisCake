@@ -44,8 +44,15 @@ jobs:
           npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-240.webp https://amir-studio.github.io/DelarisCake/assets/optimized/hero-360.webp https://amir-studio.github.io/DelarisCake/assets/optimized/cakes/cake-2-360.webp
           for attempt in $(seq 1 60); do
             html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/?audit=${GITHUB_SHA}" || true)"
+            cart_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/cart.html?audit=${GITHUB_SHA}" || true)"
+            payment_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/payment.html?audit=${GITHUB_SHA}" || true)"
+            css="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/style.css?audit=${GITHUB_SHA}" || true)"
             if grep -Fq 'imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
-               grep -Fq ' srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html"; then
+               grep -Fq ' srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
+               grep -Fq 'href="/DelarisCake/favicon.svg"' <<< "$html" &&
+               grep -Fq 'name="description"' <<< "$cart_html" &&
+               grep -Fq 'name="description"' <<< "$payment_html" &&
+               grep -Fq 'min-height: 32px' <<< "$css"; then
               exit 0
             fi
             sleep 5
