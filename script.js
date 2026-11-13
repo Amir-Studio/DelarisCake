@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const sidebar = document.getElementById('sidebar');
         const menuIcon = document.getElementById('menuIcon');
         if (sidebar && sidebar.classList.contains('active')) {
-            if (!sidebar.contains(e.target) && !menuIcon.contains(e.target) && !e.target.closest('#sidebarBackdrop')) {
+            if (!sidebar.contains(e.target) && !(menuIcon && menuIcon.contains(e.target)) && !(e.target.closest && e.target.closest('#sidebarBackdrop'))) {
                 closeSidebar();
             }
         }
@@ -157,31 +157,43 @@ function showToast(msg) {
 function goToMenu() { window.location.href = 'menu.html'; }
 function goToDashboard() { window.location.href = 'dashboard.html'; }
 
+function syncPageScrollLock() {
+    const sidebarOpen = document.getElementById('sidebar')?.classList.contains('active');
+    const infoModalOpen = document.getElementById('infoModal')?.classList.contains('active');
+    const cakeModalOpen = document.getElementById('cakeModal')?.classList.contains('active');
+    document.body.style.overflow = sidebarOpen || infoModalOpen || cakeModalOpen ? 'hidden' : '';
+}
+
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
     if (!sidebar) return;
+
     const willOpen = !sidebar.classList.contains('active');
     sidebar.classList.toggle('active', willOpen);
     if (backdrop) backdrop.classList.toggle('active', willOpen);
-    document.body.style.overflow = willOpen ? 'hidden' : '';
+    syncPageScrollLock();
 }
+
 function closeSidebar() {
     const sidebar = document.getElementById('sidebar');
     const backdrop = document.getElementById('sidebarBackdrop');
     if (sidebar) sidebar.classList.remove('active');
     if (backdrop) backdrop.classList.remove('active');
-    document.body.style.overflow = '';
+    syncPageScrollLock();
 }
 
 function toggleInfoModal() {
-    document.getElementById('infoModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+    const modal = document.getElementById('infoModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    syncPageScrollLock();
 }
 
 function closeInfoModal() {
-    document.getElementById('infoModal').classList.remove('active');
-    document.body.style.overflow = '';
+    const modal = document.getElementById('infoModal');
+    if (modal) modal.classList.remove('active');
+    syncPageScrollLock();
 }
 
 function logout() {
@@ -222,13 +234,16 @@ function openModal(id) {
     if (!cake) return;
     document.getElementById('modalImage').src = cake.img;
     document.getElementById('modalDesc').textContent = 'برای سفارش و اطلاع از جزئیات، از طریق اینستاگرام با ما در ارتباط باشید.';
-    document.getElementById('cakeModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+    const modal = document.getElementById('cakeModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    syncPageScrollLock();
 }
 
 function closeModal() {
-    document.getElementById('cakeModal').classList.remove('active');
-    document.body.style.overflow = '';
+    const modal = document.getElementById('cakeModal');
+    if (modal) modal.classList.remove('active');
+    syncPageScrollLock();
 }
 
 /* ================================================================
