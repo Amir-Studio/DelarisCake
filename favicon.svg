@@ -1,4 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96" width="96" height="96">
-  <title>Delaris Cake</title>
-  <image x="0" y="0" width="96" height="96" preserveAspectRatio="xMidYMid slice" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwLCgsODQwOEh4UEhEREiUbHBYeLCcuLisnKyoxN0Y7MTRCNCorPVM+QkhKTk9OLztWXFVMW0ZNTkv/2wBDAQ0ODhIQEiQUFCRLMisyS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0v/wgARCABgAGADASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAwQBAgUABv/EABgBAAMBAQAAAAAAAAAAAAAAAAACAwEE/9oADAMBAAIQAxAAAAH1XdASNCZu0EiiaxZVo05MojLo9E1SMlmI0NewDAgAJep1jKNpsCqy3Ln6mebNTpakn1c1/LprXCujEovY2+jk6TpnkFeZUbBtwy45A9qWMFJKjQZWDFysCB1HVSrO4eKrJIP5s6HOjo4NlqKkxvAddeieqii2pST5UPjm6vNFBVli1U7u6if/xAAgEAADAAICAwEBAQAAAAAAAAABAgMAEQQSEyEiIBAy/9oACAEBAAEFAv6zKuCobHt6Ww0bhcV1b9PdnKQ9tPa0jpZx2omArQ0Z3IP9o5u6IFDHQnyO5e52l22K6wHYpMMI0M2zlP1SCdVx2OULFvoA9iP9ceGwmcifZeO/edfvkNRWqfQFTnkwsGHf0r6zyaOK4FIfFwdchnRyNNNl1jTAQTBVVLZNdt19elmjoh3vkH5vJUwATUjuNbGTUjFUhm1hAotVTF+rckdaRUeNq6qXQZv37JPvGIOGiFlofJdR4+ON0qndYt1Loj4V+qIWxhVW47dx4iWQaCqq5VuxkvVcrPEfCm8oHGAsmSBM5h2wJrHfJT/Dy3m2TOzDBSgw0oc7Mc21MnLX6K7zw40iQsiB4hgGvx//xAAgEAADAAICAwEBAQAAAAAAAAABAgMAEQQSEyEiIBAy/9oACAEBAAEFAv6zKuCobHt6Ww0bhcV1b9PdnKQ9tPa0jpZx2omArQ0Z3IP9o5u6IFDHQnyO5e52l22K6wHYpMMI0M2zlP1SCdVx2OULFvoA9iP9ceGwmcifZeO/edfvkNRWqfQFTnkwsGHf0r6zyaOK4FIfFwdchnRyNNNl1jTAQTBVVLZNdt19elmjoh3vkH5vJUwATUjuNbGTUjFUhm1hAotVTF+rckdaRUeNq6qXQZv37JPvGIOGiFlofJdR4+ON0qndYt1Loj4V+qIWxhVW47dx4iWQaCqq5VuxkvVcrPEfCm8oHGAsmSBM5h2wJrHfJT/Dy3m2TOzDBSgw0oc7Mc21MnLX6K7zw40iQsiB4hgGvx//Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">Delaris Cake</title>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff0c2"/>
+      <stop offset=".48" stop-color="#c7953e"/>
+      <stop offset="1" stop-color="#8e5b1e"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff9e9"/>
+      <stop offset="1" stop-color="#e7d5b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="21" fill="#100d0b"/>
+  <circle cx="48" cy="48" r="42" fill="#f5ead4" stroke="url(#gold)" stroke-width="3"/>
+  <circle cx="48" cy="48" r="37.5" fill="none" stroke="#c99d57" stroke-width="1"/>
+  <path d="M48 13c-4 6-4 9 0 12 4-3 4-6 0-12Z" fill="url(#gold)"/>
+  <path d="M27 61h42v8H27z" fill="url(#gold)"/>
+  <path d="M31 43h34v18H31z" rx="4" fill="url(#cream)" stroke="#b78642" stroke-width="1.5"/>
+  <path d="M31 43c0-5 7-8 17-8s17 3 17 8" fill="#fff8e9" stroke="#b78642" stroke-width="1.5"/>
+  <path d="M31 48c4 2 4 6 7 6s3-4 6-4 3 4 6 4 3-4 6-4 3 4 9 2" fill="none" stroke="#d78a83" stroke-width="3" stroke-linecap="round"/>
+  <path d="M48 25v8m-4-4h8" stroke="#b78642" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="48" cy="41" r="2" fill="#d78a83"/>
+  <path d="M22 76c8 5 44 5 52 0" fill="none" stroke="#c99d57" stroke-width="1.5" stroke-linecap="round"/>
 </svg>
