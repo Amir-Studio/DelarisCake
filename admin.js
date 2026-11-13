@@ -40,7 +40,7 @@ if(setupToken){setupCard.hidden=false;loginCard.hidden=true;}
 $('setupForm').addEventListener('submit',async e=>{
  e.preventDefault();
  const p=$('setupPassword').value,confirmPassword=$('setupPasswordConfirm').value,b=e.currentTarget.querySelector('button');
- if(p.length<14){say('رمز باید حداقل ۱۴ نویسه داشته باشد.',true);return;}
+ if(p.length<8){say('رمز باید حداقل ۸ نویسه داشته باشد.',true);return;}
  if(p!==confirmPassword){say('دو رمز واردشده یکسان نیستند.',true);return;}
  b.disabled=true;say('در حال ثبت امن رمز…');
  try{
