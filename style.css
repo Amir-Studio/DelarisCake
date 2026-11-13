@@ -1962,3 +1962,15 @@ textarea {
  .gallery-hero-button{padding:12px 24px}
  .gallery-hero-caption{font-size:7px;letter-spacing:2px}
 }
+
+/* Restore the original breathing room on the homepage after removing the tagline. */
+.hero-buttons {
+    margin-top: 24px;
+}
+
+@media (max-width: 480px) {
+    .hero-buttons {
+        margin: 24px auto 0;
+        gap: 10px;
+    }
+}
