@@ -1,0 +1,59 @@
+name: Validate and audit Delaris Cake
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "dashboard.html"
+      - "menu.html"
+      - "about.html"
+      - "cart.html"
+      - "payment.html"
+      - "style.css"
+      - "script.js"
+      - "home.js"
+      - "assets/optimized/**"
+      - "scripts/validate-site.mjs"
+      - "scripts/summarize-lighthouse.mjs"
+      - ".github/workflows/audit-performance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install validators and Lighthouse
+        run: npm install --no-save sharp postcss parse5 lighthouse wait-on
+      - name: Validate HTML, CSS, JavaScript and image references
+        run: node scripts/validate-site.mjs
+      - name: Wait for GitHub Pages optimized hero asset
+        run: npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-480.webp
+      - name: Lighthouse mobile homepage
+        run: npx lighthouse https://amir-studio.github.io/DelarisCake/ --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=./lighthouse-home-mobile.json --quiet
+      - name: Lighthouse desktop homepage
+        run: npx lighthouse https://amir-studio.github.io/DelarisCake/ --preset=desktop --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=./lighthouse-home-desktop.json --quiet
+      - name: Lighthouse mobile About page
+        run: npx lighthouse https://amir-studio.github.io/DelarisCake/about.html --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=./lighthouse-about-mobile.json --quiet
+      - name: Lighthouse mobile Gallery page
+        run: npx lighthouse https://amir-studio.github.io/DelarisCake/dashboard.html --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=./lighthouse-dashboard-mobile.json --quiet
+      - name: Lighthouse mobile Menu page
+        run: npx lighthouse https://amir-studio.github.io/DelarisCake/menu.html --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output-path=./lighthouse-menu-mobile.json --quiet
+      - name: Summarize Lighthouse results
+        if: always()
+        run: node scripts/summarize-lighthouse.mjs
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: delaris-lighthouse-reports
+          path: lighthouse-*.json
+          if-no-files-found: ignore
+          retention-days: 14
