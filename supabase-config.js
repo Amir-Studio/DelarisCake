@@ -1,0 +1,1 @@
+window.DELARIS_SUPABASE_CONFIG = { url: 'https://oolfbjxclhzlbwjmzxxx.supabase.co', publishableKey: 'sb_publishable_Q_eVY-Arb4hZQudDYrwy0Q_TbrUGAIv' };
