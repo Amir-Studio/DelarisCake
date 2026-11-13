@@ -1923,3 +1923,42 @@ textarea {
  .sidebar-close{top:0;left:0}
  .sidebar-brand-wrap{padding-left:46px}
 }
+
+
+/* Premium gallery landing hero */
+.gallery-hero{
+    position:relative;isolation:isolate;min-height:min(790px,calc(100svh - 110px));
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    padding:54px 20px 48px;text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 12%,rgba(201,168,95,.13),transparent 48%),
+      linear-gradient(145deg,#09090a 0%,#151416 52%,#09090a 100%);
+    border-bottom:1px solid rgba(201,168,95,.16)
+}
+.gallery-hero:before,.gallery-hero:after{content:"";position:absolute;pointer-events:none;z-index:-1}
+.gallery-hero:before{inset:22px;border:1px solid rgba(201,168,95,.10)}
+.gallery-hero:after{width:min(680px,90vw);height:min(680px,90vw);border:1px solid rgba(201,168,95,.08);border-radius:50%;box-shadow:0 0 0 38px rgba(201,168,95,.018),0 0 0 78px rgba(201,168,95,.012)}
+.gallery-hero-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 72%,rgba(201,168,95,.08),transparent 42%)}
+.gallery-hero-inner{width:100%;max-width:760px;animation:fadeUp .9s ease both}
+.gallery-hero-kicker{display:inline-block;color:#c5a66d;font:10px Georgia,serif;letter-spacing:4px;margin-bottom:17px}
+.gallery-hero h1{margin:0;color:#f4eee4;font:700 clamp(48px,9vw,82px)/1.05 Georgia,'Times New Roman',serif;letter-spacing:1px}
+.gallery-hero h1 span{color:#c5a66d}
+.gallery-hero-subtitle{margin:15px 0 24px;color:#aaa195;font:10px/1.8 Georgia,serif;letter-spacing:2.5px}
+.gallery-hero-image-wrap{position:relative;width:clamp(150px,26vw,220px);aspect-ratio:1;margin:0 auto 25px;padding:7px;border:1px solid rgba(201,168,95,.62);border-radius:50%;box-shadow:0 0 0 9px rgba(201,168,95,.045),0 18px 70px rgba(0,0,0,.55),0 0 48px rgba(201,168,95,.12)}
+.gallery-hero-image-wrap:before{content:"";position:absolute;inset:-15px;border:1px solid rgba(201,168,95,.16);border-radius:50%}
+.gallery-hero-image-wrap img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.gallery-hero-button{display:inline-flex;align-items:center;gap:14px;padding:13px 28px;border:1px solid rgba(201,168,95,.62);background:linear-gradient(120deg,rgba(201,168,95,.16),rgba(201,168,95,.04));color:#ead7ad;text-decoration:none;font:13px 'Vazirmatn',sans-serif;transition:background .25s,transform .25s}
+.gallery-hero-button:hover{background:rgba(201,168,95,.22);transform:translateY(-3px)}
+.gallery-hero-button span{color:#c5a66d;font-size:18px}
+.gallery-hero-caption{display:block;margin-top:25px;color:#777064;font:8px Georgia,serif;letter-spacing:2.8px}
+.dashboard-main{scroll-margin-top:18px}
+#gallery{scroll-margin-top:24px}
+@media(max-width:600px){
+ .gallery-hero{min-height:calc(100svh - 94px);padding:42px 16px}
+ .gallery-hero:before{inset:12px}
+ .gallery-hero-kicker{font-size:9px;letter-spacing:3px}
+ .gallery-hero-subtitle{font-size:8px;letter-spacing:1.7px;margin:12px 0 20px}
+ .gallery-hero-image-wrap{width:clamp(145px,48vw,190px);margin-bottom:23px}
+ .gallery-hero-button{padding:12px 24px}
+ .gallery-hero-caption{font-size:7px;letter-spacing:2px}
+}
