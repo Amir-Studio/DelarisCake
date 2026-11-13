@@ -62,7 +62,8 @@ for (const item of remote) {
     manifest.push({ name: name, sourceBytes: source.length, output: "assets/optimized/logo-116.webp", outputBytes: (await fs.stat(target)).size, width: 116, height: 116 });
     localMap.set(url, "assets/optimized/logo-116.webp");
   } else if (kind === "hero") {
-    // Match the 188px mobile hero at common 1x/2x DPRs before larger desktop sources.\n    for (const width of [240, 360, 480, 960]) {
+    // Match the 188px mobile hero at common 1x/2x DPRs before larger desktop sources.
+    for (const width of [240, 360, 480, 960]) {
       const target = path.join(output, "hero-" + width + ".webp");
       await input.clone().resize(width, width, { fit: "inside", withoutEnlargement: true }).webp({ quality: 84, effort: 5 }).toFile(target);
       manifest.push({ name: "hero-" + width, sourceBytes: source.length, output: "assets/optimized/hero-" + width + ".webp", outputBytes: (await fs.stat(target)).size, width, height: width });
