@@ -13,7 +13,8 @@ on:
       - "style.css"
       - "script.js"
       - "home.js"
-      # Include generated responsive image assets after the optimizer commits them.\n      - "assets/optimized/**"
+      # Include generated responsive image assets after the optimizer commits them.
+      - "assets/optimized/**"
       - "scripts/optimize-images.mjs"
       - "scripts/validate-site.mjs"
       - "scripts/summarize-lighthouse.mjs"
