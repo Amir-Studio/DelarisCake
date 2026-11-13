@@ -59,6 +59,7 @@ jobs:
                grep -Fq 'id="loginForm"' <<< "$menu_html" &&
                grep -Fq 'id="loginTab"' <<< "$menu_html" &&
                grep -Fq 'id="password"' <<< "$menu_html" &&
+               grep -Fq 'name="description"' <<< "$menu_html" &&
                grep -Fq 'id="cakeGrid"' <<< "$dashboard_html" &&
                grep -Fq 'width="720" height="1112"' <<< "$dashboard_html" &&
                ! grep -Fq 'delaris-my-orders' <<< "$dashboard_html" &&
