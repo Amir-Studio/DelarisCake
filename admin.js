@@ -5,12 +5,14 @@ if(!cfg){document.getElementById('adminStatus').textContent='تنظیمات ات
 const $=id=>document.getElementById(id),endpoint=cfg.url+'/functions/v1/delaris-admin';
 const loginCard=$('adminLoginCard'),setupCard=$('setupCard'),panel=$('adminPanel'),status=$('adminStatus'),list=$('adminGalleryList');
 const say=(s,bad=false)=>{status.textContent=s;status.style.color=bad?'#ffaaa0':'#d7bd82';};
+const setupFeedback=(message,type='')=>{const el=$('setupFeedback');if(!el)return;el.textContent=message;el.className='admin-feedback'+(type?' is-'+type:'');};
+const setBusy=(button,busy,label)=>{button.disabled=busy;button.setAttribute('aria-busy',String(busy));button.innerHTML=busy?'<span class="admin-spinner" aria-hidden="true"></span>'+label:label;};
 let adminPassword=null;
 async function api(action,extra={},file=null){
  let headers={apikey:cfg.publishableKey},body;
  if(file){body=new FormData();body.append('action',action);body.append('password',adminPassword);body.append('file',file);body.append('alt_text',extra.alt_text||'نمونه کیک دلاریس کیک');}
  else {headers['Content-Type']='application/json';body=JSON.stringify({action,...extra});}
- const response=await fetch(endpoint,{method:'POST',headers,body});
+ let response;try{response=await fetch(endpoint,{method:'POST',headers,body,signal:AbortSignal.timeout(25000)});}catch(err){if(err.name==='TimeoutError')throw new Error('پاسخ سرور بیش از ۲۵ ثانیه طول کشید؛ اتصال اینترنت را بررسی و دوباره تلاش کنید.');throw new Error('ارتباط با سرور برقرار نشد؛ اینترنت یا فیلترشکن را بررسی کنید.');}
  const result=await response.json().catch(()=>({error:'پاسخ سرور قابل خواندن نیست.'}));
  if(!response.ok)throw new Error(result.error||'درخواست انجام نشد.');
  return result;
@@ -39,17 +41,24 @@ const setupToken=new URLSearchParams(location.search).get('setup');
 if(setupToken){setupCard.hidden=false;loginCard.hidden=true;}
 $('setupForm').addEventListener('submit',async e=>{
  e.preventDefault();
- const p=$('setupPassword').value,confirmPassword=$('setupPasswordConfirm').value,b=e.currentTarget.querySelector('button');
- if(p.length<8){say('رمز باید حداقل ۸ نویسه داشته باشد.',true);return;}
- if(p!==confirmPassword){say('دو رمز واردشده یکسان نیستند.',true);return;}
- b.disabled=true;say('در حال ثبت امن رمز…');
+ const form=e.currentTarget,p=$('setupPassword').value,confirmPassword=$('setupPasswordConfirm').value,b=$('setupSubmitButton'),label='ثبت رمز مدیریت';
+ setupFeedback('');
+ if(p.length<8){setupFeedback('رمز باید حداقل ۸ نویسه داشته باشد.','error');return;}
+ if(p!==confirmPassword){setupFeedback('دو رمزی که وارد کرده‌اید یکسان نیستند.','error');return;}
+ setBusy(b,true,'در حال ثبت رمز…');setupFeedback('درخواست به سرور ارسال شد؛ لطفاً صفحه را نبندید.');
  try{
-  await api('setup',{setup_token:setupToken,password:p});
-  e.currentTarget.reset();setupCard.hidden=true;loginCard.hidden=false;
+  const result=await api('setup',{setup_token:setupToken,password:p});
+  if(!result.ok)throw new Error(result.error||'سرور ثبت رمز را تأیید نکرد.');
+  form.reset();form.hidden=true;loginCard.hidden=false;
   history.replaceState(null,'',location.pathname);
-  say('رمز مدیریت با موفقیت تنظیم شد. حالا با همان رمز وارد شوید.');
- }catch(err){say(err.message,true);}
- finally{b.disabled=false;}
+  setupFeedback('✓ رمز مدیریت با موفقیت ثبت شد. اکنون می‌توانید از بخش ورود مدیر وارد شوید.','success');
+  say('راه‌اندازی رمز مدیریت با موفقیت انجام شد.');
+ }catch(err){
+  setupFeedback('ثبت رمز انجام نشد: '+(err.message||'خطای نامشخص')+' — می‌توانید دوباره تلاش کنید.','error');
+  say(err.message||'ثبت رمز ناموفق بود.',true);
+ }finally{
+  if(!form.hidden)setBusy(b,false,label);
+ }
 });
 $('adminLoginForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=e.currentTarget.querySelector('button'),p=$('adminPassword').value;
