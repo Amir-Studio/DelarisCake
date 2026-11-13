@@ -94,6 +94,15 @@
     <!-- محتوای اصلی                                                  -->
     <!-- ============================================================ -->
     <main class="dashboard-main">
+<section id="delarisAccount" class="delaris-account-section" aria-labelledby="delaris-account-title">
+<div class="delaris-account-inner"><span class="delaris-account-kicker">DELARIS CUSTOMER AREA</span><h2 id="delaris-account-title">حساب کاربری و درخواست سفارش</h2><p id="accountGreeting">در حال بررسی وضعیت حساب…</p>
+<div id="accountActions" class="delaris-account-actions" hidden><a class="btn-enter" href="menu.html">ثبت‌نام / ورود</a></div><button id="delarisLogout" type="button" class="delaris-logout" hidden>خروج از حساب</button>
+<form id="delarisOrderForm" class="delaris-order-form" hidden><h3>ثبت درخواست سفارش کیک</h3><p>این فرم درخواست اولیه است؛ قیمت و قطعی‌شدن سفارش پس از هماهنگی تأیید می‌شود.</p>
+<label>مناسبت<input id="occasion" required maxlength="100" placeholder="مثلاً تولد"></label><label>تاریخ موردنظر<input id="eventDate" type="date"></label><label>تعداد تقریبی مهمان‌ها<input id="guestCount" type="number" min="1" max="1000" inputmode="numeric"></label><label>لینک یا نام نمونه کیک (اختیاری)<input id="cakeReference" maxlength="500" placeholder="لینک تصویر یا توضیح طرح"></label><label>شماره تماس (اختیاری)<input id="contactPhone" type="tel" maxlength="30" placeholder="۰۹۱۷…"></label><label>توضیحات سفارش<textarea id="orderDescription" required maxlength="2000" rows="4" placeholder="رنگ، اندازه، طعم یا جزئیات دلخواه…"></textarea></label><button type="submit" class="btn-enter">ثبت درخواست</button><p id="orderMessage" role="status" aria-live="polite"></p></form>
+<div class="delaris-my-orders"><h3>درخواست‌های من</h3><div id="myOrderList">برای مشاهده درخواست‌ها وارد حساب شو.</div></div><section id="delarisAdminPanel" hidden class="delaris-admin-panel"><h3>مدیریت درخواست‌های دلاریس</h3><div id="adminOrderList"></div></section></div></section>
+<style>
+.delaris-account-section{padding:48px 18px;background:linear-gradient(180deg,#11100e,#09090a);border-block:1px solid rgba(184,149,85,.2);color:#eee}.delaris-account-inner{max-width:760px;margin:auto}.delaris-account-kicker{color:#b89555;letter-spacing:2px;font:10px Georgia,serif}.delaris-account-inner h2{color:#e5d2aa;font-size:24px;margin:12px 0}.delaris-account-inner h3{color:#d5b878;font-size:18px;margin:22px 0 12px}.delaris-account-inner p{line-height:2;color:#bdb6aa}.delaris-account-actions{margin:18px 0}.delaris-logout{border:1px solid rgba(184,149,85,.35);background:transparent;color:#d8bd82;padding:8px 16px;border-radius:8px;cursor:pointer}.delaris-order-form{display:grid;gap:14px;margin-top:24px;padding:22px;border:1px solid rgba(184,149,85,.25);border-radius:14px;background:rgba(255,255,255,.025)}.delaris-order-form[hidden],#delarisAdminPanel[hidden]{display:none}.delaris-order-form label{display:grid;gap:7px;color:#d7c8a8;font-size:13px}.delaris-order-form input,.delaris-order-form textarea,.delaris-admin-actions select{width:100%;box-sizing:border-box;padding:12px;border:1px solid rgba(184,149,85,.25);border-radius:8px;background:#151412;color:#f5f0e6;font:inherit}.delaris-order-form button,.delaris-admin-actions button{cursor:pointer}.delaris-order-card{padding:15px;margin:10px 0;border:1px solid rgba(184,149,85,.2);border-radius:10px;background:rgba(255,255,255,.025)}.delaris-order-card strong{color:#e6d1a2}.delaris-order-card>span{float:left;color:#c6a96e;font-size:12px}.delaris-order-card p{margin:10px 0}.delaris-order-card small{color:#999}.delaris-admin-actions{display:flex;gap:10px;margin-top:12px}.delaris-admin-actions button{border:1px solid #a98a55;background:rgba(184,149,85,.12);color:#e4cc98;border-radius:8px;padding:8px 14px}
+</style>
 
         <!-- ===== گالری ===== -->
         <section class="gallery" id="gallery">
@@ -244,5 +253,8 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
