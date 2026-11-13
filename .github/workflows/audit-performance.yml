@@ -46,12 +46,16 @@ jobs:
             html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/?audit=${GITHUB_SHA}" || true)"
             cart_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/cart.html?audit=${GITHUB_SHA}" || true)"
             payment_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/payment.html?audit=${GITHUB_SHA}" || true)"
+            dashboard_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/dashboard.html?audit=${GITHUB_SHA}" || true)"
             css="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/style.css?audit=${GITHUB_SHA}" || true)"
             if grep -Fq 'imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
                grep -Fq ' srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
                grep -Fq 'href="/DelarisCake/favicon.svg"' <<< "$html" &&
                grep -Fq 'name="description"' <<< "$cart_html" &&
                grep -Fq 'name="description"' <<< "$payment_html" &&
+               grep -Fq 'id="cakeGrid"' <<< "$dashboard_html" &&
+               grep -Fq 'width="720" height="1112"' <<< "$dashboard_html" &&
+               ! grep -Fq 'delaris-my-orders' <<< "$dashboard_html" &&
                grep -Fq 'min-height: 32px' <<< "$css"; then
               exit 0
             fi
