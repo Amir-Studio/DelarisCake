@@ -105,8 +105,8 @@ for (const page of ["index.html", "dashboard.html", "about.html"]) {
   const file = path.join(root, page);
   let html = await fs.readFile(file, "utf8");
   if (page === "index.html") {
-    html = replaceAll(html, '<link rel="preload" as="image" href="' + heroUrl + '" fetchpriority="high" />', '<link rel="preload" as="image" href="assets/optimized/hero-480.webp" imagesrcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" imagesizes="(max-width: 480px) 188px, 240px" fetchpriority="high" />');
-    html = replaceAll(html, '<img src="' + heroUrl + '"', '<img src="assets/optimized/hero-480.webp" srcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" sizes="(max-width: 480px) 188px, 240px"');
+    html = replaceAll(html, '<link rel="preload" as="image" href="' + heroUrl + '" fetchpriority="high" />', '<link rel="preload" as="image" href="assets/optimized/hero-240.webp" imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w, assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" imagesizes="(max-width: 480px) 188px, 240px" fetchpriority="high" />');
+    html = replaceAll(html, '<img src="' + heroUrl + '"', '<img src="assets/optimized/hero-240.webp" srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w, assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" sizes="(max-width: 480px) 188px, 240px"');
     if (!html.includes('class="seo-brand-logo" width="76" height="76"')) html = html.replace('<img class="seo-brand-logo"', '<img class="seo-brand-logo" width="76" height="76"');
     if (!html.includes('class="seo-brand-logo" width="76" height="76" decoding="async"')) {
       html = html.replace('class="seo-brand-logo" width="76" height="76" src=', 'class="seo-brand-logo" width="76" height="76" decoding="async" src=');
