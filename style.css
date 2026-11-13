@@ -2,8 +2,6 @@
    فونت‌ها و متغیرها
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Vazirmatn:wght@300;400;600;700&display=swap');
-
 :root {
     --gold: #D4AF37;
     --gold-light: #E8C97A;
@@ -193,7 +191,7 @@ textarea {
     pointer-events: none;
 }
 .splash-content {
-    animation: splashFade 2s ease forwards;
+    animation: splashFade 1.05s ease both;
 }
 .splash-en {
     font-family: var(--font-display);
