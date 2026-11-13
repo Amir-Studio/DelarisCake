@@ -2183,3 +2183,12 @@ textarea {
     color: #aaa !important;
     opacity: 1 !important;
 }
+
+/* Normalize every cake thumbnail in the portfolio grid, including the first two featured images. */
+#cakeGrid .cake-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: cover;
+    object-position: center;
+}
