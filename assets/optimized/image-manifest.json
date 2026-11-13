@@ -8,16 +8,28 @@
     "height": 116
   },
   {
+    "name": "hero-240",
+    "sourceBytes": 1953177,
+    "output": "assets/optimized/hero-240.webp",
+    "outputBytes": 11056,
+    "width": 240,
+    "height": 240
+  },
+  {
     "name": "hero-480",
     "sourceBytes": 1953177,
     "output": "assets/optimized/hero-480.webp",
-    "outputBytes": 29412
+    "outputBytes": 29412,
+    "width": 480,
+    "height": 480
   },
   {
     "name": "hero-960",
     "sourceBytes": 1953177,
     "output": "assets/optimized/hero-960.webp",
-    "outputBytes": 67990
+    "outputBytes": 67990,
+    "width": 960,
+    "height": 960
   },
   {
     "name": "hero-social-1200",
@@ -31,7 +43,17 @@
     "output": "assets/optimized/cakes/cake-2.webp",
     "outputBytes": 63908,
     "sourceWidth": 720,
-    "sourceHeight": 1112
+    "sourceHeight": 1112,
+    "width": 720,
+    "height": 1112
+  },
+  {
+    "name": "cake-2-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/cake-2-360.webp",
+    "outputBytes": 24658,
+    "width": 360,
+    "height": 556
   },
   {
     "name": "cake-3",
@@ -39,7 +61,25 @@
     "output": "assets/optimized/cakes/cake-3.webp",
     "outputBytes": 29862,
     "sourceWidth": 2016,
-    "sourceHeight": 2276
+    "sourceHeight": 2276,
+    "width": 1200,
+    "height": 1355
+  },
+  {
+    "name": "cake-3-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/cake-3-360.webp",
+    "outputBytes": 7696,
+    "width": 360,
+    "height": 406
+  },
+  {
+    "name": "cake-3-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/cake-3-720.webp",
+    "outputBytes": 17330,
+    "width": 720,
+    "height": 813
   },
   {
     "name": "idea-101",
@@ -47,7 +87,25 @@
     "output": "assets/optimized/ideas/idea-101.webp",
     "outputBytes": 118788,
     "sourceWidth": 1200,
-    "sourceHeight": 882
+    "sourceHeight": 882,
+    "width": 1200,
+    "height": 882
+  },
+  {
+    "name": "idea-101-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-101-360.webp",
+    "outputBytes": 18782,
+    "width": 360,
+    "height": 265
+  },
+  {
+    "name": "idea-101-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-101-720.webp",
+    "outputBytes": 53566,
+    "width": 720,
+    "height": 529
   },
   {
     "name": "idea-102",
@@ -55,7 +113,25 @@
     "output": "assets/optimized/ideas/idea-102.webp",
     "outputBytes": 79908,
     "sourceWidth": 1200,
-    "sourceHeight": 1095
+    "sourceHeight": 1095,
+    "width": 1200,
+    "height": 1095
+  },
+  {
+    "name": "idea-102-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-102-360.webp",
+    "outputBytes": 13300,
+    "width": 360,
+    "height": 328
+  },
+  {
+    "name": "idea-102-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-102-720.webp",
+    "outputBytes": 36140,
+    "width": 720,
+    "height": 657
   },
   {
     "name": "idea-103",
@@ -63,7 +139,25 @@
     "output": "assets/optimized/ideas/idea-103.webp",
     "outputBytes": 70716,
     "sourceWidth": 1200,
-    "sourceHeight": 1500
+    "sourceHeight": 1500,
+    "width": 1200,
+    "height": 1500
+  },
+  {
+    "name": "idea-103-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-103-360.webp",
+    "outputBytes": 18048,
+    "width": 360,
+    "height": 450
+  },
+  {
+    "name": "idea-103-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-103-720.webp",
+    "outputBytes": 44840,
+    "width": 720,
+    "height": 900
   },
   {
     "name": "idea-104",
@@ -71,7 +165,25 @@
     "output": "assets/optimized/ideas/idea-104.webp",
     "outputBytes": 69328,
     "sourceWidth": 1200,
-    "sourceHeight": 1795
+    "sourceHeight": 1795,
+    "width": 1200,
+    "height": 1795
+  },
+  {
+    "name": "idea-104-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-104-360.webp",
+    "outputBytes": 22880,
+    "width": 360,
+    "height": 538
+  },
+  {
+    "name": "idea-104-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-104-720.webp",
+    "outputBytes": 56222,
+    "width": 720,
+    "height": 1077
   },
   {
     "name": "idea-105",
@@ -79,7 +191,25 @@
     "output": "assets/optimized/ideas/idea-105.webp",
     "outputBytes": 54816,
     "sourceWidth": 1200,
-    "sourceHeight": 1800
+    "sourceHeight": 1800,
+    "width": 1200,
+    "height": 1800
+  },
+  {
+    "name": "idea-105-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-105-360.webp",
+    "outputBytes": 18612,
+    "width": 360,
+    "height": 540
+  },
+  {
+    "name": "idea-105-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/ideas/idea-105-720.webp",
+    "outputBytes": 43976,
+    "width": 720,
+    "height": 1080
   },
   {
     "name": "InShot_20261105_004053604.jpg",
@@ -87,7 +217,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004053604.webp",
     "outputBytes": 57524,
     "sourceWidth": 4096,
-    "sourceHeight": 3091
+    "sourceHeight": 3091,
+    "width": 1200,
+    "height": 906
+  },
+  {
+    "name": "InShot_20261105_004053604.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004053604-360.webp",
+    "outputBytes": 11308,
+    "width": 360,
+    "height": 271
+  },
+  {
+    "name": "InShot_20261105_004053604.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004053604-720.webp",
+    "outputBytes": 28210,
+    "width": 720,
+    "height": 543
   },
   {
     "name": "InShot_20261105_004116618.jpg",
@@ -95,7 +243,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004116618.webp",
     "outputBytes": 49546,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004116618.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004116618-360.webp",
+    "outputBytes": 10260,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004116618.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004116618-720.webp",
+    "outputBytes": 24602,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004134269.jpg",
@@ -103,7 +269,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004134269.webp",
     "outputBytes": 69060,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004134269.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004134269-360.webp",
+    "outputBytes": 13552,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004134269.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004134269-720.webp",
+    "outputBytes": 34336,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004150436.jpg",
@@ -111,7 +295,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004150436.webp",
     "outputBytes": 44772,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004150436.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004150436-360.webp",
+    "outputBytes": 9008,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004150436.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004150436-720.webp",
+    "outputBytes": 21732,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004206076.jpg",
@@ -119,7 +321,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004206076.webp",
     "outputBytes": 65744,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004206076.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004206076-360.webp",
+    "outputBytes": 13594,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004206076.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004206076-720.webp",
+    "outputBytes": 33070,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004232074.jpg",
@@ -127,7 +347,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004232074.webp",
     "outputBytes": 67094,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004232074.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004232074-360.webp",
+    "outputBytes": 13864,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004232074.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004232074-720.webp",
+    "outputBytes": 33252,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004252675.jpg",
@@ -135,7 +373,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004252675.webp",
     "outputBytes": 35946,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004252675.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004252675-360.webp",
+    "outputBytes": 7562,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004252675.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004252675-720.webp",
+    "outputBytes": 17504,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004337861.jpg",
@@ -143,7 +399,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004337861.webp",
     "outputBytes": 44158,
     "sourceWidth": 2329,
-    "sourceHeight": 2560
+    "sourceHeight": 2560,
+    "width": 1200,
+    "height": 1319
+  },
+  {
+    "name": "InShot_20261105_004337861.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004337861-360.webp",
+    "outputBytes": 12702,
+    "width": 360,
+    "height": 396
+  },
+  {
+    "name": "InShot_20261105_004337861.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004337861-720.webp",
+    "outputBytes": 25648,
+    "width": 720,
+    "height": 792
   },
   {
     "name": "InShot_20261105_004355798.jpg",
@@ -151,7 +425,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004355798.webp",
     "outputBytes": 50008,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004355798.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004355798-360.webp",
+    "outputBytes": 11644,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004355798.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004355798-720.webp",
+    "outputBytes": 25592,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004410992.jpg",
@@ -159,7 +451,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004410992.webp",
     "outputBytes": 45890,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004410992.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004410992-360.webp",
+    "outputBytes": 9722,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004410992.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004410992-720.webp",
+    "outputBytes": 22816,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004428443.jpg",
@@ -167,7 +477,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004428443.webp",
     "outputBytes": 50718,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004428443.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004428443-360.webp",
+    "outputBytes": 11308,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004428443.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004428443-720.webp",
+    "outputBytes": 25732,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004446722.jpg",
@@ -175,7 +503,25 @@
     "output": "assets/optimized/cakes/InShot_20261105_004446722.webp",
     "outputBytes": 39454,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004446722.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004446722-360.webp",
+    "outputBytes": 9252,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004446722.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004446722-720.webp",
+    "outputBytes": 20080,
+    "width": 720,
+    "height": 540
   },
   {
     "name": "InShot_20261105_004503430.jpg",
@@ -183,6 +529,24 @@
     "output": "assets/optimized/cakes/InShot_20261105_004503430.webp",
     "outputBytes": 31392,
     "sourceWidth": 4096,
-    "sourceHeight": 3072
+    "sourceHeight": 3072,
+    "width": 1200,
+    "height": 900
+  },
+  {
+    "name": "InShot_20261105_004503430.jpg-360",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004503430-360.webp",
+    "outputBytes": 7092,
+    "width": 360,
+    "height": 270
+  },
+  {
+    "name": "InShot_20261105_004503430.jpg-720",
+    "sourceBytes": 0,
+    "output": "assets/optimized/cakes/InShot_20261105_004503430-720.webp",
+    "outputBytes": 15620,
+    "width": 720,
+    "height": 540
   }
 ]
