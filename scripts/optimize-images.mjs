@@ -31,6 +31,26 @@ async function download(url) {
 const manifest = [];
 const localMap = new Map();
 
+async function createResponsiveVariants(input, targetPath, sourceWidth, relativePath, name, sourceBytes) {
+  const maximum = Math.min(sourceWidth || 1200, 1200);
+  const folder = path.dirname(targetPath);
+  const stem = path.basename(targetPath, path.extname(targetPath));
+  for (const width of [360, 720]) {
+    if (width >= maximum) continue;
+    const variantPath = path.join(folder, stem + "-" + width + ".webp");
+    await input.clone().rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 80, effort: 5 }).toFile(variantPath);
+    const variantMeta = await sharp(variantPath).metadata();
+    manifest.push({
+      name: name + "-" + width,
+      sourceBytes,
+      output: path.relative(root, variantPath).split(path.sep).join("/"),
+      outputBytes: (await fs.stat(variantPath)).size,
+      width: variantMeta.width,
+      height: variantMeta.height
+    });
+  }
+}
+
 for (const item of remote) {
   const name = item[0], url = item[1], kind = item[2];
   const source = await download(url);
@@ -42,10 +62,10 @@ for (const item of remote) {
     manifest.push({ name: name, sourceBytes: source.length, output: "assets/optimized/logo-116.webp", outputBytes: (await fs.stat(target)).size, width: 116, height: 116 });
     localMap.set(url, "assets/optimized/logo-116.webp");
   } else if (kind === "hero") {
-    for (const width of [480, 960]) {
+    for (const width of [240, 480, 960]) {
       const target = path.join(output, "hero-" + width + ".webp");
       await input.clone().resize(width, width, { fit: "inside", withoutEnlargement: true }).webp({ quality: 84, effort: 5 }).toFile(target);
-      manifest.push({ name: "hero-" + width, sourceBytes: source.length, output: "assets/optimized/hero-" + width + ".webp", outputBytes: (await fs.stat(target)).size });
+      manifest.push({ name: "hero-" + width, sourceBytes: source.length, output: "assets/optimized/hero-" + width + ".webp", outputBytes: (await fs.stat(target)).size, width, height: width });
     }
     const social = path.join(output, "hero-social-1200.jpg");
     await input.clone().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).jpeg({ quality: 86, mozjpeg: true }).toFile(social);
@@ -56,7 +76,8 @@ for (const item of remote) {
     const target = path.join(folder, name + ".webp");
     await input.clone().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(target);
     const rel = path.relative(root, target).split(path.sep).join("/");
-    manifest.push({ name: name, sourceBytes: source.length, output: rel, outputBytes: (await fs.stat(target)).size, sourceWidth: meta.width, sourceHeight: meta.height });
+    manifest.push({ name: name, sourceBytes: source.length, output: rel, outputBytes: (await fs.stat(target)).size, sourceWidth: meta.width, sourceHeight: meta.height, width: Math.min(meta.width || 1200, 1200), height: Math.round(Math.min(meta.width || 1200, 1200) * (meta.height || 1200) / (meta.width || 1200)) });
+    await createResponsiveVariants(input, target, meta.width, rel, name, source.length);
     localMap.set(url, rel);
   }
 }
@@ -73,7 +94,8 @@ for (const file of localFiles) {
   const metadata = await sourceImage.metadata();
   await sourceImage.rotate().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(targetPath);
   const rel = path.relative(root, targetPath).split(path.sep).join("/");
-  manifest.push({ name: file, sourceBytes: sourceStat.size, output: rel, outputBytes: (await fs.stat(targetPath)).size, sourceWidth: metadata.width, sourceHeight: metadata.height });
+  manifest.push({ name: file, sourceBytes: sourceStat.size, output: rel, outputBytes: (await fs.stat(targetPath)).size, sourceWidth: metadata.width, sourceHeight: metadata.height, width: Math.min(metadata.width || 1200, 1200), height: Math.round(Math.min(metadata.width || 1200, 1200) * (metadata.height || 1200) / (metadata.width || 1200)) });
+  await createResponsiveVariants(sourceImage, targetPath, metadata.width, rel, file, sourceStat.size);
   localMap.set("https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/" + file, rel);
 }
 
