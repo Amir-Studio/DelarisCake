@@ -50,6 +50,7 @@ jobs:
             menu_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/menu.html?audit=${GITHUB_SHA}" || true)"
             dashboard_html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/dashboard.html?audit=${GITHUB_SHA}" || true)"
             css="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/style.css?audit=${GITHUB_SHA}" || true)"
+            script="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/script.js?audit=${GITHUB_SHA}" || true)"
             if grep -Fq 'imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
                grep -Fq ' srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
                grep -Fq 'href="/DelarisCake/favicon.svg"' <<< "$html" &&
@@ -63,7 +64,9 @@ jobs:
                grep -Fq 'id="cakeGrid"' <<< "$dashboard_html" &&
                grep -Fq 'width="720" height="1112"' <<< "$dashboard_html" &&
                ! grep -Fq 'delaris-my-orders' <<< "$dashboard_html" &&
-               grep -Fq 'min-height: 32px' <<< "$css"; then
+               grep -Fq 'min-height: 32px' <<< "$css" &&
+               grep -Fq 'img.width=720;' <<< "$script" &&
+               grep -Fq "cloudImagesLoaded" <<< "$script"; then
               exit 0
             fi
             sleep 5
