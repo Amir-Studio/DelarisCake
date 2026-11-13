@@ -14,13 +14,15 @@
 <body><main class="admin-page"><div class="admin-wrap">
 <div class="admin-top"><span class="admin-kicker">DELARIS CAKE · PRIVATE</span><a href="dashboard.html">بازگشت به سایت ↗</a></div>
 <h1>پنل مدیریت دلاریس</h1>
-<section id="adminLoginCard" class="admin-card"><h2>ورود مدیر</h2><p class="admin-small">با ایمیل و رمز حساب مدیریتی وارد شوید.</p>
-<form id="adminLoginForm" class="admin-form"><label>ایمیل<input id="adminEmail" type="email" autocomplete="username" required></label><label>رمز عبور<input id="adminPassword" type="password" autocomplete="current-password" required></label><button type="submit">ورود امن به پنل</button></form></section>
+<section id="setupCard" class="admin-card" hidden><h2>راه‌اندازی رمز مدیریت</h2><p class="admin-small">یک رمز اختصاصی انتخاب کنید. برای امنیت بیشتر، حداقل ۱۴ نویسه استفاده کنید. این رمز را فقط با فرد مورداعتماد خود به اشتراک بگذارید.</p>
+<form id="setupForm" class="admin-form"><label>رمز جدید<input id="setupPassword" type="password" minlength="14" maxlength="128" autocomplete="new-password" required></label><label>تکرار رمز<input id="setupPasswordConfirm" type="password" minlength="14" maxlength="128" autocomplete="new-password" required></label><button type="submit">ثبت رمز مدیریت</button></form></section>
+<section id="adminLoginCard" class="admin-card"><h2>ورود مدیر</h2><p class="admin-small">برای ورود به مدیریت دلاریس، رمز اختصاصی را وارد کنید.</p>
+<form id="adminLoginForm" class="admin-form"><label>رمز مدیریت<input id="adminPassword" type="password" autocomplete="current-password" required></label><button type="submit">ورود به پنل</button></form></section>
 <section id="adminPanel" class="admin-card" hidden><div class="admin-top"><h2>افزودن نمونه‌کیک</h2><button id="adminLogout" type="button" class="admin-action">خروج</button></div>
 <p class="admin-small">تصاویر JPG، PNG یا WEBP تا حجم ۵ مگابایت پذیرفته می‌شوند و پس از ثبت در گالری عمومی نمایش داده خواهند شد.</p>
 <form id="cakeUploadForm" class="admin-form"><label>انتخاب تصویر کیک<input id="cakeImage" type="file" accept="image/jpeg,image/png,image/webp" required></label><label>توضیح تصویر<input id="cakeAlt" type="text" maxlength="120" value="نمونه کیک دلاریس کیک"></label><button type="submit">بارگذاری و انتشار تصویر</button></form>
 <h3 style="margin-top:26px;color:#e8c97a">تصاویر منتشرشده</h3><div id="adminGalleryList"></div></section>
 <p id="adminStatus" role="status" aria-live="polite"></p>
 </div></main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script><script src="supabase-config.js"></script><script src="admin.js"></script>
+<script src="supabase-config.js"></script><script src="admin.js"></script>
 </body></html>
