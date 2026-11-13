@@ -14,6 +14,14 @@ try {
   for (const viewport of viewports) {
     for (const route of pages) {
       const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height } });
+      await page.addInitScript(() => {
+        window.__measuredCLS = 0;
+        new PerformanceObserver(list => {
+          for (const entry of list.getEntries()) {
+            if (!entry.hadRecentInput) window.__measuredCLS += entry.value;
+          }
+        }).observe({ type: "layout-shift", buffered: true });
+      });
       const pageErrors = [];
       const heroRequests = [];
       page.on("pageerror", error => pageErrors.push(error.message));
@@ -67,7 +75,9 @@ try {
         });
         const loaded = await page.locator("#cakeGrid img").evaluateAll(images => images.filter(img => img.complete && img.naturalWidth > 0).length);
         if (loaded !== 15) failures.push("gallery " + viewport.name + ": only " + loaded + "/15 gallery images decoded");
-        results.push({ route, viewport: viewport.name, gallery });
+        const measuredCLS = await page.evaluate(() => window.__measuredCLS || 0);
+        if (measuredCLS > 0.1) failures.push("gallery " + viewport.name + ": browser-observed CLS " + measuredCLS.toFixed(3) + " exceeds 0.1");
+        results.push({ route, viewport: viewport.name, gallery, browserObservedCLS: measuredCLS });
       }
 
       if (route === "/") {
