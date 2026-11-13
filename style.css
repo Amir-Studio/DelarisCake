@@ -2117,3 +2117,31 @@ textarea {
     outline: 2px solid var(--gold-light);
     outline-offset: 4px;
 }
+
+
+/* Performance and accessibility: stable media boxes and readable supporting text. */
+#cakeGrid .cake-card img,
+#ideaGrid .cake-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+.section-sub {
+    color: #aaa;
+    opacity: 1;
+}
+.cake-card img[loading="lazy"] {
+    content-visibility: auto;
+}
+:where(a, button, input, summary):focus-visible {
+    outline: 2px solid #f0d98e;
+    outline-offset: 3px;
+}
+.register-page input {
+    color: #f4eee4;
+}
+.register-page .input-group label {
+    color: #c9c0b1;
+}
