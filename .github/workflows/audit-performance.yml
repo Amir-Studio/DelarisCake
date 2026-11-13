@@ -1,4 +1,5 @@
 name: Validate, browser-test and audit Delaris Cake
+# Re-run after the latest Pages deployment so browser tests use the published files.
 
 on:
   push:
