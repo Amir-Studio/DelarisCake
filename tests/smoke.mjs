@@ -26,6 +26,8 @@ try {
         h1: document.querySelectorAll("h1").length
       }));
       if (layout.width > layout.viewport + 1) failures.push(route + " " + viewport.name + ": horizontal overflow " + layout.width + "/" + layout.viewport);
+      if (layout.h1 !== 1) failures.push(route + " " + viewport.name + ": expected one primary heading, found " + layout.h1);
+      if (!layout.title) failures.push(route + " " + viewport.name + ": page title missing");
       if (pageErrors.length) failures.push(route + " " + viewport.name + ": JS " + pageErrors.join(" | "));
 
       const links = await page.locator("a[href]").evaluateAll(nodes => nodes.map(a => a.href).filter(href => {
@@ -61,6 +63,21 @@ try {
         const loaded = await page.locator("#cakeGrid img").evaluateAll(images => images.filter(img => img.complete && img.naturalWidth > 0).length);
         if (loaded !== 15) failures.push("gallery " + viewport.name + ": only " + loaded + "/15 gallery images decoded");
         results.push({ route, viewport: viewport.name, gallery });
+      }
+
+      if (route === "/menu.html") {
+        const menuA11y = await page.evaluate(() => ({
+          main: Boolean(document.querySelector("main")),
+          description: Boolean(document.querySelector('meta[name="description"]')?.content),
+          labels: [...document.querySelectorAll("#registerForm input")].every(input => Boolean(document.querySelector('label[for="' + input.id + '"]'))),
+          robots: document.querySelector('meta[name="robots"]')?.content || ""
+        }));
+        if (!menuA11y.main || !menuA11y.description || !menuA11y.labels || menuA11y.robots.includes("noindex")) failures.push("menu " + viewport.name + ": SEO or form accessibility metadata missing");
+        if (viewport.name === "mobile") {
+          await page.keyboard.press("Tab");
+          const focused = await page.evaluate(() => document.activeElement?.id);
+          if (focused !== "fullName") failures.push("menu keyboard: first form input is not keyboard reachable");
+        }
       }
 
       if (route === "/cart.html" || route === "/payment.html") {
