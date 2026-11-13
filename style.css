@@ -1974,3 +1974,26 @@ textarea {
         gap: 10px;
     }
 }
+
+/* Final spacing refinement: balanced luxury rhythm between the homepage actions. */
+.hero-buttons {
+    gap: 22px;
+    margin-top: 30px;
+}
+.hero-buttons .btn-primary,
+.hero-buttons .btn-secondary {
+    min-width: 190px;
+    padding: 15px 30px;
+}
+@media (max-width: 480px) {
+    .hero-buttons {
+        gap: 16px;
+        max-width: 280px;
+        margin: 30px auto 0;
+    }
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
+        min-width: 0;
+        padding: 14px 24px;
+    }
+}
