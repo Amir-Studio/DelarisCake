@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ثبت‌نام | Delaris Cake</title>
-    <meta name="robots" content="noindex,follow">
+    <title>ثبت‌نام و ورود | دلاریس کیک (Delaris Cake)</title>
+    <meta name="description" content="برای ثبت‌نام در دلاریس کیک، اطلاعات تماس خود را وارد کنید یا اگر قبلاً ثبت‌نام کرده‌اید به صفحه گالری بازگردید.">
+    <link rel="canonical" href="https://amir-studio.github.io/DelarisCake/menu.html">
+    <meta name="robots" content="index,follow">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <section class="register-page">
+    <main class="register-page">
         <div class="register-card glass-card">
-            <h2>ثبت‌نام / ورود</h2>
+            <h1>ثبت‌نام / ورود</h1>
             <p>برای دسترسی به منوی اختصاصی، ثبت‌نام کنید</p>
             <form id="registerForm">
                 <div class="input-group">
-                    <input type="text" id="fullName" placeholder=" " required />
-                    <label>نام و نام خانوادگی</label>
+                    <input type="text" id="fullName" name="fullName" autocomplete="name" placeholder=" " required aria-required="true" />
+                    <label for="fullName">نام و نام خانوادگی</label>
                 </div>
                 <div class="input-group">
-                    <input type="number" id="age" placeholder=" " required />
-                    <label>سن</label>
+                    <input type="number" id="age" name="age" min="1" max="120" inputmode="numeric" placeholder=" " required aria-required="true" />
+                    <label for="age">سن</label>
                 </div>
                 <div class="input-group">
-                    <input type="email" id="email" placeholder=" " required />
-                    <label>ایمیل</label>
+                    <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required aria-required="true" />
+                    <label for="email">ایمیل</label>
                 </div>
                 <button type="submit" class="btn-enter btn-full gold-btn">
                     <span class="btn-text">ثبت‌نام</span>
@@ -34,7 +36,7 @@
                 <p>قبلاً ثبت‌نام کردید؟ <a href="dashboard.html">ورود به حساب</a></p>
             </div>
         </div>
-    </section>
+    </main>
 
     <footer class="footer" style="margin-top:0; padding:20px 0; border-top: 1px solid rgba(255,255,255,0.04);">
         <div class="container">
@@ -50,7 +52,7 @@
                 </div>
             </div>
             <div class="footer-divider"></div>
-            <div class="footer-bottom">
+            <div class="footer-bottom" style="opacity:1;color:#aaa;">
                 <span>&copy; ۱۴۰۵ تمامی حقوق محفوظ است.</span>
             </div>
         </div>
