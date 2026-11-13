@@ -38,8 +38,20 @@ jobs:
         run: npm install --no-save sharp postcss parse5 lighthouse wait-on playwright
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Wait for responsive image deployment
-        run: npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-240.webp https://amir-studio.github.io/DelarisCake/assets/optimized/hero-360.webp https://amir-studio.github.io/DelarisCake/assets/optimized/cakes/cake-2-360.webp
+      - name: Wait for latest GitHub Pages content and responsive images
+        shell: bash
+        run: |
+          npx wait-on --timeout 300000 --interval 5000 https://amir-studio.github.io/DelarisCake/assets/optimized/hero-240.webp https://amir-studio.github.io/DelarisCake/assets/optimized/hero-360.webp https://amir-studio.github.io/DelarisCake/assets/optimized/cakes/cake-2-360.webp
+          for attempt in $(seq 1 60); do
+            html="$(curl -fsSL "https://amir-studio.github.io/DelarisCake/?audit=${GITHUB_SHA}" || true)"
+            if grep -Fq 'imagesrcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html" &&
+               grep -Fq 'srcset="assets/optimized/hero-240.webp 240w, assets/optimized/hero-360.webp 360w' <<< "$html"; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "GitHub Pages has not published the expected responsive hero markup."
+          exit 1
       - name: Validate HTML, CSS, JavaScript and image references
         run: node scripts/validate-site.mjs
       - name: Browser smoke tests on mobile and desktop
