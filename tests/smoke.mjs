@@ -16,6 +16,7 @@ try {
       const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height } });
       await page.addInitScript(() => {
         window.__measuredCLS = 0;
+        window.__clsEntries = [];
         window.__measuredLCP = 0;
         new PerformanceObserver(list => {
           const entries = list.getEntries();
@@ -24,6 +25,15 @@ try {
         new PerformanceObserver(list => {
           for (const entry of list.getEntries()) {
             if (!entry.hadRecentInput) window.__measuredCLS += entry.value;
+            window.__clsEntries.push({
+              value: entry.value,
+              hadRecentInput: entry.hadRecentInput,
+              sources: (entry.sources || []).map(source => ({
+                selector: source.node ? source.node.tagName.toLowerCase() + (source.node.id ? "#" + source.node.id : "") + (typeof source.node.className === "string" && source.node.className.trim() ? "." + source.node.className.trim().split(/\\s+/).join(".") : "") : null,
+                previousRect: source.previousRect,
+                currentRect: source.currentRect
+              }))
+            });
           }
         }).observe({ type: "layout-shift", buffered: true });
       });
@@ -71,6 +81,7 @@ try {
         if (gallery.count !== 15) failures.push("gallery " + viewport.name + ": expected 15 images, found " + gallery.count);
         if (gallery.firstLoading !== "eager" || gallery.firstPriority !== "high") failures.push("gallery " + viewport.name + ": first image is not eager/high priority");
         if (!gallery.allHaveDimensions || !gallery.allHaveSrcset) failures.push("gallery " + viewport.name + ": image dimensions/srcset missing");
+        const clsBeforeScroll = await page.evaluate(() => window.__measuredCLS || 0);
         await page.locator("#cakeGrid img").evaluateAll(async images => {
           for (const img of images) {
             img.scrollIntoView();
@@ -80,9 +91,10 @@ try {
         });
         const loaded = await page.locator("#cakeGrid img").evaluateAll(images => images.filter(img => img.complete && img.naturalWidth > 0).length);
         if (loaded !== 15) failures.push("gallery " + viewport.name + ": only " + loaded + "/15 gallery images decoded");
-        const measuredCLS = await page.evaluate(() => window.__measuredCLS || 0);
-        if (measuredCLS > 0.1) failures.push("gallery " + viewport.name + ": browser-observed CLS " + measuredCLS.toFixed(3) + " exceeds 0.1");
-        results.push({ route, viewport: viewport.name, gallery, browserObservedCLS: measuredCLS });
+        const clsData = await page.evaluate(() => ({ value: window.__measuredCLS || 0, entries: window.__clsEntries || [] }));
+        const measuredCLS = clsData.value;
+        if (measuredCLS > 0.1) failures.push("gallery " + viewport.name + ": browser-observed CLS " + measuredCLS.toFixed(3) + " exceeds 0.1; entries=" + JSON.stringify(clsData.entries.slice(0, 5)));
+        results.push({ route, viewport: viewport.name, gallery, browserObservedCLSBeforeScroll: clsBeforeScroll, browserObservedCLS: measuredCLS, layoutShiftEntries: clsData.entries.slice(0, 5) });
       }
 
       if (route === "/") {
