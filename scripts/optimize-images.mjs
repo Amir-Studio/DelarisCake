@@ -25,26 +25,27 @@ const remote = [
 
 async function download(url) {
   const response = await fetch(url, { headers: { "User-Agent": "DelarisCake-ImageOptimizer/1.0" } });
-  if (!response.ok) throw new Error(\`Download failed (\${response.status}): \${url}\`);
+  if (!response.ok) throw new Error("Download failed (" + response.status + "): " + url);
   return Buffer.from(await response.arrayBuffer());
 }
 const manifest = [];
 const localMap = new Map();
 
-for (const [name, url, kind] of remote) {
+for (const item of remote) {
+  const name = item[0], url = item[1], kind = item[2];
   const source = await download(url);
   const input = sharp(source, { failOn: "none" });
   const meta = await input.metadata();
   if (kind === "logo") {
     const target = path.join(output, "logo-116.webp");
     await input.clone().resize(116, 116, { fit: "cover", position: "centre" }).webp({ quality: 84, effort: 5 }).toFile(target);
-    manifest.push({ name, sourceBytes: source.length, output: "assets/optimized/logo-116.webp", outputBytes: (await fs.stat(target)).size, width: 116, height: 116 });
+    manifest.push({ name: name, sourceBytes: source.length, output: "assets/optimized/logo-116.webp", outputBytes: (await fs.stat(target)).size, width: 116, height: 116 });
     localMap.set(url, "assets/optimized/logo-116.webp");
   } else if (kind === "hero") {
     for (const width of [480, 960]) {
-      const target = path.join(output, \`hero-\${width}.webp\`);
+      const target = path.join(output, "hero-" + width + ".webp");
       await input.clone().resize(width, width, { fit: "inside", withoutEnlargement: true }).webp({ quality: 84, effort: 5 }).toFile(target);
-      manifest.push({ name: \`hero-\${width}\`, sourceBytes: source.length, output: \`assets/optimized/hero-\${width}.webp\`, outputBytes: (await fs.stat(target)).size });
+      manifest.push({ name: "hero-" + width, sourceBytes: source.length, output: "assets/optimized/hero-" + width + ".webp", outputBytes: (await fs.stat(target)).size });
     }
     const social = path.join(output, "hero-social-1200.jpg");
     await input.clone().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).jpeg({ quality: 86, mozjpeg: true }).toFile(social);
@@ -52,52 +53,52 @@ for (const [name, url, kind] of remote) {
     localMap.set(url, "assets/optimized/hero-480.webp");
   } else {
     const folder = kind === "idea" ? ideaOutput : cakeOutput;
-    const target = path.join(folder, \`\${name}.webp\`);
+    const target = path.join(folder, name + ".webp");
     await input.clone().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(target);
     const rel = path.relative(root, target).split(path.sep).join("/");
-    manifest.push({ name, sourceBytes: source.length, output: rel, outputBytes: (await fs.stat(target)).size, sourceWidth: meta.width, sourceHeight: meta.height });
+    manifest.push({ name: name, sourceBytes: source.length, output: rel, outputBytes: (await fs.stat(target)).size, sourceWidth: meta.width, sourceHeight: meta.height });
     localMap.set(url, rel);
   }
 }
 
-const localFiles = (await fs.readdir(path.join(root, "image"))).filter(file => /\.(jpe?g|png)$/i.test(file));
+const localFiles = (await fs.readdir(path.join(root, "image"))).filter(function(file) {
+  const lower = file.toLowerCase();
+  return lower.endsWith(".jpg") || lower.endsWith(".jpeg") || lower.endsWith(".png");
+});
 for (const file of localFiles) {
   const sourcePath = path.join(root, "image", file);
-  const targetPath = path.join(cakeOutput, \`\${path.parse(file).name}.webp\`);
+  const targetPath = path.join(cakeOutput, path.parse(file).name + ".webp");
   const sourceStat = await fs.stat(sourcePath);
-  const metadata = await sharp(sourcePath, { failOn: "none" }).metadata();
-  await sharp(sourcePath, { failOn: "none" }).rotate()
-    .resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 82, effort: 5 }).toFile(targetPath);
+  const sourceImage = sharp(sourcePath, { failOn: "none" });
+  const metadata = await sourceImage.metadata();
+  await sourceImage.rotate().resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).webp({ quality: 82, effort: 5 }).toFile(targetPath);
   const rel = path.relative(root, targetPath).split(path.sep).join("/");
   manifest.push({ name: file, sourceBytes: sourceStat.size, output: rel, outputBytes: (await fs.stat(targetPath)).size, sourceWidth: metadata.width, sourceHeight: metadata.height });
-  localMap.set(\`https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/\${file}\`, rel);
+  localMap.set("https://raw.githubusercontent.com/Amir-Studio/DelarisCake/main/image/" + file, rel);
 }
 
-const replaceAll = (text, from, to) => text.split(from).join(to);
+function replaceAll(text, from, to) { return text.split(from).join(to); }
 for (const page of ["index.html", "dashboard.html", "about.html"]) {
   const file = path.join(root, page);
   let html = await fs.readFile(file, "utf8");
   if (page === "index.html") {
-    html = replaceAll(html, \`<link rel="preload" as="image" href="\${heroUrl}" fetchpriority="high" />\`, '<link rel="preload" as="image" href="assets/optimized/hero-480.webp" imagesrcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" imagesizes="(max-width: 480px) 188px, 240px" fetchpriority="high" />');
-    html = replaceAll(html, \`<img src="\${heroUrl}"\`, '<img src="assets/optimized/hero-480.webp" srcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" sizes="(max-width: 480px) 188px, 240px"');
-    html = html.replace(/<img class="seo-brand-logo"([^>]*?)loading="lazy"([^>]*)>/, '<img class="seo-brand-logo" width="76" height="76"$1loading="lazy" decoding="async"$2>');
+    html = replaceAll(html, '<link rel="preload" as="image" href="' + heroUrl + '" fetchpriority="high" />', '<link rel="preload" as="image" href="assets/optimized/hero-480.webp" imagesrcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" imagesizes="(max-width: 480px) 188px, 240px" fetchpriority="high" />');
+    html = replaceAll(html, '<img src="' + heroUrl + '"', '<img src="assets/optimized/hero-480.webp" srcset="assets/optimized/hero-480.webp 480w, assets/optimized/hero-960.webp 960w" sizes="(max-width: 480px) 188px, 240px"');
+    html = html.replace('<img class="seo-brand-logo"', '<img class="seo-brand-logo" width="76" height="76"');
   }
   html = replaceAll(html, logoUrl, "assets/optimized/logo-116.webp");
   html = replaceAll(html, heroUrl, "assets/optimized/hero-social-1200.jpg");
   if (page === "dashboard.html") {
-    html = html.replace(/<img([^>]*class="profile-img"[^>]*)>/, '<img$1 width="60" height="60" loading="lazy" decoding="async">');
-    html = html.replace(/<img([^>]*class="info-logo"[^>]*)>/, '<img$1 width="80" height="80" loading="lazy" decoding="async">');
+    html = html.replace('class="profile-img" />', 'class="profile-img" width="60" height="60" loading="lazy" decoding="async" />');
+    html = html.replace('class="info-logo" />', 'class="info-logo" width="80" height="80" loading="lazy" decoding="async" />');
   }
   await fs.writeFile(file, html);
 }
 
 const jsPath = path.join(root, "script.js");
 let js = await fs.readFile(jsPath, "utf8");
-for (const [oldUrl, localPath] of localMap) js = replaceAll(js, oldUrl, localPath);
-js = js.replace('<img src="\${cake.img}" alt="\${imageAlt}" loading="lazy" decoding="async" />', '<img src="\${cake.img}" alt="\${imageAlt}" width="1200" height="1200" loading="lazy" decoding="async" />');
+for (const entry of localMap) js = replaceAll(js, entry[0], entry[1]);
 await fs.writeFile(jsPath, js);
-
 await fs.writeFile(path.join(output, "image-manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
 const totalSource = manifest.reduce((sum, item) => sum + item.sourceBytes, 0);
 const totalOutput = manifest.reduce((sum, item) => sum + item.outputBytes, 0);
