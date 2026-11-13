@@ -2132,9 +2132,6 @@ textarea {
     color: #aaa;
     opacity: 1;
 }
-.cake-card img[loading="lazy"] {
-    content-visibility: auto;
-}
 :where(a, button, input, summary):focus-visible {
     outline: 2px solid #f0d98e;
     outline-offset: 3px;
