@@ -292,7 +292,8 @@ async function loadDelarisPublicSettings(){
   if(error)throw error;DELARIS_PUBLIC_SETTINGS=data;INSTAGRAM_URL=data.instagram_url||INSTAGRAM_URL;
   document.querySelectorAll('a[href*="instagram.com"]').forEach(a=>{a.href=INSTAGRAM_URL;a.hidden=!data.show_instagram;if(!data.show_instagram)a.style.display='none';});
   document.querySelectorAll('a[href^="tel:"]').forEach(a=>{a.href='tel:'+String(data.phone||'').replace(/[^+0-9]/g,'');a.hidden=!data.show_phone;if(!data.show_phone)a.style.display='none';const strong=a.querySelector('strong');if(strong&&data.phone)strong.textContent=data.phone;});
-  document.querySelectorAll('a[href*="google.com/maps"],a.address-feature').forEach(a=>{a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(data.address||'');a.hidden=!data.show_address;if(!data.show_address)a.style.display='none';const strong=a.querySelector('strong');if(strong&&data.address)strong.textContent=data.address;});
+  document.querySelectorAll('a[href*="google.com/maps"],a.address-feature').forEach(a=>{a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(data.address||'');a.hidden=!data.show_address;a.style.display=data.show_address?'':'none';const strong=a.querySelector('strong');if(strong&&data.address)strong.textContent=data.address;});
+  const storyAddress=document.querySelector('.story-address');if(storyAddress){storyAddress.textContent=data.address||'';storyAddress.hidden=!data.show_address;storyAddress.style.display=data.show_address?'':'none';}
   document.querySelectorAll('a[href*="instagram.com"]').forEach(a=>{const strong=a.querySelector('strong');if(strong){try{strong.textContent='@'+new URL(INSTAGRAM_URL).pathname.split('/').filter(Boolean)[0];}catch(_){}}});
  }catch(error){console.warn('Delaris public settings unavailable:',error);}
 }
