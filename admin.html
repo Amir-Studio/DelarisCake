@@ -1,60 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa" dir="rtl">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0b0d"><title>مدیریت دلاریس | Delaris Cake</title><link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/webp" href="https://amir-studio.github.io/DelarisCake/assets/optimized/logo-116.webp?v=4" sizes="116x116">
-<link rel="shortcut icon" type="image/webp" href="https://amir-studio.github.io/DelarisCake/assets/optimized/logo-116.webp?v=4">
-<link rel="apple-touch-icon" href="https://amir-studio.github.io/DelarisCake/assets/optimized/logo-116.webp?v=4">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0b0c">
+<title>مدیریت اختصاصی | Delaris Cake</title>
+<link rel="icon" href="https://amir-studio.github.io/DelarisCake/assets/optimized/logo-116.webp?v=4">
+<link rel="stylesheet" href="style.css">
 <style>
-.admin-page{min-height:100vh;padding:34px 16px;background:radial-gradient(ellipse at 50% 0,rgba(212,175,55,.08),transparent 55%),#0b0b0d;color:#eee}
-.admin-wrap{max-width:760px;margin:auto}.admin-card{padding:26px;border:1px solid #d4af3733;border-radius:20px;background:#ffffff06;margin:18px 0}
-.admin-kicker{color:#d4af37;letter-spacing:3px;font:11px Georgia,serif}.admin-wrap h1{color:#f7e7b4;margin:8px 0 20px}
-.admin-form{display:grid;gap:14px}.admin-form label{display:grid;gap:7px;color:#d7c8a8}.admin-form input{padding:12px;border-radius:9px;background:#151412;border:1px solid #b8955540;color:#fff;font:inherit}.admin-form input[type="password"]{direction:ltr;text-align:left;unicode-bidi:plaintext}.password-field{display:flex;align-items:stretch;gap:8px;direction:ltr}.password-field input{flex:1;min-width:0}.admin-form button.password-toggle{flex:0 0 46px;padding:8px;background:#211e18;border:1px solid #b8955555;color:#e8c97a;border-radius:9px;display:grid;place-items:center}.password-toggle svg{width:20px;height:20px;display:block}.admin-form button.password-toggle:focus-visible{outline:2px solid #e8c97a;outline-offset:2px}
-.admin-form button,.admin-action{padding:12px 18px;border-radius:10px;background:linear-gradient(135deg,#d4af37,#e8c97a);color:#111;font-weight:700}
-.admin-form button{transition:transform .18s ease,filter .18s ease,opacity .18s ease;cursor:pointer}.admin-form button:not(:disabled):active{transform:scale(.985)}.admin-form button:disabled{opacity:.72;cursor:wait;filter:saturate(.7)}.admin-form button .admin-spinner{display:inline-block;width:14px;height:14px;margin-left:8px;border:2px solid #1115;border-top-color:#111;border-radius:50%;vertical-align:-2px;animation:adminSpin .7s linear infinite}@keyframes adminSpin{to{transform:rotate(360deg)}}.admin-feedback{min-height:30px;margin:4px 0 0;padding:9px 12px;border-radius:9px;line-height:1.8;font-size:13px;background:#ffffff08;color:#e8c97a}.admin-feedback:empty{display:none}.admin-feedback.is-error{background:#ff6b6b14;color:#ffaaa0;border:1px solid #ff6b6b35}.admin-feedback.is-success{background:#6bd69a14;color:#9ce6b8;border:1px solid #6bd69a35}#adminStatus{min-height:28px;line-height:1.8;color:#d7bd82}
-.cake-preview{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid #d4af3740;border-radius:12px;background:#ffffff08;min-width:0}.cake-preview img{width:88px;height:88px;object-fit:cover;border-radius:9px;flex:0 0 88px}.cake-preview-meta{display:grid;gap:5px;min-width:0;overflow-wrap:anywhere}.cake-progress{padding:12px;border:1px solid #d4af3740;border-radius:10px;background:#ffffff08}.cake-progress-top{display:flex;justify-content:space-between;gap:10px;color:#e8c97a;font-size:13px;margin-bottom:9px}.cake-progress-track{height:9px;border-radius:20px;background:#ffffff18;overflow:hidden}.cake-progress-track span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#b89555,#f1d58c);transition:width .15s ease}.admin-gallery-item{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #ffffff16}.admin-gallery-item img{width:84px;height:84px;object-fit:cover;border-radius:12px}.admin-gallery-item button{color:#ffaaa0;border:1px solid #ffaaa055;border-radius:8px;padding:8px 12px;margin-right:auto}
-.admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.admin-top a{color:#d4af37}.admin-small{color:#aaa;font-size:13px;line-height:1.9}
-
-/* Responsive polish for the private admin and one-time setup screen */
-.admin-page,.admin-page *{box-sizing:border-box}
-.admin-page{width:100%;overflow-x:hidden;padding:clamp(20px,5vw,38px) 14px}
-.admin-wrap{width:100%;max-width:680px;min-width:0}
-.admin-card{width:100%;min-width:0;padding:clamp(18px,4vw,28px);overflow:hidden}
-.admin-form{width:100%;min-width:0}
-.admin-form label{width:100%;min-width:0}
-.admin-form input{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
-.password-field{width:100%;min-width:0;gap:8px}
-.password-field input{flex:1 1 0;width:1%;min-width:0}
-.admin-form button:not(.password-toggle),.admin-action{min-height:46px}
-.admin-form button.password-toggle{width:46px;min-width:46px;min-height:46px;padding:0;flex:0 0 46px}
-.admin-form button:focus-visible,.admin-action:focus-visible,.admin-top a:focus-visible{outline:2px solid #e8c97a;outline-offset:3px}
-.admin-feedback{overflow-wrap:anywhere}
-.admin-gallery-item{min-width:0;flex-wrap:wrap}
-.admin-gallery-item span{min-width:0;overflow-wrap:anywhere}
-.admin-gallery-item img{flex:0 0 84px}
-.admin-gallery-item button{flex:0 0 auto}
-#setupCard[hidden],#adminLoginCard[hidden],#adminPanel[hidden],.admin-form[hidden]{display:none!important}
-@media(max-width:480px){
- .admin-page{padding:18px 12px}
- .admin-top{align-items:flex-start;flex-wrap:wrap}
- .admin-wrap h1{font-size:24px;line-height:1.5}
- .admin-card{border-radius:16px}
- .admin-gallery-item{gap:10px}
- .admin-gallery-item img{width:68px;height:68px;flex-basis:68px}
-}
-
-</style></head>
-<body><main class="admin-page"><div class="admin-wrap">
-<div class="admin-top"><span class="admin-kicker">DELARIS CAKE · PRIVATE</span><a href="dashboard.html">بازگشت به سایت ↗</a></div>
-<h1>پنل مدیریت دلاریس</h1>
-<section id="setupCard" class="admin-card" hidden><h2>راه‌اندازی رمز مدیریت</h2><p class="admin-small">یک رمز اختصاصی انتخاب کنید. برای امنیت بیشتر، حداقل ۸ نویسه استفاده کنید. این رمز را فقط با فرد مورداعتماد خود به اشتراک بگذارید.</p>
-<form id="setupForm" class="admin-form"><label>رمز جدید<div class="password-field"><input id="setupPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required><button class="password-toggle" type="button" data-target="setupPassword" aria-label="نمایش رمز" aria-pressed="false" title="نمایش یا مخفی‌کردن رمز"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label><label>تکرار رمز<div class="password-field"><input id="setupPasswordConfirm" type="password" minlength="8" maxlength="128" autocomplete="new-password" required><button class="password-toggle" type="button" data-target="setupPasswordConfirm" aria-label="نمایش رمز" aria-pressed="false" title="نمایش یا مخفی‌کردن رمز"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label><button type="submit" id="setupSubmitButton">ثبت رمز مدیریت</button><p id="setupFeedback" class="admin-feedback" role="status" aria-live="polite"></p></form></section>
-<section id="adminLoginCard" class="admin-card"><h2>ورود مدیر</h2><p class="admin-small">برای ورود به مدیریت دلاریس، رمز اختصاصی را وارد کنید.</p>
-<form id="adminLoginForm" class="admin-form"><label>رمز مدیریت<div class="password-field"><input id="adminPassword" type="password" autocomplete="current-password" required><button class="password-toggle" type="button" data-target="adminPassword" aria-label="نمایش رمز" aria-pressed="false" title="نمایش یا مخفی‌کردن رمز"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></div></label><button type="submit">ورود به پنل</button></form></section>
-<section id="adminPanel" class="admin-card" hidden><div class="admin-top"><h2>افزودن نمونه‌کیک</h2><button id="adminLogout" type="button" class="admin-action">خروج</button></div>
-<p class="admin-small">تصاویر JPG، PNG یا WEBP تا حجم ۵ مگابایت پذیرفته می‌شوند و پس از ثبت در گالری عمومی نمایش داده خواهند شد.</p>
-<form id="cakeUploadForm" class="admin-form"><label>انتخاب تصویر کیک<input id="cakeImage" type="file" accept="image/jpeg,image/png,image/webp" required></label><div id="cakePreviewBox" class="cake-preview" hidden><img id="cakePreview" alt="پیش‌نمایش تصویر انتخاب‌شده"><div class="cake-preview-meta"><strong id="cakeFileName"></strong><span id="cakeFileSize" class="admin-small"></span></div></div><div id="cakeUploadProgress" class="cake-progress" hidden><div class="cake-progress-top"><span id="cakeUploadState">آماده‌سازی آپلود…</span><strong id="cakeUploadPercent">0٪</strong></div><div class="cake-progress-track"><span id="cakeUploadBar"></span></div></div><label>توضیح تصویر<input id="cakeAlt" type="text" maxlength="120" value="نمونه کیک دلاریس کیک"></label><button type="submit">بارگذاری و انتشار تصویر</button></form>
-<h3 style="margin-top:26px;color:#e8c97a">تصاویر منتشرشده</h3><div id="adminGalleryList"></div></section>
-<p id="adminStatus" role="status" aria-live="polite"></p>
-</div></main>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+:root{--ad-bg:#0b0b0c;--ad-panel:#121211;--ad-panel2:#171613;--ad-line:rgba(213,181,112,.17);--ad-gold:#d7b879;--ad-gold2:#f0d9a6;--ad-text:#f4f0e7;--ad-muted:#aaa397;--ad-red:#e28f87;--ad-green:#a6d2ae}
+*{box-sizing:border-box}body{margin:0;background:var(--ad-bg);color:var(--ad-text);font-family:Vazirmatn, sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.admin-page{min-height:100vh;background:radial-gradient(ellipse at 85% -10%,rgba(196,159,90,.12),transparent 38%),var(--ad-bg)}
+.admin-login{width:min(480px,calc(100% - 28px));margin:8vh auto;padding:34px;border:1px solid var(--ad-line);border-radius:24px;background:linear-gradient(145deg,#171613,#10100f);box-shadow:0 24px 80px #0008}
+.brand-mark{width:54px;height:54px;border:1px solid #d7b87966;border-radius:17px;display:grid;place-items:center;color:var(--ad-gold2);font:italic 25px Georgia,serif;margin-bottom:22px}
+.kicker{font:11px Georgia,serif;letter-spacing:3px;color:var(--ad-gold);text-transform:uppercase}
+.login-title{font-size:26px;margin:9px 0 7px}.muted{color:var(--ad-muted);font-size:13px;line-height:2}
+.field{display:grid;gap:8px;margin:15px 0}.field label{font-size:13px;color:#d8c9a9}.field input,.field textarea,.field select{width:100%;min-width:0;border:1px solid var(--ad-line);border-radius:12px;background:#0c0c0b;color:var(--ad-text);padding:13px 14px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:#d7b87999;box-shadow:0 0 0 3px #d7b87912}
+.password-row{display:flex;gap:8px;direction:ltr}.password-row input{flex:1}.icon-btn{border:1px solid var(--ad-line);border-radius:11px;background:#201d17;color:var(--ad-gold2);padding:0 13px}
+.primary-btn,.gold-btn{border:0;border-radius:11px;padding:12px 18px;background:linear-gradient(135deg,#b99458,#ead29a);color:#18140c;font-weight:800}.primary-btn{width:100%;margin-top:8px}.ghost-btn{border:1px solid var(--ad-line);border-radius:10px;padding:9px 13px;background:#ffffff06;color:var(--ad-gold2)}.danger-btn{border:1px solid #e28f874d;border-radius:10px;padding:9px 13px;background:#e28f8710;color:#f0aaa2}
+.feedback{margin-top:14px;min-height:22px;font-size:13px;color:var(--ad-gold2);line-height:1.9}.feedback.error{color:#f0aaa2}.feedback.success{color:var(--ad-green)}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;padding:26px 18px;border-left:1px solid var(--ad-line);background:#0d0d0c}
+.side-brand{display:flex;align-items:center;gap:12px;padding:4px 7px 25px;border-bottom:1px solid var(--ad-line)}
+.side-brand .brand-mark{width:44px;height:44px;margin:0;border-radius:14px}.side-brand strong{display:block;font-size:14px}.side-brand small{display:block;color:var(--ad-muted);font:10px Georgia,serif;letter-spacing:2px;margin-top:4px}
+.nav-label{font-size:10px;color:#837b6c;letter-spacing:1.5px;margin:25px 12px 10px}
+.nav-list{display:grid;gap:5px}.nav-item{display:flex;align-items:center;gap:12px;width:100%;text-align:right;border:1px solid transparent;border-radius:11px;background:transparent;color:#bcb5a8;padding:12px 13px;font-size:13px;transition:.2s}
+.nav-item .nav-icon{width:21px;text-align:center;color:#a58b5c;font-size:16px}.nav-item:hover,.nav-item.active{background:linear-gradient(90deg,#d7b87914,#d7b87906);border-color:#d7b87922;color:#f4e7c8}.nav-item.active .nav-icon{color:var(--ad-gold2)}
+.sidebar-foot{position:absolute;bottom:20px;right:18px;left:18px;border-top:1px solid var(--ad-line);padding-top:16px}
+.main{min-width:0;padding:30px clamp(18px,3vw,42px) 60px;max-width:1600px;width:100%;margin:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px}
+.topbar h1{font-size:23px;margin:0 0 4px}.topbar p{margin:0;color:var(--ad-muted);font-size:12px}
+.top-actions{display:flex;gap:9px;align-items:center}.admin-pill{border:1px solid var(--ad-line);border-radius:30px;padding:8px 13px;color:#d7c7a4;font-size:11px}
+.view{display:none}.view.active{display:block}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:20px}.section-head h2{font-size:19px;margin:0 0 5px}.section-head p{font-size:12px;color:var(--ad-muted);margin:0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:22px}
+.stat-card{padding:19px;border:1px solid var(--ad-line);border-radius:17px;background:linear-gradient(145deg,#171613,#111110);min-width:0}
+.stat-top{display:flex;justify-content:space-between;gap:8px;color:var(--ad-muted);font-size:12px}.stat-icon{color:var(--ad-gold);font-size:18px}.stat-value{font-size:28px;font-weight:700;margin-top:13px;color:#f1e3c4}.stat-note{font-size:10px;color:#827b70;margin-top:3px}
+.panel{border:1px solid var(--ad-line);border-radius:18px;background:#111110;padding:20px;min-width:0}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.panel-title h3{font-size:14px;margin:0}.panel-title span{font-size:11px;color:var(--ad-muted)}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+.quick-card{border:1px solid var(--ad-line);border-radius:15px;padding:17px;background:#141310;text-align:right;color:var(--ad-text)}.quick-card strong{display:block;font-size:13px;margin:8px 0 3px}.quick-card small{color:var(--ad-muted);font-size:11px}.quick-card b{color:var(--ad-gold);font-size:18px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+.search{flex:1;min-width:180px;border:1px solid var(--ad-line);border-radius:11px;background:#0b0b0a;color:var(--ad-text);padding:11px 13px;outline:none}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap}.filter-btn{border:1px solid var(--ad-line);border-radius:30px;background:transparent;color:#b9b0a1;padding:8px 12px;font-size:11px}.filter-btn.active{background:#d7b87918;color:var(--ad-gold2);border-color:#d7b87955}
+.order-list,.gallery-grid,.customer-grid{display:grid;gap:12px}
+.order-card{border:1px solid #ffffff12;border-radius:15px;background:#151513;padding:16px}
+.order-head{display:flex;align-items:start;justify-content:space-between;gap:12px}.order-head strong{font-size:14px}.order-meta{display:flex;flex-wrap:wrap;gap:8px;color:var(--ad-muted);font-size:11px;margin:8px 0}
+.order-description{font-size:12px;line-height:2;color:#d1cabc;white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0}
+.status-badge{border:1px solid var(--ad-line);border-radius:30px;padding:5px 10px;color:var(--ad-gold2);font-size:10px;white-space:nowrap}
+.order-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid #ffffff10;padding-top:12px;margin-top:12px}.order-actions select{border:1px solid var(--ad-line);border-radius:9px;background:#0d0d0c;color:var(--ad-text);padding:9px 12px;font-size:12px}
+.gallery-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gallery-card{border:1px solid var(--ad-line);border-radius:15px;background:#151513;overflow:hidden;min-width:0}.gallery-card img{width:100%;aspect-ratio:1.25;object-fit:cover;display:block;background:#222}.gallery-card-body{padding:12px}.gallery-card-body input{width:100%;border:1px solid var(--ad-line);border-radius:9px;background:#0c0c0b;color:var(--ad-text);padding:9px;font-size:11px}.gallery-actions{display:flex;gap:7px;margin-top:9px}.gallery-actions button{flex:1;font-size:11px}
+.upload-panel{margin-bottom:18px}.upload-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end}.upload-row input[type=file]{width:100%;color:var(--ad-muted);font-size:11px}.upload-row input[type=text]{width:100%;border:1px solid var(--ad-line);border-radius:10px;background:#0b0b0a;color:var(--ad-text);padding:11px}
+.progress{height:6px;border-radius:20px;background:#ffffff18;overflow:hidden;margin-top:12px}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,#aa854c,#f0d9a6);transition:width .2s}
+.customer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.customer-card{border:1px solid #ffffff12;border-radius:14px;background:#151513;padding:16px;min-width:0}.customer-card strong{display:block;font-size:13px}.customer-card p{color:var(--ad-muted);font-size:11px;line-height:2;overflow-wrap:anywhere;margin:8px 0}
+.empty{border:1px dashed #d7b87935;border-radius:14px;padding:30px;text-align:center;color:var(--ad-muted);font-size:12px}
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.mobile-brand{display:none}.mobile-nav{display:none}
+[hidden]{display:none!important}
+@media(max-width:1050px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.shell{display:block}.sidebar{display:none}.main{padding:18px 14px 92px}.topbar{margin-bottom:24px;align-items:start}.topbar h1{font-size:19px}.admin-pill{display:none}.mobile-brand{display:flex;align-items:center;gap:8px;color:var(--ad-gold2);font-size:11px}.mobile-brand .brand-mark{width:32px;height:32px;font-size:17px;margin:0;border-radius:10px}.mobile-nav{position:fixed;z-index:20;bottom:0;right:0;left:0;display:flex;justify-content:space-around;gap:2px;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#10100ff2;backdrop-filter:blur(18px);border-top:1px solid var(--ad-line)}.mobile-nav .nav-item{display:grid;justify-items:center;gap:2px;padding:7px 3px;font-size:9px;border-radius:9px;flex:1}.mobile-nav .nav-icon{font-size:15px}.quick-grid{grid-template-columns:1fr}.upload-row{grid-template-columns:1fr}.customer-grid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.login-title{font-size:23px}}
+@media(max-width:420px){.stats-grid{gap:8px}.stat-card{padding:13px}.stat-value{font-size:23px}.gallery-grid{grid-template-columns:1fr 1fr}.panel{padding:14px}.order-head{flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="admin-page">
+<section id="setupCard" class="admin-login" hidden>
+<div class="brand-mark">D</div><div class="kicker">DELARIS CAKE · PRIVATE ACCESS</div><h1 class="login-title">راه‌اندازی مدیریت</h1>
+<p class="muted">یک رمز اختصاصی برای مدیریت دلاریس انتخاب کن. رمز باید حداقل ۸ نویسه داشته باشد.</p>
+<form id="setupForm">
+<div class="field"><label for="setupPassword">رمز جدید</label><div class="password-row"><input id="setupPassword" type="password" minlength="8" maxlength="128" required autocomplete="new-password"><button class="icon-btn" type="button" data-toggle="setupPassword" aria-label="نمایش رمز">◉</button></div></div>
+<div class="field"><label for="setupPasswordConfirm">تکرار رمز</label><div class="password-row"><input id="setupPasswordConfirm" type="password" minlength="8" maxlength="128" required autocomplete="new-password"><button class="icon-btn" type="button" data-toggle="setupPasswordConfirm" aria-label="نمایش رمز">◉</button></div></div>
+<button class="primary-btn" id="setupSubmit" type="submit">ثبت رمز مدیریت</button><p id="setupFeedback" class="feedback" role="status"></p>
+</form></section>
+<section id="loginCard" class="admin-login">
+<div class="brand-mark">D</div><div class="kicker">DELARIS CAKE · PRIVATE ACCESS</div><h1 class="login-title">ورود به مدیریت</h1>
+<p class="muted">فضای اختصاصی مدیریت برند دلاریس کیک</p>
+<form id="loginForm"><div class="field"><label for="adminPassword">رمز مدیریت</label><div class="password-row"><input id="adminPassword" type="password" autocomplete="current-password" required><button class="icon-btn" type="button" data-toggle="adminPassword" aria-label="نمایش رمز">◉</button></div></div><button class="primary-btn" id="loginSubmit" type="submit">ورود امن به پنل</button><p id="loginFeedback" class="feedback" role="status"></p></form>
+</section>
+<section id="appShell" class="shell" hidden>
+<aside class="sidebar">
+<div class="side-brand"><div class="brand-mark">D</div><div><strong>دلاریس کیک</strong><small>PRIVATE MANAGEMENT</small></div></div>
+<div class="nav-label">WORKSPACE</div>
+<nav class="nav-list" id="sideNav">
+<button class="nav-item active" data-view="overview"><span class="nav-icon">◈</span>نمای کلی</button>
+<button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>درخواست‌های سفارش</button>
+<button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری کیک‌ها</button>
+<button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
+<button class="nav-item" data-view="security"><span class="nav-icon">◇</span>امنیت و دسترسی</button>
+</nav>
+<div class="sidebar-foot"><p class="muted">DELARIS CAKE<br>Elegant by design.</p><button class="ghost-btn" id="logoutBtn" style="width:100%">خروج امن از پنل</button></div>
+</aside>
+<div class="main">
+<header class="topbar"><div><div class="mobile-brand"><span class="brand-mark">D</span><span class="kicker">DELARIS · PRIVATE</span></div><h1 id="pageTitle">نمای کلی کسب‌وکار</h1><p id="pageSubtitle">خلاصه‌ای از وضعیت فعلی دلاریس کیک</p></div><div class="top-actions"><span class="admin-pill">● دسترسی مدیر فعال است</span><button class="ghost-btn" id="refreshBtn">↻ به‌روزرسانی</button></div></header>
+<section class="view active" id="view-overview">
+<div class="stats-grid">
+<article class="stat-card"><div class="stat-top"><span>کل درخواست‌ها</span><span class="stat-icon">▤</span></div><div class="stat-value" id="statOrders">—</div><div class="stat-note">تمام درخواست‌های ثبت‌شده</div></article>
+<article class="stat-card"><div class="stat-top"><span>در انتظار بررسی</span><span class="stat-icon">◷</span></div><div class="stat-value" id="statPending">—</div><div class="stat-note">نیازمند اقدام مدیر</div></article>
+<article class="stat-card"><div class="stat-top"><span>تصاویر گالری</span><span class="stat-icon">▧</span></div><div class="stat-value" id="statGallery">—</div><div class="stat-note">نمونه‌کارهای منتشرشده</div></article>
+<article class="stat-card"><div class="stat-top"><span>مشتریان ثبت‌شده</span><span class="stat-icon">♙</span></div><div class="stat-value" id="statCustomers">—</div><div class="stat-note">حساب‌های دارای پروفایل</div></article>
+</div>
+<div class="quick-grid">
+<button class="quick-card" data-go="orders"><b>＋</b><strong>رسیدگی به سفارش‌ها</strong><small>مشاهده جزئیات و تغییر وضعیت درخواست‌ها</small></button>
+<button class="quick-card" data-go="gallery"><b>▧</b><strong>مدیریت گالری</strong><small>انتشار، ویرایش توضیح و حذف تصاویر</small></button>
+<button class="quick-card" data-go="customers"><b>♙</b><strong>دفتر مشتریان</strong><small>مشاهده اطلاعات و سابقه درخواست‌ها</small></button>
+</div>
+<div class="panel"><div class="panel-title"><h3>آخرین درخواست‌ها</h3><button class="ghost-btn" data-go="orders">مشاهده همه</button></div><div id="latestOrders" class="order-list"><div class="empty">در حال دریافت اطلاعات…</div></div></div>
+</section>
+<section class="view" id="view-orders">
+<div class="section-head"><div><h2>درخواست‌های سفارش</h2><p>بررسی درخواست‌ها، اطلاعات تماس و مدیریت وضعیت هر سفارش</p></div><span class="admin-pill" id="ordersCount">۰ درخواست</span></div>
+<div class="toolbar"><input id="orderSearch" class="search" type="search" placeholder="جست‌وجو در نام، مناسبت، تلفن یا توضیحات…"><div class="filter-row" id="orderFilters"><button class="filter-btn active" data-filter="all">همه</button><button class="filter-btn" data-filter="pending">در انتظار</button><button class="filter-btn" data-filter="reviewing">در بررسی</button><button class="filter-btn" data-filter="approved">تأییدشده</button><button class="filter-btn" data-filter="completed">تکمیل‌شده</button><button class="filter-btn" data-filter="rejected">ردشده</button></div></div>
+<div id="ordersList" class="order-list"><div class="empty">در حال دریافت…</div></div>
+</section>
+<section class="view" id="view-gallery">
+<div class="section-head"><div><h2>گالری نمونه‌کارها</h2><p>تصاویر منتشرشده در گالری عمومی سایت را مدیریت کن</p></div></div>
+<div class="panel upload-panel"><div class="panel-title"><h3>افزودن نمونه‌کار جدید</h3><span>JPG · PNG · WEBP / حداکثر ۵ مگابایت</span></div>
+<form id="uploadForm"><div class="upload-row"><div class="field"><label for="cakeImage">انتخاب تصویر</label><input id="cakeImage" type="file" accept="image/jpeg,image/png,image/webp" required></div><div class="field"><label for="cakeAlt">توضیح تصویر</label><input id="cakeAlt" type="text" maxlength="120" placeholder="مثلاً کیک تولد مینیمال"></div><button class="gold-btn" id="uploadBtn" type="submit">بارگذاری و انتشار</button></div><div id="uploadProgress" class="progress" hidden><span id="uploadBar"></span></div><p id="uploadFeedback" class="feedback"></p></form></div>
+<div id="galleryGrid" class="gallery-grid"><div class="empty">در حال دریافت تصاویر…</div></div>
+</section>
+<section class="view" id="view-customers">
+<div class="section-head"><div><h2>دفتر مشتریان</h2><p>اطلاعات حساب، راه ارتباطی و تعداد درخواست‌های هر مشتری</p></div><span class="admin-pill" id="customersCount">۰ مشتری</span></div>
+<div class="toolbar"><input id="customerSearch" class="search" type="search" placeholder="جست‌وجوی نام، ایمیل یا شماره تماس…"></div>
+<div id="customersGrid" class="customer-grid"><div class="empty">در حال دریافت…</div></div>
+</section>
+<section class="view" id="view-security">
+<div class="section-head"><div><h2>امنیت و دسترسی</h2><p>مدیریت رمز ورود اختصاصی مدیر</p></div></div>
+<div class="settings-grid"><div class="panel"><div class="panel-title"><h3>تغییر رمز مدیریت</h3></div><p class="muted">رمز جدید حداقل ۸ و حداکثر ۱۲۸ نویسه داشته باشد. پس از تغییر، رمز جدید برای درخواست‌های بعدی استفاده می‌شود.</p>
+<form id="passwordForm"><div class="field"><label for="currentPassword">رمز فعلی</label><input id="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label for="newPassword">رمز جدید</label><input id="newPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></div><div class="field"><label for="confirmNewPassword">تکرار رمز جدید</label><input id="confirmNewPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></div><button class="gold-btn" type="submit" id="passwordSubmit">به‌روزرسانی رمز</button><p id="passwordFeedback" class="feedback"></p></form></div>
+<div class="panel"><div class="panel-title"><h3>وضعیت دسترسی</h3></div><p class="muted">این پنل از درگاه اختصاصی سمت سرور استفاده می‌کند. رمز مدیر در پایگاه داده به‌صورت هش‌شده نگهداری می‌شود و در حافظه دائمی مرورگر ذخیره نمی‌شود.</p><div class="order-meta"><span>● محدودیت تلاش ورود فعال</span><span>● نشست فقط در حافظه صفحه</span><span>● عملیات مدیریتی از Edge Function</span></div><button class="danger-btn" id="logoutBtn2">خروج از مدیریت</button></div></div>
+</section>
+</div>
+</section>
+<nav class="mobile-nav" id="mobileNav">
+<button class="nav-item active" data-view="overview"><span class="nav-icon">◈</span>نمای کلی</button>
+<button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>سفارش‌ها</button>
+<button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری</button>
+<button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
+<button class="nav-item" data-view="security"><span class="nav-icon">◇</span>امنیت</button>
+</nav>
+</section>
+</main>
 <script src="supabase-config.js"></script><script src="admin.js"></script>
 </body></html>
