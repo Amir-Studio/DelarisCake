@@ -2241,3 +2241,48 @@ textarea {
 .story-action span{color:#c9a85f}
 .story-card-foot{border-top:1px solid rgba(255,255,255,.055);color:#777064;letter-spacing:1px}
 @media(max-width:760px){.delaris-reviews{width:calc(100% - 24px);padding:18px;margin-top:40px;border-radius:21px}.reviews-layout{grid-template-columns:1fr}.reviews-display,.review-form{padding:15px}.public-reviews-grid{grid-template-columns:1fr}.delaris-story-card{width:calc(100% - 24px);border-radius:20px}.story-card-top,.story-card-foot{font-size:.56rem;padding:13px 16px}.story-actions{display:grid;grid-template-columns:1fr}.story-action{width:auto}.story-card-body{padding:25px 20px}}
+
+
+/* ================================================================
+   DELARIS — mobile viewport stability & overflow guard
+   ================================================================ */
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  width: 100%;
+  min-width: 320px;
+  max-width: 100%;
+  overflow-x: clip;
+  margin-left: auto;
+  margin-right: auto;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+img, video, iframe, canvas, svg {
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  body { min-width: 320px; }
+  input, select, textarea, button {
+    max-width: 100%;
+    font-size: max(16px, 1em);
+  }
+  img {
+    height: auto;
+  }
+  pre, code, table {
+    max-width: 100%;
+  }
+  pre, .table-wrap, .table-responsive {
+    overflow-x: auto;
+  }
+}
+@media (max-width: 380px) {
+  body { min-width: 320px; }
+}
