@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
     renderIdeas();
     loadCloudCakes();
     loadDelarisPublicSettings();
+    loadPublicReviews();
+    setupReviewForm();
 
     // ===== سایدبار =====
     document.addEventListener('click', function(e) {
@@ -253,6 +255,34 @@ async function loadCloudCakes(){
   grid.dataset.cloudImagesLoaded='true';
  }catch(error){console.warn('Delaris cloud gallery could not be loaded:',error);}
  finally{grid.dataset.cloudImagesLoading='false';}
+}
+
+function reviewEsc(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function loadPublicReviews(){
+ const host=document.getElementById('publicReviews');if(!host)return;
+ const db=window.delarisSupabase;if(!db){host.innerHTML='<div class="reviews-empty">اتصال نظرات در حال حاضر در دسترس نیست.</div>';return;}
+ try{
+  const {data,error}=await db.from('delaris_reviews').select('id,display_name,rating,comment,created_at').eq('status','approved').order('created_at',{ascending:false}).limit(12);
+  if(error)throw error;
+  if(!data?.length){host.innerHTML='<div class="reviews-empty">هنوز نظری منتشر نشده است؛ خوشحال می‌شویم اولین تجربه را شما ثبت کنید.</div>';return;}
+  host.innerHTML=data.map(item=>'<article class="public-review-card"><div class="public-review-top"><strong class="public-review-name">'+reviewEsc(item.display_name)+'</strong><span class="public-review-stars" aria-label="'+item.rating+' از ۵ ستاره">'+('★'.repeat(item.rating))+'<span style="color:#625d52">'+('☆'.repeat(5-item.rating))+'</span></span></div><p class="public-review-text">'+reviewEsc(item.comment)+'</p><time class="public-review-date" datetime="'+reviewEsc(item.created_at)+'">'+new Date(item.created_at).toLocaleDateString('fa-IR')+'</time></article>').join('');
+ }catch(error){console.warn('Delaris reviews could not be loaded:',error);host.innerHTML='<div class="reviews-empty">بارگذاری نظرها موقتاً ممکن نیست؛ لطفاً کمی بعد دوباره تلاش کنید.</div>';}
+}
+function setupReviewForm(){
+ const form=document.getElementById('reviewForm');if(!form)return;
+ form.addEventListener('submit',async event=>{
+  event.preventDefault();const button=document.getElementById('reviewSubmit'),feedback=document.getElementById('reviewFeedback');
+  const cfg=window.DELARIS_SUPABASE_CONFIG;if(!cfg){feedback.textContent='اتصال سرور در دسترس نیست.';feedback.className='review-feedback error';return;}
+  const payload={action:'submit_review',display_name:document.getElementById('reviewName').value.trim(),rating:Number(document.getElementById('reviewRating').value),comment:document.getElementById('reviewComment').value.trim(),website:document.getElementById('reviewWebsite').value};
+  if(payload.comment.length<10||payload.comment.length>500){feedback.textContent='متن نظر باید بین ۱۰ تا ۵۰۰ نویسه باشد.';feedback.className='review-feedback error';return;}
+  button.disabled=true;button.textContent='در حال ارسال…';feedback.textContent='در حال ثبت نظر شما…';feedback.className='review-feedback';
+  try{
+   const response=await fetch(cfg.url+'/functions/v1/delaris-admin',{method:'POST',headers:{'Content-Type':'application/json',apikey:cfg.publishableKey},body:JSON.stringify(payload)});
+   const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||'ارسال نظر انجام نشد.');
+   form.reset();feedback.textContent=result.message||'نظر ثبت شد و پس از تأیید نمایش داده می‌شود.';feedback.className='review-feedback success';
+  }catch(error){feedback.textContent=error.message||'ارتباط با سرور برقرار نشد.';feedback.className='review-feedback error';}
+  finally{button.disabled=false;button.innerHTML='ارسال نظر برای بررسی <span>↗</span>';}
+ });
 }
 
 async function loadDelarisPublicSettings(){
