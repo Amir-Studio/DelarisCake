@@ -68,7 +68,8 @@ const ideaCakes = [
     {id:105,img:"assets/optimized/ideas/idea-105.webp",name:"",desc:""}
 ];
 
-const INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake07/';
+let INSTAGRAM_URL = 'https://www.instagram.com/delaris_cake07/';
+let DELARIS_PUBLIC_SETTINGS = null;
 
 const reviewsData = []; // نظرات واقعی پس از اتصال سامانه ثبت نظر نمایش داده می‌شوند.
 
@@ -237,35 +238,30 @@ async function loadCloudCakes(){
  if(!db||!grid||grid.dataset.cloudImagesLoading==='true'||grid.dataset.cloudImagesLoaded==='true')return;
  grid.dataset.cloudImagesLoading='true';
  try{
-  const {data,error}=await db.from('delaris_gallery_images')
-   .select('id,file_path,alt_text')
-   // Append in upload order so the newest upload is the final portfolio card.
-   .order('created_at',{ascending:true});
+  const {data,error}=await db.from('delaris_gallery_images').select('id,file_path,alt_text,sort_order').order('sort_order',{ascending:true}).order('created_at',{ascending:true});
   if(error)throw error;
+  grid.innerHTML='';
   (data||[]).forEach(item=>{
-   if(Array.from(grid.children).some(card=>card.dataset.cloudId===String(item.id)))return;
-   const url=db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
+   const url=String(item.file_path).startsWith('legacy:')?'https://amir-studio.github.io/DelarisCake/'+String(item.file_path).slice(7):db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
    const card=document.createElement('article');card.className='cake-card portfolio-cake-card';card.dataset.cloudId=String(item.id);
-   const img=document.createElement('img');
-   img.src=url;
-   img.alt=item.alt_text||'نمونه کیک دلاریس کیک';
-   img.width=720;
-   img.height=540;
-   img.style.aspectRatio='4 / 3';
-   img.style.objectFit='cover';
-   img.style.width='100%';
-   img.style.height='auto';
-   img.style.display='block';
-   img.loading='lazy';
-   img.decoding='async';
-   const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';
-   card.append(img,link);grid.append(card);
+   const img=document.createElement('img');img.src=url;img.alt=item.alt_text||'نمونه کیک دلاریس کیک';img.width=720;img.height=540;img.style.aspectRatio='4 / 3';img.style.objectFit='cover';img.style.width='100%';img.style.height='auto';img.style.display='block';img.loading='lazy';img.decoding='async';
+   card.append(img);
+   if(DELARIS_PUBLIC_SETTINGS?.show_instagram!==false){const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';card.append(link);}
+   grid.append(card);
   });
   grid.dataset.cloudImagesLoaded='true';
- }catch(error){
-  // Keep the gallery usable and allow a later retry instead of silently caching a failed request.
-  console.warn('Delaris cloud gallery could not be loaded:',error);
- }finally{
-  grid.dataset.cloudImagesLoading='false';
- }
+ }catch(error){console.warn('Delaris cloud gallery could not be loaded:',error);}
+ finally{grid.dataset.cloudImagesLoading='false';}
 }
+
+async function loadDelarisPublicSettings(){
+ const db=window.delarisSupabase;if(!db)return;
+ try{
+  const {data,error}=await db.from('delaris_site_settings').select('instagram_url,phone,address,show_instagram,show_phone,show_address').eq('id',1).single();
+  if(error)throw error;DELARIS_PUBLIC_SETTINGS=data;INSTAGRAM_URL=data.instagram_url||INSTAGRAM_URL;
+  document.querySelectorAll('a[href*="instagram.com"]').forEach(a=>{a.href=INSTAGRAM_URL;a.hidden=!data.show_instagram;if(!data.show_instagram)a.style.display='none';});
+  document.querySelectorAll('a[href^="tel:"]').forEach(a=>{a.href='tel:'+String(data.phone||'').replace(/[^+0-9]/g,'');a.hidden=!data.show_phone;if(!data.show_phone)a.style.display='none';const strong=a.querySelector('strong');if(strong&&data.phone)strong.textContent=data.phone;});
+  document.querySelectorAll('a[href*="google.com/maps"]').forEach(a=>{a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(data.address||'');a.hidden=!data.show_address;if(!data.show_address)a.style.display='none';const strong=a.querySelector('strong');if(strong&&data.address)strong.textContent=data.address;});
+ }catch(error){console.warn('Delaris public settings unavailable:',error);}
+}
+
