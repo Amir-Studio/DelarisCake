@@ -3,7 +3,7 @@
    ================================================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // اسپلش Vitrin فقط پس از انتخاب «مشاهده نمونه‌محصول‌ها» نمایش داده می‌شود.
+    // اسپلش Delaris فقط پس از انتخاب «مشاهده نمونه‌کیک‌ها» نمایش داده می‌شود.
     const splash = document.getElementById('splash');
     const viewCakesLink = document.querySelector('.hero-buttons .btn-primary');
     let openingGallery = false;
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /* ================================================================
-   داده‌های محصول‌ها (با لینک‌های اصلاح‌شده)
+   داده‌های کیک‌ها (با لینک‌های اصلاح‌شده)
    ================================================================ */
 
 const cakes = [{"id":2,"img":"assets/optimized/cakes/cake-2.webp"},{"id":3,"img":"assets/optimized/cakes/cake-3.webp"},{"id":10,"img":"assets/optimized/cakes/InShot_20261105_004053604.webp"},{"id":11,"img":"assets/optimized/cakes/InShot_20261105_004116618.webp"},{"id":12,"img":"assets/optimized/cakes/InShot_20261105_004134269.webp"},{"id":13,"img":"assets/optimized/cakes/InShot_20261105_004150436.webp"},{"id":14,"img":"assets/optimized/cakes/InShot_20261105_004206076.webp"},{"id":15,"img":"assets/optimized/cakes/InShot_20261105_004232074.webp"},{"id":16,"img":"assets/optimized/cakes/InShot_20261105_004252675.webp"},{"id":17,"img":"assets/optimized/cakes/InShot_20261105_004337861.webp"},{"id":18,"img":"assets/optimized/cakes/InShot_20261105_004355798.webp"},{"id":19,"img":"assets/optimized/cakes/InShot_20261105_004410992.webp"},{"id":20,"img":"assets/optimized/cakes/InShot_20261105_004428443.webp"},{"id":21,"img":"assets/optimized/cakes/InShot_20261105_004446722.webp"},{"id":22,"img":"assets/optimized/cakes/InShot_20261105_004503430.webp"}].map((item, index) => ({ ...item, name: '', desc: '' }));
@@ -82,8 +82,8 @@ const reviewsData = []; // نظرات واقعی پس از اتصال سامان
 
 function cakeCard(cake, isIdea = false, index = 0) {
     const imageAlt = isIdea
-        ? `تصویر الهام‌بخش برای طراحی محصول، شماره ${index + 1}؛ نمونه‌کار ویترین نیست`
-        : `نمونه‌کار واقعی محصول ویترین در دولاب قشم، تصویر ${index + 1}`;
+        ? `تصویر الهام‌بخش برای طراحی کیک، شماره ${index + 1}؛ نمونه‌کار دلاریس کیک نیست`
+        : `نمونه‌کار واقعی کیک دلاریس کیک در دولاب قشم، تصویر ${index + 1}`;
     return `
         <article class="cake-card ${isIdea ? 'idea-card' : 'portfolio-cake-card'}">
             <img src="${cake.img}" alt="${imageAlt}" loading="lazy" decoding="async" />
@@ -187,7 +187,7 @@ function closeInfoModal() {
 function logout() { if (window.delarisLogout) window.delarisLogout(); }
 
 /* ================================================================
-   افکت بزرگ‌نمایی محصول
+   افکت بزرگ‌نمایی کیک
    ================================================================ */
 
 let activeCakeId = null;
@@ -209,7 +209,7 @@ function toggleCake(id) {
 }
 
 /* ================================================================
-   مودال محصول
+   مودال کیک
    ================================================================ */
 
 function openModal(id) {
@@ -233,7 +233,7 @@ function closeModal() {
    برندینگ در کنسول
    ================================================================ */
 
-console.log('%c 🍰 Vitrin ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
+console.log('%c 🍰 Delaris Cake ', 'font-size:20px; font-weight:bold; color:#D4AF37;');
 
 
 async function loadCloudCakes(){
@@ -247,13 +247,13 @@ async function loadCloudCakes(){
   (data||[]).forEach(item=>{
    const url=String(item.file_path).startsWith('legacy:')?'https://amir-studio.github.io/DelarisCake/'+String(item.file_path).slice(7):db.storage.from('delaris-cakes').getPublicUrl(item.file_path).data.publicUrl;
    const card=document.createElement('article');card.className='cake-card portfolio-cake-card';card.dataset.cloudId=String(item.id);
-   const img=document.createElement('img');img.src=url;img.alt=item.alt_text||'نمونه محصول ویترین';img.width=720;img.height=540;img.style.aspectRatio='4 / 3';img.style.objectFit='cover';img.style.width='100%';img.style.height='auto';img.style.display='block';img.loading='lazy';img.decoding='async';
+   const img=document.createElement('img');img.src=url;img.alt=item.alt_text||'نمونه کیک دلاریس کیک';img.width=720;img.height=540;img.style.aspectRatio='4 / 3';img.style.objectFit='cover';img.style.width='100%';img.style.height='auto';img.style.display='block';img.loading='lazy';img.decoding='async';
    card.append(img);
    if(DELARIS_PUBLIC_SETTINGS?.show_instagram!==false){const link=document.createElement('a');link.className='cake-inquiry';link.href=INSTAGRAM_URL;link.target='_blank';link.rel='noopener noreferrer';link.textContent='هماهنگی سفارش در اینستاگرام ↗';card.append(link);}
    grid.append(card);
   });
   grid.dataset.cloudImagesLoaded='true';
- }catch(error){console.warn('Vitrin cloud gallery could not be loaded:',error);}
+ }catch(error){console.warn('Delaris cloud gallery could not be loaded:',error);}
  finally{grid.dataset.cloudImagesLoading='false';}
 }
 
@@ -266,7 +266,7 @@ async function loadPublicReviews(){
   if(error)throw error;
   if(!data?.length){host.innerHTML='<div class="reviews-empty">هنوز نظری منتشر نشده است؛ خوشحال می‌شویم اولین تجربه را شما ثبت کنید.</div>';return;}
   host.innerHTML=data.map(item=>'<article class="public-review-card"><div class="public-review-top"><strong class="public-review-name">'+reviewEsc(item.display_name)+'</strong><span class="public-review-stars" aria-label="'+item.rating+' از ۵ ستاره">'+('★'.repeat(item.rating))+'<span style="color:#625d52">'+('☆'.repeat(5-item.rating))+'</span></span></div><p class="public-review-text">'+reviewEsc(item.comment)+'</p><time class="public-review-date" datetime="'+reviewEsc(item.created_at)+'">'+new Date(item.created_at).toLocaleDateString('fa-IR')+'</time></article>').join('');
- }catch(error){console.warn('Vitrin reviews could not be loaded:',error);host.innerHTML='<div class="reviews-empty">بارگذاری نظرها موقتاً ممکن نیست؛ لطفاً کمی بعد دوباره تلاش کنید.</div>';}
+ }catch(error){console.warn('Delaris reviews could not be loaded:',error);host.innerHTML='<div class="reviews-empty">بارگذاری نظرها موقتاً ممکن نیست؛ لطفاً کمی بعد دوباره تلاش کنید.</div>';}
 }
 function setupReviewForm(){
  const form=document.getElementById('reviewForm');if(!form)return;
@@ -295,6 +295,6 @@ async function loadDelarisPublicSettings(){
   document.querySelectorAll('a[href*="google.com/maps"],a.address-feature').forEach(a=>{a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(data.address||'');a.hidden=!data.show_address;a.style.display=data.show_address?'':'none';const strong=a.querySelector('strong');if(strong&&data.address)strong.textContent=data.address;});
   const storyAddress=document.querySelector('.story-address');if(storyAddress){storyAddress.textContent=data.address||'';storyAddress.hidden=!data.show_address;storyAddress.style.display=data.show_address?'':'none';}
   document.querySelectorAll('a[href*="instagram.com"]').forEach(a=>{const strong=a.querySelector('strong');if(strong){try{strong.textContent='@'+new URL(INSTAGRAM_URL).pathname.split('/').filter(Boolean)[0];}catch(_){}}});
- }catch(error){console.warn('Vitrin public settings unavailable:',error);}
+ }catch(error){console.warn('Delaris public settings unavailable:',error);}
 }
 
