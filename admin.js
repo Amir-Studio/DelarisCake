@@ -1,139 +1,51 @@
 (function(){
 'use strict';
 const cfg=window.DELARIS_SUPABASE_CONFIG;
-if(!cfg){document.getElementById('adminStatus').textContent='تنظیمات اتصال سایت پیدا نشد.';return;}
-const $=id=>document.getElementById(id),endpoint=cfg.url+'/functions/v1/delaris-admin';
-const loginCard=$('adminLoginCard'),setupCard=$('setupCard'),panel=$('adminPanel'),status=$('adminStatus'),list=$('adminGalleryList');
-const say=(s,bad=false)=>{status.textContent=s;status.style.color=bad?'#ffaaa0':'#d7bd82';};
-const setupFeedback=(message,type='')=>{const el=$('setupFeedback');if(!el)return;el.textContent=message;el.className='admin-feedback'+(type?' is-'+type:'');};
-const setBusy=(button,busy,label)=>{button.disabled=busy;button.setAttribute('aria-busy',String(busy));button.innerHTML=busy?'<span class="admin-spinner" aria-hidden="true"></span>'+label:label;};
-let adminPassword=null;
-async function api(action,extra={},file=null){
- let headers={apikey:cfg.publishableKey},body;
+const $=id=>document.getElementById(id);
+if(!cfg){$('loginFeedback').textContent='تنظیمات اتصال پیدا نشد.';return;}
+const endpoint=cfg.url+'/functions/v1/delaris-admin';
+let adminPassword=null,orders=[],gallery=[],customers=[],activeFilter='all';
+const titles={overview:['نمای کلی کسب‌وکار','خلاصه‌ای از وضعیت فعلی دلاریس کیک'],orders:['درخواست‌های سفارش','مدیریت و پیگیری درخواست‌های مشتریان'],gallery:['گالری نمونه‌کارها','انتشار و مدیریت تصاویر دلاریس'],customers:['دفتر مشتریان','اطلاعات مشتریان و سابقه درخواست‌ها'],security:['امنیت و دسترسی','تنظیمات ورود مدیر']};
+const labels={pending:'در انتظار بررسی',reviewing:'در حال بررسی',approved:'تأیید شده',rejected:'رد شده',completed:'تکمیل شده'};
+const faNum=n=>Number(n||0).toLocaleString('fa-IR');
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const date=v=>v?new Date(v).toLocaleString('fa-IR',{dateStyle:'medium',timeStyle:'short'}):'—';
+const say=(id,msg,type='')=>{const el=$(id);if(el){el.textContent=msg;el.className='feedback'+(type?' '+type:'');}};
+async function api(action,extra={},file=null,onProgress=null){
+ const headers={apikey:cfg.publishableKey};let body;
  if(file){body=new FormData();body.append('action',action);body.append('password',adminPassword);body.append('file',file);body.append('alt_text',extra.alt_text||'نمونه کیک دلاریس کیک');}
- else {headers['Content-Type']='application/json';body=JSON.stringify({action,...extra});}
- let response;try{response=await fetch(endpoint,{method:'POST',headers,body,signal:AbortSignal.timeout(25000)});}catch(err){if(err.name==='TimeoutError')throw new Error('پاسخ سرور بیش از ۲۵ ثانیه طول کشید؛ اتصال اینترنت را بررسی و دوباره تلاش کنید.');throw new Error('ارتباط با سرور برقرار نشد؛ اینترنت یا فیلترشکن را بررسی کنید.');}
+ else{headers['Content-Type']='application/json';body=JSON.stringify({action,password:adminPassword,...extra});}
+ if(file&&onProgress){return await new Promise((resolve,reject)=>{const xhr=new XMLHttpRequest();xhr.open('POST',endpoint);xhr.setRequestHeader('apikey',cfg.publishableKey);xhr.timeout=90000;xhr.upload.onprogress=e=>{if(e.lengthComputable)onProgress(Math.round(e.loaded/e.total*100));};xhr.onload=()=>{let r={};try{r=JSON.parse(xhr.responseText||'{}');}catch(_){r={error:'پاسخ سرور قابل خواندن نیست.'};}if(xhr.status>=200&&xhr.status<300)resolve(r);else reject(new Error(r.error||'عملیات انجام نشد.'));};xhr.onerror=()=>reject(new Error('ارتباط با سرور قطع شد.'));xhr.ontimeout=()=>reject(new Error('زمان بارگذاری تمام شد.'));xhr.send(body);});}
+ let response;try{response=await fetch(endpoint,{method:'POST',headers,body,signal:AbortSignal.timeout(30000)});}catch(e){throw new Error(e.name==='TimeoutError'?'پاسخ سرور بیش از حد طول کشید.':'ارتباط با سرور برقرار نشد.');}
  const result=await response.json().catch(()=>({error:'پاسخ سرور قابل خواندن نیست.'}));
  if(!response.ok)throw new Error(result.error||'درخواست انجام نشد.');
  return result;
 }
-async function uploadFile(file,altText,onProgress){
- const body=new FormData();
- body.append('action','upload');body.append('password',adminPassword);
- body.append('file',file);body.append('alt_text',altText||'نمونه کیک دلاریس کیک');
- return await new Promise((resolve,reject)=>{
-  const xhr=new XMLHttpRequest();
-  xhr.open('POST',endpoint);xhr.setRequestHeader('apikey',cfg.publishableKey);xhr.timeout=90000;
-  xhr.upload.addEventListener('progress',event=>{
-   if(event.lengthComputable)onProgress(Math.min(100,Math.round(event.loaded/event.total*100)));
-  });
-  xhr.addEventListener('load',()=>{
-   let result={};try{result=JSON.parse(xhr.responseText||'{}');}catch(_){result={error:'پاسخ سرور قابل خواندن نیست.'};}
-   if(xhr.status>=200&&xhr.status<300)resolve(result);
-   else reject(new Error(result.error||'بارگذاری تصویر انجام نشد.'));
-  });
-  xhr.addEventListener('error',()=>reject(new Error('ارتباط با سرور هنگام آپلود قطع شد.')));
-  xhr.addEventListener('timeout',()=>reject(new Error('آپلود بیش از ۹۰ ثانیه طول کشید؛ دوباره تلاش کنید.')));
-  xhr.send(body);
- });
-}
 function imageUrl(path){return cfg.url+'/storage/v1/object/public/delaris-cakes/'+encodeURIComponent(path);}
-async function loadGallery(){
- list.textContent='در حال دریافت تصاویر…';
- const result=await api('list',{password:adminPassword});
- list.replaceChildren();
- if(!result.items.length){list.textContent='هنوز تصویری منتشر نشده است.';return;}
- result.items.forEach(item=>{
-  const row=document.createElement('div');row.className='admin-gallery-item';
-  const img=document.createElement('img');img.src=imageUrl(item.file_path);img.alt=item.alt_text;
-  const label=document.createElement('span');label.textContent=item.alt_text;
-  const del=document.createElement('button');del.type='button';del.textContent='حذف';
-  del.addEventListener('click',async()=>{
-   if(!confirm('این تصویر از گالری حذف شود؟'))return;
-   del.disabled=true;
-   try{await api('delete',{password:adminPassword,id:item.id});say('تصویر حذف شد.');await loadGallery();}
-   catch(err){say(err.message,true);del.disabled=false;}
-  });
-  row.append(img,label,del);list.append(row);
- });
-}
-document.querySelectorAll('.password-toggle').forEach(button=>{
- button.addEventListener('click',()=>{
-  const input=$(button.dataset.target);
-  if(!input)return;
-  const reveal=input.type==='password';
-  input.type=reveal?'text':'password';
-  button.setAttribute('aria-pressed',String(reveal));
-  button.setAttribute('aria-label',reveal?'مخفی‌کردن رمز':'نمایش رمز');
-  button.title=reveal?'مخفی‌کردن رمز':'نمایش یا مخفی‌کردن رمز';
-  input.focus();
- });
-});
+function setBusy(button,busy,text){button.disabled=busy;button.textContent=busy?'در حال انجام…':text;}
+function showApp(){ $('loginCard').hidden=true;$('setupCard').hidden=true;$('appShell').hidden=false; }
+function logout(){adminPassword=null;orders=[];gallery=[];customers=[];$('appShell').hidden=true;$('loginCard').hidden=false;say('loginFeedback','از پنل خارج شدی.');}
+document.querySelectorAll('[data-toggle]').forEach(b=>b.addEventListener('click',()=>{const i=$(b.dataset.toggle);i.type=i.type==='password'?'text':'password';b.setAttribute('aria-label',i.type==='text'?'مخفی‌کردن رمز':'نمایش رمز');i.focus();}));
 const setupToken=new URLSearchParams(location.search).get('setup');
-if(setupToken){setupCard.hidden=false;loginCard.hidden=true;}
-$('setupForm').addEventListener('submit',async e=>{
- e.preventDefault();
- const form=e.currentTarget,p=$('setupPassword').value,confirmPassword=$('setupPasswordConfirm').value,b=$('setupSubmitButton'),label='ثبت رمز مدیریت';
- setupFeedback('');
- if(p.length<8){setupFeedback('رمز باید حداقل ۸ نویسه داشته باشد.','error');return;}
- if(p!==confirmPassword){setupFeedback('دو رمزی که وارد کرده‌اید یکسان نیستند.','error');return;}
- setBusy(b,true,'در حال ثبت رمز…');setupFeedback('درخواست به سرور ارسال شد؛ لطفاً صفحه را نبندید.');
- try{
-  const result=await api('setup',{setup_token:setupToken,password:p});
-  if(!result.ok)throw new Error(result.error||'سرور ثبت رمز را تأیید نکرد.');
-  form.reset();form.hidden=true;loginCard.hidden=false;
-  history.replaceState(null,'',location.pathname);
-  setupFeedback('✓ رمز مدیریت با موفقیت ثبت شد. اکنون می‌توانید از بخش ورود مدیر وارد شوید.','success');
-  say('راه‌اندازی رمز مدیریت با موفقیت انجام شد.');
- }catch(err){
-  setupFeedback('ثبت رمز انجام نشد: '+(err.message||'خطای نامشخص')+' — می‌توانید دوباره تلاش کنید.','error');
-  say(err.message||'ثبت رمز ناموفق بود.',true);
- }finally{
-  if(!form.hidden)setBusy(b,false,label);
- }
-});
-$('adminLoginForm').addEventListener('submit',async e=>{
- e.preventDefault();const b=e.currentTarget.querySelector('button'),p=$('adminPassword').value;
- b.disabled=true;say('در حال بررسی رمز…');
- try{
-  await api('login',{password:p});adminPassword=p;loginCard.hidden=true;panel.hidden=false;
-  $('adminPassword').value='';say('ورود موفق بود.');await loadGallery();
- }catch(err){adminPassword=null;say(err.message,true);}
- finally{b.disabled=false;}
-});
-const cakeForm=$('cakeUploadForm'),cakeInput=$('cakeImage'),previewBox=$('cakePreviewBox'),previewImg=$('cakePreview'),progressBox=$('cakeUploadProgress'),progressBar=$('cakeUploadBar'),progressPercent=$('cakeUploadPercent'),progressState=$('cakeUploadState');
-let previewObjectUrl=null;
-const MAX_IMAGE_SIZE=5*1024*1024,ALLOWED_IMAGE_TYPES=['image/jpeg','image/png','image/webp'];
-function clearPreview(){
- if(previewObjectUrl){URL.revokeObjectURL(previewObjectUrl);previewObjectUrl=null;}
- previewImg.removeAttribute('src');previewBox.hidden=true;progressBox.hidden=true;
-}
-cakeInput.addEventListener('change',()=>{
- clearPreview();const file=cakeInput.files&&cakeInput.files[0];if(!file)return;
- if(!ALLOWED_IMAGE_TYPES.includes(file.type)){cakeInput.value='';say('فرمت تصویر معتبر نیست؛ فقط JPG، PNG یا WEBP مجاز است.',true);return;}
- if(file.size>MAX_IMAGE_SIZE){cakeInput.value='';say('حجم تصویر بیشتر از ۵ مگابایت است؛ لطفاً عکس کوچک‌تری انتخاب کنید.',true);return;}
- previewObjectUrl=URL.createObjectURL(file);previewImg.src=previewObjectUrl;
- $('cakeFileName').textContent=file.name;$('cakeFileSize').textContent=(file.size/1024/1024).toFixed(2)+' مگابایت';
- previewBox.hidden=false;say('تصویر انتخاب شد و آماده بارگذاری است.');
-});
-cakeForm.addEventListener('submit',async e=>{
- e.preventDefault();const form=e.currentTarget,file=cakeInput.files&&cakeInput.files[0],b=form.querySelector('button');
- if(!file){say('ابتدا یک تصویر انتخاب کنید.',true);return;}
- if(!ALLOWED_IMAGE_TYPES.includes(file.type)||file.size>MAX_IMAGE_SIZE){say('فقط JPG، PNG یا WEBP تا حجم ۵ مگابایت مجاز است.',true);return;}
- const label=b.textContent;b.disabled=true;b.setAttribute('aria-busy','true');
- progressBox.hidden=false;progressBar.style.width='0%';progressPercent.textContent='۰٪';progressState.textContent='در حال ارسال تصویر…';say('آپلود تصویر شروع شد…');
- try{
-  await uploadFile(file,$('cakeAlt').value.trim()||'نمونه کیک دلاریس کیک',percent=>{
-   progressBar.style.width=percent+'%';progressPercent.textContent=percent.toLocaleString('fa-IR')+'٪';
-   progressState.textContent=percent>=100?'تصویر ارسال شد؛ در حال ثبت در گالری…':'در حال آپلود تصویر…';
-  });
-  progressBar.style.width='100%';progressPercent.textContent='۱۰۰٪';progressState.textContent='آپلود کامل شد؛ در حال تازه‌سازی گالری…';
-  form.reset();$('cakeAlt').value='نمونه کیک دلاریس کیک';clearPreview();
-  say('تصویر با موفقیت در گالری منتشر شد.');await loadGallery();
- }catch(err){say(err.message,true);progressState.textContent='آپلود ناموفق بود؛ می‌توانید دوباره تلاش کنید.';}
- finally{b.disabled=false;b.removeAttribute('aria-busy');}
-});
-$('adminLogout').addEventListener('click',()=>{
- adminPassword=null;panel.hidden=true;loginCard.hidden=false;list.replaceChildren();say('از پنل خارج شدید.');
-});
+if(setupToken){$('setupCard').hidden=false;$('loginCard').hidden=true;}
+$('setupForm').addEventListener('submit',async e=>{e.preventDefault();const p=$('setupPassword').value,c=$('setupPasswordConfirm').value,b=$('setupSubmit');if(p.length<8||p.length>128){say('setupFeedback','رمز باید بین ۸ تا ۱۲۸ نویسه باشد.','error');return;}if(p!==c){say('setupFeedback','تکرار رمز یکسان نیست.','error');return;}setBusy(b,true,'ثبت رمز مدیریت');try{await api('setup',{setup_token:setupToken,password:p});e.currentTarget.reset();e.currentTarget.hidden=true;$('loginCard').hidden=false;history.replaceState(null,'',location.pathname);say('setupFeedback','رمز مدیریت با موفقیت ثبت شد.','success');}catch(err){say('setupFeedback',err.message,'error');}finally{b.disabled=false;b.textContent='ثبت رمز مدیریت';}});
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();const b=$('loginSubmit'),p=$('adminPassword').value;setBusy(b,true,'ورود امن به پنل');say('loginFeedback','در حال بررسی رمز…');try{await api('login',{password:p});adminPassword=p;$('adminPassword').value='';showApp();await loadAll();}catch(err){adminPassword=null;say('loginFeedback',err.message,'error');}finally{b.disabled=false;b.textContent='ورود امن به پنل';}});
+function go(view){if(!titles[view])return;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===view));$('pageTitle').textContent=titles[view][0];$('pageSubtitle').textContent=titles[view][1];}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+$('refreshBtn').addEventListener('click',()=>loadAll().catch(e=>alert(e.message)));
+$('logoutBtn').addEventListener('click',logout);$('logoutBtn2').addEventListener('click',logout);
+async function loadAll(){await Promise.all([loadOverview(),loadOrders(),loadGallery(),loadCustomers()]);}
+async function loadOverview(){const r=await api('overview');$('statOrders').textContent=faNum(r.stats.orders);$('statPending').textContent=faNum(r.stats.pending);$('statGallery').textContent=faNum(r.stats.gallery);$('statCustomers').textContent=faNum(r.stats.customers);const host=$('latestOrders');if(!r.latest.length){host.innerHTML='<div class="empty">هنوز درخواستی ثبت نشده است.</div>';return;}host.innerHTML=r.latest.map(o=>'<article class="order-card"><div class="order-head"><strong>'+esc(o.occasion)+'</strong><span class="status-badge">'+esc(labels[o.status]||o.status)+'</span></div><div class="order-meta"><span>'+date(o.created_at)+'</span><span>'+esc(o.contact_phone||'بدون شماره تماس')+'</span></div></article>').join('');}
+async function loadOrders(){const r=await api('list_orders');orders=r.items||[];renderOrders();}
+function renderOrders(){const q=$('orderSearch').value.trim().toLocaleLowerCase();const rows=orders.filter(o=>(activeFilter==='all'||o.status===activeFilter)&&[o.occasion,o.cake_reference,o.description,o.contact_phone,o.customer?.display_name,o.customer?.phone].some(v=>String(v||'').toLocaleLowerCase().includes(q)));$('ordersCount').textContent=faNum(orders.length)+' درخواست';const host=$('ordersList');if(!rows.length){host.innerHTML='<div class="empty">درخواستی با این مشخصات پیدا نشد.</div>';return;}host.innerHTML=rows.map(o=>'<article class="order-card"><div class="order-head"><div><strong>'+esc(o.occasion)+'</strong><div class="order-meta"><span>'+date(o.created_at)+'</span><span>کد: '+esc(o.id.slice(0,8))+'</span></div></div><span class="status-badge">'+esc(labels[o.status]||o.status)+'</span></div><div class="order-meta"><span>مشتری: '+esc(o.customer?.display_name||'نام ثبت نشده')+'</span><span>تلفن: '+esc(o.contact_phone||o.customer?.phone||'ثبت نشده')+'</span><span>تاریخ مراسم: '+esc(o.event_date||'مشخص نشده')+'</span><span>مهمان: '+esc(o.guest_count||'نامشخص')+'</span></div><div class="order-meta"><span>کیک مرجع: '+esc(o.cake_reference||'سفارشی')+'</span></div><p class="order-description">'+esc(o.description)+'</p><div class="order-actions"><label class="muted" for="status-'+esc(o.id)+'">وضعیت درخواست</label><select id="status-'+esc(o.id)+'"><option value="pending">در انتظار بررسی</option><option value="reviewing">در حال بررسی</option><option value="approved">تأیید شده</option><option value="rejected">رد شده</option><option value="completed">تکمیل شده</option></select><button class="gold-btn" data-save-order="'+esc(o.id)+'">ذخیره وضعیت</button></div></article>').join('');rows.forEach(o=>{const s=$('status-'+o.id);if(s)s.value=o.status;});host.querySelectorAll('[data-save-order]').forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.saveOrder,s=$('status-'+id);b.disabled=true;try{await api('update_order',{id,status:s.value});const item=orders.find(x=>x.id===id);if(item)item.status=s.value;renderOrders();await loadOverview();}catch(e){alert(e.message);b.disabled=false;}}));}
+$('orderSearch').addEventListener('input',renderOrders);
+$('orderFilters').addEventListener('click',e=>{const b=e.target.closest('[data-filter]');if(!b)return;activeFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));renderOrders();});
+async function loadGallery(){const r=await api('list_gallery');gallery=r.items||[];renderGallery();}
+function renderGallery(){const host=$('galleryGrid');if(!gallery.length){host.innerHTML='<div class="empty">هنوز تصویری منتشر نشده است.</div>';return;}host.innerHTML=gallery.map(i=>'<article class="gallery-card"><img loading="lazy" src="'+esc(imageUrl(i.file_path))+'" alt="'+esc(i.alt_text)+'"><div class="gallery-card-body"><input maxlength="120" aria-label="توضیح تصویر" data-alt="'+esc(i.id)+'" value="'+esc(i.alt_text)+'"><div class="gallery-actions"><button class="ghost-btn" data-save-image="'+esc(i.id)+'">ذخیره توضیح</button><button class="danger-btn" data-delete-image="'+esc(i.id)+'">حذف</button></div><p class="muted">'+date(i.created_at)+'</p></div></article>').join('');host.querySelectorAll('[data-save-image]').forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.saveImage,input=host.querySelector('[data-alt="'+id+'"]');if(!input.value.trim()){alert('توضیح تصویر نمی‌تواند خالی باشد.');return;}b.disabled=true;try{await api('update_gallery',{id,alt_text:input.value.trim()});const item=gallery.find(x=>x.id===id);if(item)item.alt_text=input.value.trim();b.textContent='ذخیره شد';}catch(e){alert(e.message);b.disabled=false;}}));host.querySelectorAll('[data-delete-image]').forEach(b=>b.addEventListener('click',async()=>{if(!confirm('این تصویر برای همیشه از گالری حذف شود؟'))return;b.disabled=true;try{await api('delete_gallery',{id:b.dataset.deleteImage});gallery=gallery.filter(x=>x.id!==b.dataset.deleteImage);renderGallery();await loadOverview();}catch(e){alert(e.message);b.disabled=false;}}));}
+$('uploadForm').addEventListener('submit',async e=>{e.preventDefault();const file=$('cakeImage').files[0],alt=$('cakeAlt').value.trim()||'نمونه کیک دلاریس کیک',b=$('uploadBtn');if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024){say('uploadFeedback','فقط JPG، PNG یا WEBP تا ۵ مگابایت مجاز است.','error');return;}b.disabled=true;$('uploadProgress').hidden=false;$('uploadBar').style.width='0%';say('uploadFeedback','در حال بارگذاری تصویر…');try{await api('upload',{alt_text:alt},file,p=>$('uploadBar').style.width=p+'%');$('uploadForm').reset();say('uploadFeedback','تصویر با موفقیت منتشر شد.','success');await loadGallery();await loadOverview();}catch(err){say('uploadFeedback',err.message,'error');}finally{b.disabled=false;}});
+async function loadCustomers(){const r=await api('list_customers');customers=r.items||[];renderCustomers();}
+function renderCustomers(){const q=$('customerSearch').value.trim().toLocaleLowerCase();const rows=customers.filter(c=>[c.display_name,c.email,c.phone].some(v=>String(v||'').toLocaleLowerCase().includes(q)));$('customersCount').textContent=faNum(customers.length)+' مشتری';const host=$('customersGrid');if(!rows.length){host.innerHTML='<div class="empty">مشتری‌ای با این مشخصات پیدا نشد.</div>';return;}host.innerHTML=rows.map(c=>'<article class="customer-card"><strong>'+esc(c.display_name||'بدون نام')+'</strong><p>'+esc(c.email||'ایمیل ثبت نشده')+'<br>'+esc(c.phone||'شماره تماس ثبت نشده')+'</p><div class="order-meta"><span>'+faNum(c.order_count)+' درخواست سفارش</span><span>عضویت: '+date(c.created_at)+'</span></div></article>').join('');}
+$('customerSearch').addEventListener('input',renderCustomers);
+$('passwordForm').addEventListener('submit',async e=>{e.preventDefault();const current=$('currentPassword').value,next=$('newPassword').value,confirmNext=$('confirmNewPassword').value,b=$('passwordSubmit');if(next.length<8||next.length>128){say('passwordFeedback','رمز جدید باید بین ۸ تا ۱۲۸ نویسه باشد.','error');return;}if(next!==confirmNext){say('passwordFeedback','تکرار رمز جدید یکسان نیست.','error');return;}b.disabled=true;try{await api('change_password',{current_password:current,new_password:next});adminPassword=next;e.currentTarget.reset();say('passwordFeedback','رمز مدیریت با موفقیت تغییر کرد.','success');}catch(err){say('passwordFeedback',err.message,'error');}finally{b.disabled=false;}});
 })();
