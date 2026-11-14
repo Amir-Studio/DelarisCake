@@ -107,11 +107,42 @@
             <div class="cake-grid two-col" id="cakeGrid"><div class="empty">در حال دریافت نمونه‌کارها…</div></div>
         </section>
 
-        <section class="seo-entry-content" aria-label="راهنمای سفارش کیک در دولاب">
-            <h2>سفارش کیک در دولاب قشم</h2>
-            <p>اگر در دولاب قشم به‌دنبال سفارش کیک هستید، ابتدا نمونه‌کارهای واقعی دلاریس کیک را در گالری بالا ببینید. سپس برای بررسی امکان اجرای طرح دلخواه، زمان موردنظر و جزئیات سفارش با ما تماس بگیرید یا از طریق صفحه اینستاگرام پیام دهید.</p>
-            <p>برای هماهنگی سریع‌تر، هنگام پیام‌دادن تصویر یا توضیح طرح دلخواه و تاریخ موردنظر را ارسال کنید. نهایی‌شدن سفارش پس از تأیید جزئیات و زمان تحویل انجام می‌شود.</p>
-            <p><a href="tel:+989179131037">تماس با دلاریس کیک</a> · <a href="https://www.instagram.com/delaris_cake07/" target="_blank" rel="noopener noreferrer">پیام در اینستاگرام</a></p>
+        <section class="delaris-reviews" id="customerReviews" aria-labelledby="reviewsTitle">
+            <div class="reviews-heading">
+                <span class="reviews-eyebrow">THE DELARIS EXPERIENCE</span>
+                <h2 id="reviewsTitle">تجربه مشتریان دلاریس</h2>
+                <p>تجربه‌ات از سفارش را با ما و دیگران به اشتراک بگذار.</p>
+            </div>
+            <div class="reviews-layout">
+                <div class="reviews-display">
+                    <div class="reviews-display-top"><span>صدای مشتریان</span><span class="reviews-live-mark"><i></i> نظرهای تأییدشده</span></div>
+                    <div id="publicReviews" class="public-reviews-grid" aria-live="polite"><div class="reviews-empty">در حال دریافت نظرهای مشتریان…</div></div>
+                </div>
+                <form id="reviewForm" class="review-form">
+                    <div class="review-form-heading"><span class="reviews-eyebrow">SHARE YOUR STORY</span><h3>ثبت تجربه شما</h3><p>نظرها پیش از انتشار توسط مدیریت بررسی می‌شوند.</p></div>
+                    <div class="field"><label for="reviewName">نام نمایشی <span>اختیاری</span></label><input id="reviewName" type="text" maxlength="50" placeholder="مثلاً مریم"></div>
+                    <div class="field"><label for="reviewRating">امتیاز شما</label><select id="reviewRating" required><option value="5">۵ ستاره · عالی</option><option value="4">۴ ستاره · خیلی خوب</option><option value="3">۳ ستاره · خوب</option><option value="2">۲ ستاره · متوسط</option><option value="1">۱ ستاره</option></select></div>
+                    <div class="field"><label for="reviewComment">متن نظر</label><textarea id="reviewComment" rows="4" minlength="10" maxlength="500" required placeholder="از تجربه سفارش و کیفیت کار برایمان بنویس…"></textarea></div>
+                    <div class="review-honeypot" aria-hidden="true"><label for="reviewWebsite">وب‌سایت</label><input id="reviewWebsite" type="text" tabindex="-1" autocomplete="off"></div>
+                    <button class="review-submit" id="reviewSubmit" type="submit">ارسال نظر برای بررسی <span>↗</span></button>
+                    <p id="reviewFeedback" class="review-feedback" role="status">ثبت نظر رایگان است و اطلاعات تماس لازم نیست.</p>
+                </form>
+            </div>
+        </section>
+
+        <section class="seo-entry-content delaris-story-card" aria-label="راهنمای سفارش کیک در دولاب">
+            <div class="story-card-top"><span>DELICATE CRAFT · QESHM</span><span>DELARIS / 01</span></div>
+            <div class="story-card-body">
+                <span class="story-kicker">سفارش کیک، با سلیقه شما</span>
+                <h2>یک ایده، یک مناسبت، یک کیک ماندگار</h2>
+                <p>در دلاریس کیک، نمونه‌کارها نقطه شروع انتخاب شما هستند. سبک موردعلاقه، رنگ‌بندی، مناسبت و زمان موردنظر را مشخص کنید تا درباره امکان اجرای طرح و جزئیات سفارش هماهنگ شویم.</p>
+                <p>برای دریافت پاسخ دقیق‌تر، تصویر یا توضیح طرح دلخواه و تاریخ مراسم را هنگام پیام‌دادن بفرستید. نهایی‌شدن سفارش پس از بررسی ظرفیت و تأیید جزئیات انجام می‌شود.</p>
+                <div class="story-actions">
+                    <a href="tel:+989179131037" class="story-action story-phone">تماس با دلاریس <span>↗</span></a>
+                    <a href="https://www.instagram.com/delaris_cake07/" class="story-action story-instagram" target="_blank" rel="noopener noreferrer">پیام در اینستاگرام <span>↗</span></a>
+                </div>
+            </div>
+            <div class="story-card-foot"><span>DELARIS CAKE</span><span>دولاب · قشم</span></div>
         </section>
 
         <div class="gallery-luxe-divider" aria-hidden="true"><span></span><i></i><span></span></div>
