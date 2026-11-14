@@ -13,51 +13,7 @@
     
     <link rel="stylesheet" href="style.css" />
     <style>
-      .seo-editorial{position:relative;isolation:isolate;overflow:hidden;padding:78px 22px 58px;background:radial-gradient(ellipse at 50% 0%,rgba(184,149,85,.10),transparent 55%),#09090a;border-top:1px solid rgba(184,149,85,.18);color:#d7d0c4}
-      .seo-editorial-inner{max-width:860px;margin:0 auto}
-      .seo-editorial-kicker,.seo-editorial-eyebrow{display:block;color:#b89555;font:10px Georgia,serif;letter-spacing:2.5px}
-      .seo-brand-intro{text-align:center;margin:0 auto 34px}
-      .seo-brand-logo{display:block;width:76px;height:76px;object-fit:cover;border-radius:50%;margin:0 auto 20px;border:1px solid rgba(184,149,85,.65);padding:4px;box-shadow:0 0 34px rgba(184,149,85,.13)}
-      .seo-editorial-kicker{text-align:center;margin-bottom:12px;letter-spacing:3px}
-      .seo-editorial h2{text-align:center;color:#f0e8da;font:500 clamp(34px,6vw,48px)/1.2 Georgia,serif;letter-spacing:1px;margin:0 0 5px}
-      .seo-brand-subtitle{color:#c5a66d;font:11px Georgia,serif;letter-spacing:4px;margin-top:8px}
-      .seo-brand-caption{color:#8f887d;font:9px Georgia,serif;letter-spacing:2px;margin:18px 0 0}
-      .seo-persian-title{text-align:center;color:#d0b27a;font:600 clamp(19px,3.5vw,24px)/1.9 'Vazirmatn',sans-serif;margin:40px 0 16px}
-      .seo-editorial-lead{text-align:center;max-width:760px;margin:0 auto;color:#c9c0b1;font-size:15px;line-height:2.5}
-      .seo-editorial strong{color:#e4d3b2;font-weight:600}
-      .seo-editorial a:not(.seo-support-button){color:#d4b77f;text-decoration:none;border-bottom:1px solid rgba(184,149,85,.35)}
-      .seo-editorial a:hover{color:#f1dfb8}
-      .seo-editorial-rule{width:66px;height:1px;background:#a98a55;margin:42px auto;opacity:.75}
-      .seo-editorial-block{margin:0 auto 42px;max-width:790px}
-      .seo-editorial-eyebrow{margin-bottom:9px;font-size:9px;letter-spacing:2px;opacity:.9}
-      .seo-editorial-block h3,.seo-faq h3,.seo-support-copy h3{font-size:19px;font-weight:600;color:#d0b27a;margin:0 0 14px;line-height:1.9}
-      .seo-editorial-block p{font-size:14px;line-height:2.55;color:#c7c1b7;margin:0 0 13px;text-align:justify}
-      .seo-editorial-steps{list-style:none;padding:0;margin:18px 0;display:grid;gap:15px}
-      .seo-editorial-steps li{display:flex;align-items:flex-start;gap:14px;color:#c9c2b7;font-size:14px;line-height:2.25}
-      .seo-editorial-steps li>span{flex:0 0 31px;color:#b89555;font:12px Georgia,serif;padding-top:5px}
-      .seo-editorial-steps li strong{color:#e2d2b2}
-      .seo-faq{max-width:790px;margin:56px auto 44px}
-      .seo-faq h3{margin-bottom:20px}
-      .seo-faq-item{border-top:1px solid rgba(184,149,85,.22);padding:0 2px}
-      .seo-faq-item:last-child{border-bottom:1px solid rgba(184,149,85,.22)}
-      .seo-faq-item summary{cursor:pointer;list-style:none;position:relative;padding:17px 0 17px 30px;color:#e0d2b8;font-size:14px;line-height:2}
-      .seo-faq-item summary::-webkit-details-marker{display:none}
-      .seo-faq-item summary:after{content:'+';position:absolute;left:4px;top:16px;color:#b89555;font:20px Georgia,serif}
-      .seo-faq-item[open] summary:after{content:'−'}
-      .seo-faq-item p{margin:0;padding:0 0 18px;color:#bdb6aa;font-size:13px;line-height:2.35}
-      .seo-support-panel{display:grid;grid-template-columns:58px 1fr;gap:8px 20px;align-items:center;margin:54px 0 30px;padding:27px 28px;border:1px solid rgba(184,149,85,.32);background:linear-gradient(120deg,rgba(184,149,85,.08),rgba(255,255,255,.015));}
-      .seo-support-mark{width:52px;height:52px;display:block;object-fit:cover;border:1px solid rgba(184,149,85,.55);border-radius:50%;padding:3px}
-      .seo-support-copy h3{margin:0 0 6px;font-size:18px}
-      .seo-support-copy p{margin:0;color:#bdb6aa;font-size:13px;line-height:2.25}
-      .seo-support-button{grid-column:2;justify-self:start;margin-top:10px;padding:11px 18px;border:1px solid rgba(184,149,85,.55);color:#e0c58e;background:rgba(184,149,85,.07);font:12px 'Vazirmatn',sans-serif;text-decoration:none;transition:.25s}
-      .seo-support-button:hover{background:rgba(184,149,85,.15)}
-      .seo-support-button span{margin-right:8px;color:#b89555}
-      .seo-editorial-links{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:34px 0 18px}
-      .seo-editorial-links a{padding:8px 4px;font-size:12px}
-      .seo-editorial-links a span{color:#b89555;margin-right:6px}
-      .seo-editorial-note{text-align:center;color:#827b70;font-size:10px;line-height:2.2;margin:24px 0 0}
-      @media(max-width:600px){.seo-editorial{padding:58px 20px 42px}.seo-editorial-lead{font-size:14px;line-height:2.35}.seo-editorial-block h3,.seo-faq h3{font-size:17px}.seo-editorial-block p{font-size:13px;line-height:2.4}.seo-editorial-steps li{font-size:13px}.seo-support-panel{grid-template-columns:42px 1fr;padding:20px 16px;gap:8px 13px}.seo-support-mark{width:40px;height:40px}.seo-support-copy h3{font-size:16px}.seo-support-button{grid-column:1/-1;justify-self:stretch;text-align:center}.seo-editorial-links{gap:10px 16px}}
-    </style><meta name="description" content="برای سفارش کیک در قشم، نمونه‌کیک‌های دلاریس کیک در دولاب را ببینید و درباره طرح دلخواه و زمان آماده‌سازی هماهنگ کنید. تماس و سفارش از طریق تلفن یا اینستاگرام.">
+</style>
 <link rel="canonical" href="https://amir-studio.github.io/DelarisCake/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="google-site-verification" content="fJ2N0Z2mP9tBPMzV_aHJ3u5ba_6Dje8ocIAYAIMTsG8">
@@ -73,7 +29,7 @@
 <meta name="theme-color" content="#0b0b0d">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Bakery","name":"دلاریس کیک","alternateName":"Delaris Cake","url":"https://amir-studio.github.io/DelarisCake/","image":"https://amir-studio.github.io/DelarisCake/assets/optimized/hero-social-1200.jpg","logo":"https://amir-studio.github.io/DelarisCake/assets/optimized/logo-116.webp","telephone":"+989179131037","address":{"@type":"PostalAddress","addressLocality":"دولاب","addressRegion":"قشم","addressCountry":"IR"},"sameAs":["https://www.instagram.com/delaris_cake07/"],"inLanguage":"fa","description":"سفارش کیک در دولاب قشم؛ مشاهده نمونه‌کیک‌ها و هماهنگی سفارش با دلاریس کیک از طریق تلفن یا اینستاگرام.","areaServed":{"@type":"Place","name":"دولاب، قشم، ایران"},"contactPoint":{"@type":"ContactPoint","telephone":"+989179131037","contactType":"customer service","availableLanguage":"Persian"}}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ویترین","url":"https://amir-studio.github.io/DelarisCake/","inLanguage":"fa"}</script>
+
     <link rel="icon" type="image/png" href="/DelarisCake/Logos.DelarisCake.1.png?v=1" sizes="96x96">
 <link rel="shortcut icon" type="image/png" href="/DelarisCake/Logos.DelarisCake.1.png?v=1">
 <link rel="apple-touch-icon" href="/DelarisCake/Logos.DelarisCake.1.png?v=1">
@@ -115,111 +71,7 @@
             </div>
         </div>
     </section>
-    <main class="seo-editorial" aria-labelledby="seo-editorial-title">
-      <div class="seo-editorial-inner">
-        <div class="seo-brand-intro">
-          <img class="seo-brand-logo" width="76" height="76" decoding="async" src="assets/optimized/logo-116.webp" alt="لوگوی دلاریس کیک | Delaris Cake" loading="lazy" />
-          <div class="seo-editorial-kicker">THE DELARIS EXPERIENCE · QESHM ISLAND</div>
-          <h2 id="seo-editorial-title">Delaris</h2>
-          
-        </div>
-        <h3 class="seo-persian-title">دلاریس کیک | تجربه‌ای شیرین برای لحظه‌های خاص</h3>
-        <p class="seo-editorial-lead">به دنیای <strong>Delaris Cake</strong> خوش آمدید؛ جایی برای دیدن ایده‌های کیک، انتخاب طرح موردعلاقه و هماهنگی سفارش برای جشن‌ها و مناسبت‌های به‌یادماندنی. اگر به‌دنبال <strong>سفارش کیک در قشم</strong> یا آشنایی با نمونه‌کیک‌های دلاریس در <strong>دولاب قشم</strong> هستید، این راهنما کمک می‌کند مسیر انتخاب و ثبت درخواست را بهتر بشناسید.</p>
 
-        <div class="seo-editorial-rule"></div>
-
-        <section class="seo-editorial-block">
-          <span class="seo-editorial-eyebrow">01 / ABOUT DELARIS</span>
-          <h3>درباره دلاریس کیک؛ از ایده تا انتخاب کیک</h3>
-          <p><strong>دلاریس کیک (Delaris Cake)</strong> نامی برای مجموعه نمونه‌کیک‌ها و ایده‌های طراحی است که در دولاب، جزیره قشم معرفی می‌شود. این صفحه برای آن آماده شده که پیش از تماس، با فضای کار، نمونه‌ها و شیوه هماهنگی سفارش آشنا شوید. چه برای تولد برنامه داشته باشید، چه برای سالگرد، مهمانی خانوادگی یا یک مناسبت ویژه به‌دنبال کیک باشید، نقطه شروع انتخاب می‌تواند دیدن گالری و مشخص‌کردن سلیقه و نیاز شما باشد.</p>
-          <p>در انتخاب یک کیک، فقط ظاهر آن اهمیت ندارد؛ نوع مراسم، تعداد مهمان‌ها، سبک موردنظر، جزئیات طراحی و زمان برگزاری نیز در تصمیم‌گیری نقش دارند. به همین دلیل پیشنهاد می‌کنیم قبل از نهایی‌کردن درخواست، جزئیات را با دلاریس کیک مطرح کنید تا امکان انجام سفارش و شرایط آن به‌صورت روشن بررسی شود.</p>
-        </section>
-
-        <section class="seo-editorial-block">
-          <span class="seo-editorial-eyebrow">02 / CAKE GALLERY & INSPIRATION</span>
-          <h3>گالری کیک و ایده‌های طراحی | Cake Gallery</h3>
-          <p>در بخش گالری می‌توانید نمونه‌کیک‌های منتشرشده را ببینید و برای انتخاب سبک موردعلاقه‌تان ایده بگیرید. هنگام بررسی عکس‌ها به ترکیب رنگ، فرم کلی، تزیینات و حال‌وهوای هر طرح توجه کنید. اگر تصویری از یک <strong>Birthday Cake</strong>، <strong>Custom Cake</strong> یا <strong>Celebration Cake</strong> در ذهن دارید، می‌توانید آن را به‌عنوان نمونه الهام‌بخش برای گفت‌وگو درباره سفارش ارسال کنید.</p>
-          <p>تصاویر گالری برای آشنایی و الهام‌گرفتن هستند؛ شباهت دقیق نتیجه نهایی به تصویر مرجع، جزئیات اجرا و امکان آماده‌سازی باید پیش از ثبت قطعی سفارش بررسی و تأیید شود. برای دیدن نمونه‌ها به <a href="dashboard.html#gallery">گالری کیک‌های دلاریس</a> بروید.</p>
-        </section>
-
-        <section class="seo-editorial-block">
-          <span class="seo-editorial-eyebrow">03 / CAKE STYLES</span>
-          <h3>کیک تولد، کیک مناسبتی و طراحی سفارشی</h3>
-          <p>افرادی که عبارت‌هایی مانند <strong>کیک تولد در قشم</strong>، <strong>سفارش کیک تولد قشم</strong>، <strong>کیک خاص</strong>، <strong>کیک مناسبتی</strong> یا <strong>کیک سفارشی</strong> را جست‌وجو می‌کنند، معمولاً به‌دنبال طرحی متناسب با حال‌وهوای مراسم خود هستند. برای شروع، نوع مناسبت و سبک دلخواهتان را مشخص کنید؛ برای مثال ساده و مینیمال، ظریف و کلاسیک، یا رنگارنگ و پرجزئیات. سپس درباره امکان اجرای ایده و جزئیات آن پرس‌وجو کنید.</p>
-          <p>در انگلیسی ممکن است این عبارت‌ها را ببینید: <strong>Birthday Cake</strong> برای کیک تولد، <strong>Custom Cake Design</strong> برای طراحی سفارشی، <strong>Minimal Cake</strong> برای سبک مینیمال و <strong>Celebration Cake</strong> برای کیک جشن و مناسبت. این نام‌ها می‌توانند به توصیف سلیقه شما کمک کنند؛ موجودبودن هر سبک یا امکان اجرای آن نیازمند هماهنگی قبلی است.</p>
-        </section>
-
-        <section class="seo-editorial-block">
-          <span class="seo-editorial-eyebrow">04 / HOW TO ORDER</span>
-          <h3>چگونه از دلاریس کیک سفارش بدهیم؟</h3>
-          <p>برای اینکه درخواست شما دقیق‌تر بررسی شود، بهتر است اطلاعات اصلی را از ابتدا آماده کنید. روند پیشنهادی هماهنگی سفارش به این شکل است:</p>
-          <ol class="seo-editorial-steps">
-            <li><span>01</span><div><strong>دیدن نمونه‌کارها</strong><br>ابتدا گالری را بررسی کنید و طرح یا سبک موردعلاقه‌تان را انتخاب کنید.</div></li>
-            <li><span>02</span><div><strong>ارسال توضیحات</strong><br>نوع مناسبت، تاریخ موردنظر، تعداد تقریبی مهمان‌ها و تصویر مرجع را در صورت وجود آماده کنید.</div></li>
-            <li><span>03</span><div><strong>هماهنگی جزئیات</strong><br>از طریق تماس یا دایرکت اینستاگرام درباره طرح، اندازه، قیمت، زمان آماده‌سازی و امکان انجام درخواست سؤال کنید.</div></li>
-            <li><span>04</span><div><strong>تأیید نهایی</strong><br>پس از بررسی ظرفیت و توافق بر سر جزئیات، سفارش را نهایی کنید.</div></li>
-          </ol>
-          <p>برای جلوگیری از هرگونه ابهام، زمان تحویل، هزینه نهایی، جزئیات طرح و شرایط دریافت را پیش از قطعی‌شدن سفارش به‌صورت مستقیم هماهنگ کنید.</p>
-        </section>
-
-        <section class="seo-editorial-block">
-          <span class="seo-editorial-eyebrow">05 / LOCATION & CONTACT</span>
-          <h3>دلاریس کیک در دولاب، جزیره قشم</h3>
-          <p>اگر عبارت‌هایی مانند <strong>Delaris Cake Qeshm</strong>، <strong>Cake in Qeshm</strong>، <strong>سفارش کیک در دولاب</strong> یا <strong>کیک در قشم</strong> را جست‌وجو کرده‌اید، این صفحه راه ارتباط با دلاریس کیک را در اختیارتان می‌گذارد. محل معرفی‌شده مجموعه دولاب در جزیره قشم است. درباره محدوده سرویس‌دهی، شیوه دریافت یا امکان تحویل در محل موردنظر، پیش از ثبت سفارش پیام دهید تا شرایط دقیق همان درخواست مشخص شود.</p>
-          <p>برای پرسش درباره نمونه‌ها، ثبت درخواست یا پیگیری هماهنگی، می‌توانید از صفحه تماس سایت استفاده کنید یا مستقیماً به اینستاگرام دلاریس کیک پیام بدهید.</p>
-        </section>
-
-        <section class="seo-faq" aria-labelledby="seo-faq-title">
-          <span class="seo-editorial-eyebrow">06 / GOOD TO KNOW</span>
-          <h3 id="seo-faq-title">سؤالات متداول | Frequently Asked Questions</h3>
-          <details class="seo-faq-item">
-            <summary>چطور سفارش کیک از دلاریس کیک را ثبت کنم؟</summary>
-            <p>ابتدا نمونه‌ها را در گالری ببینید، سپس نوع مناسبت، تاریخ موردنظر و ایده یا تصویر دلخواهتان را از طریق تماس یا دایرکت اینستاگرام ارسال کنید. سفارش پس از بررسی جزئیات و تأیید شرایط نهایی می‌شود.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>آیا می‌توانم عکس یا طرح دلخواهم را برای کیک سفارشی بفرستم؟</summary>
-            <p>بله، می‌توانید تصویر مرجع یا توضیح طرح موردنظرتان را برای بررسی ارسال کنید. امکان اجرا، جزئیات طراحی و شرایط سفارش باید پیش از تأیید نهایی هماهنگ شود.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>برای سفارش کیک تولد در قشم چه اطلاعاتی لازم است؟</summary>
-            <p>بهتر است تاریخ مراسم، تعداد تقریبی مهمان‌ها، سبک یا تصویر دلخواه و هر توضیح مهم دیگری را آماده داشته باشید. درباره اندازه، قیمت و زمان آماده‌سازی نیز هنگام هماهنگی سؤال کنید.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>قیمت کیک سفارشی چگونه مشخص می‌شود؟</summary>
-            <p>قیمت به جزئیات درخواست و شرایط سفارش بستگی دارد. برای دریافت اطلاعات دقیق، طرح، اندازه یا تعداد موردنیاز و تاریخ مدنظر را با پشتیبانی مطرح کنید؛ قیمت نهایی را پیش از ثبت قطعی سفارش تأیید بگیرید.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>آیا امکان تحویل سفارش در نقاط مختلف قشم وجود دارد؟</summary>
-            <p>محدوده و روش تحویل را نمی‌توان برای همه سفارش‌ها یکسان فرض کرد. لطفاً محل موردنظر و تاریخ سفارش را پیش از نهایی‌کردن با مجموعه هماهنگ کنید.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>چقدر زودتر باید برای سفارش کیک پیام بدهم؟</summary>
-            <p>زمان لازم به نوع طرح، جزئیات سفارش و ظرفیت همان تاریخ بستگی دارد. بهتر است هرچه زودتر تاریخ مراسم را اعلام کنید تا امکان آماده‌سازی بررسی شود.</p>
-          </details>
-          <details class="seo-faq-item">
-            <summary>برای پشتیبانی و پرسیدن سؤال از کجا پیام بدهم؟</summary>
-            <p>برای پرسش درباره نمونه‌کیک‌ها، شرایط سفارش، قیمت یا پیگیری درخواست می‌توانید به صفحه اینستاگرام دلاریس کیک پیام دایرکت بدهید. لطفاً در پیام خود تاریخ مراسم و توضیح کوتاهی درباره درخواستتان بنویسید.</p>
-          </details>
-        </section>
-
-        <section class="seo-support-panel">
-          <img class="seo-support-mark" src="assets/optimized/logo-116.webp" alt="لوگوی دلاریس کیک" loading="lazy" />
-          <div class="seo-support-copy">
-            <span class="seo-editorial-eyebrow">WE ARE HERE TO HELP</span>
-            <h3>برای انتخاب یا سفارش، سؤال دارید؟</h3>
-            <p>اگر درباره طرح کیک، نمونه‌کارها، قیمت، زمان آماده‌سازی یا شرایط سفارش سؤالی دارید، از طریق دایرکت اینستاگرام با دلاریس کیک در ارتباط باشید. پیام شما مسیر هماهنگی را ساده‌تر می‌کند.</p>
-          </div>
-          <a class="seo-support-button" href="https://www.instagram.com/delaris_cake07/" target="_blank" rel="noopener noreferrer">پیام به پشتیبانی در اینستاگرام <span>↗</span></a>
-        </section>
-
-        <div class="seo-editorial-links">
-          <a href="dashboard.html#gallery">مشاهده گالری کیک‌ها <span>↗</span></a>
-          <a href="dashboard.html#contact">اطلاعات تماس <span>↗</span></a>
-          <a href="https://www.instagram.com/delaris_cake07/" target="_blank" rel="noopener noreferrer">Instagram · Delaris Cake <span>↗</span></a>
-        </div>
-        <p class="seo-editorial-note">Delaris Cake · دولاب، جزیره قشم · برای تأیید جزئیات هر سفارش، هماهنگی مستقیم پیش از ثبت نهایی ضروری است.</p>
-      </div>
-    </main>
 
     <script src="supabase-config.js"></script>
     <script src="home.js" defer></script>
