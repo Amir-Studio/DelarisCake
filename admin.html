@@ -102,6 +102,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>درخواست‌های سفارش</button>
 <button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری کیک‌ها</button>
 <button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
+<button class="nav-item" data-view="reviews"><span class="nav-icon">✧</span>نظرات</button>
 <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>تنظیمات</button>
 </nav>
 <div class="sidebar-foot"><p class="muted">DELARIS CAKE<br>Elegant by design.</p><button class="ghost-btn" id="logoutBtn" style="width:100%">خروج امن از پنل</button></div>
@@ -149,6 +150,11 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div class="toolbar"><input id="customerSearch" class="search" type="search" placeholder="جست‌وجوی نام، ایمیل یا شماره تماس…"></div>
 <div id="customersGrid" class="customer-grid"><div class="empty">در حال دریافت…</div></div>
 </section>
+<section class="view" id="view-reviews">
+<div class="section-head"><div><h2>نظرات مشتریان</h2><p>نظرهای تازه را بررسی کن و فقط موارد تأییدشده را در سایت نمایش بده</p></div><span class="admin-pill" id="reviewsCount">۰ نظر</span></div>
+<div class="toolbar"><div class="filter-row" id="reviewFilters"><button class="filter-btn active" data-review-filter="all">همه</button><button class="filter-btn" data-review-filter="pending">در انتظار تأیید</button><button class="filter-btn" data-review-filter="approved">منتشرشده</button><button class="filter-btn" data-review-filter="rejected">ردشده</button></div></div>
+<div id="reviewsList" class="order-list"><div class="empty">در حال دریافت نظرها…</div></div>
+</section>
 <section class="view" id="view-settings">
 <div class="section-head"><div><h2>تنظیمات دلاریس</h2><p>کنترل اطلاعات عمومی سایت، حریم نمایش و دسترسی مدیر</p></div></div>
 <div class="panel settings-public-panel"><div class="panel-title"><h3>اطلاعات قابل نمایش در سایت</h3><span>ذخیره‌سازی امن در پایگاه داده</span></div>
@@ -168,6 +174,7 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>سفارش‌ها</button>
 <button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری</button>
 <button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
+<button class="nav-item" data-view="reviews"><span class="nav-icon">✧</span>نظرات</button>
 <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>تنظیمات</button>
 </nav>
 </section>
