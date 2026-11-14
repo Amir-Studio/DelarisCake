@@ -64,6 +64,15 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 @media(max-width:1050px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.shell{display:block}.sidebar{display:none}.main{padding:18px 14px 92px}.topbar{margin-bottom:24px;align-items:start}.topbar h1{font-size:19px}.admin-pill{display:none}.mobile-brand{display:flex;align-items:center;gap:8px;color:var(--ad-gold2);font-size:11px}.mobile-brand .brand-mark{width:32px;height:32px;font-size:17px;margin:0;border-radius:10px}.mobile-nav{position:fixed;z-index:20;bottom:0;right:0;left:0;display:flex;justify-content:space-around;gap:2px;padding:8px 5px calc(8px + env(safe-area-inset-bottom));background:#10100ff2;backdrop-filter:blur(18px);border-top:1px solid var(--ad-line)}.mobile-nav .nav-item{display:grid;justify-items:center;gap:2px;padding:7px 3px;font-size:9px;border-radius:9px;flex:1}.mobile-nav .nav-icon{font-size:15px}.quick-grid{grid-template-columns:1fr}.upload-row{grid-template-columns:1fr}.customer-grid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.login-title{font-size:23px}}
 @media(max-width:420px){.stats-grid{gap:8px}.stat-card{padding:13px}.stat-value{font-size:23px}.gallery-grid{grid-template-columns:1fr 1fr}.panel{padding:14px}.order-head{flex-direction:column}}
+
+.customer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;padding-top:12px;border-top:1px solid #ffffff10}
+.customer-actions button{font-size:11px}
+.customer-modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:18px;background:#000b;backdrop-filter:blur(8px)}
+.customer-modal-card{width:min(460px,100%);padding:22px;border:1px solid var(--ad-line);border-radius:20px;background:linear-gradient(145deg,#191814,#10100f);box-shadow:0 28px 90px #000b}
+.customer-modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+.customer-modal-card .panel-title{align-items:center}
+.customer-modal-card .panel-title h3{font-size:16px}
+@media(max-width:420px){.customer-modal-card{padding:17px}.customer-modal-actions button{flex:1}}
 </style>
 </head>
 <body>
@@ -143,5 +152,15 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </nav>
 </section>
 </main>
+<div id="customerEditModal" class="customer-modal" hidden>
+  <form id="customerEditForm" class="customer-modal-card" role="dialog" aria-modal="true" aria-labelledby="customerEditTitle">
+    <div class="panel-title"><h3 id="customerEditTitle">ویرایش اطلاعات مشتری</h3><button type="button" class="icon-btn" id="closeCustomerEdit" aria-label="بستن">×</button></div>
+    <p class="muted">نام و شماره تماس ذخیره‌شده برای این حساب را تغییر بده.</p>
+    <div class="field"><label for="editCustomerName">نام مشتری</label><input id="editCustomerName" type="text" minlength="2" maxlength="100" required></div>
+    <div class="field"><label for="editCustomerPhone">شماره تماس</label><input id="editCustomerPhone" type="tel" maxlength="40" placeholder="اختیاری"></div>
+    <div class="customer-modal-actions"><button type="button" class="ghost-btn" id="cancelCustomerEdit">انصراف</button><button type="submit" class="gold-btn" id="saveCustomerEdit">ذخیره تغییرات</button></div>
+    <p id="customerEditFeedback" class="feedback" role="status"></p>
+  </form>
+</div>
 <script src="supabase-config.js"></script><script src="admin.js"></script>
 </body></html>
