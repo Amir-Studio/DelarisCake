@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCakes();
     renderIdeas();
     loadCloudCakes();
+    loadDelarisPublicSettings();
 
     // ===== سایدبار =====
     document.addEventListener('click', function(e) {
