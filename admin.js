@@ -47,7 +47,48 @@ async function loadGallery(){const r=await api('list_gallery');gallery=r.items||
 function renderGallery(){const host=$('galleryGrid');if(!gallery.length){host.innerHTML='<div class="empty">هنوز تصویری منتشر نشده است.</div>';return;}host.innerHTML=gallery.map(i=>'<article class="gallery-card"><img loading="lazy" src="'+esc(imageUrl(i.file_path))+'" alt="'+esc(i.alt_text)+'"><div class="gallery-card-body"><input maxlength="120" aria-label="توضیح تصویر" data-alt="'+esc(i.id)+'" value="'+esc(i.alt_text)+'"><div class="gallery-actions"><button class="ghost-btn" data-save-image="'+esc(i.id)+'">ذخیره توضیح</button><button class="danger-btn" data-delete-image="'+esc(i.id)+'">حذف</button></div><p class="muted">'+date(i.created_at)+'</p></div></article>').join('');host.querySelectorAll('[data-save-image]').forEach(b=>b.addEventListener('click',async()=>{const id=b.dataset.saveImage,input=host.querySelector('[data-alt="'+id+'"]');if(!input.value.trim()){alert('توضیح تصویر نمی‌تواند خالی باشد.');return;}b.disabled=true;try{await api('update_gallery',{id,alt_text:input.value.trim()});const item=gallery.find(x=>x.id===id);if(item)item.alt_text=input.value.trim();b.textContent='ذخیره شد';}catch(e){alert(e.message);b.disabled=false;}}));host.querySelectorAll('[data-delete-image]').forEach(b=>b.addEventListener('click',async()=>{if(!confirm('این تصویر برای همیشه از گالری حذف شود؟'))return;b.disabled=true;try{await api('delete_gallery',{id:b.dataset.deleteImage});gallery=gallery.filter(x=>x.id!==b.dataset.deleteImage);renderGallery();await loadOverview();}catch(e){alert(e.message);b.disabled=false;}}));}
 $('uploadForm').addEventListener('submit',async e=>{e.preventDefault();const file=$('cakeImage').files[0],alt=$('cakeAlt').value.trim()||'نمونه کیک دلاریس کیک',b=$('uploadBtn');if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024){say('uploadFeedback','فقط JPG، PNG یا WEBP تا ۵ مگابایت مجاز است.','error');return;}b.disabled=true;$('uploadProgress').hidden=false;$('uploadBar').style.width='0%';say('uploadFeedback','در حال بارگذاری تصویر…');try{await api('upload',{alt_text:alt},file,p=>$('uploadBar').style.width=p+'%');$('uploadForm').reset();say('uploadFeedback','تصویر با موفقیت منتشر شد.','success');await loadGallery();await loadOverview();}catch(err){say('uploadFeedback',err.message,'error');}finally{b.disabled=false;}});
 async function loadCustomers(){const r=await api('list_customers');customers=r.items||[];renderCustomers();}
-function renderCustomers(){const q=$('customerSearch').value.trim().toLocaleLowerCase();const rows=customers.filter(c=>[c.display_name,c.email,c.phone].some(v=>String(v||'').toLocaleLowerCase().includes(q)));$('customersCount').textContent=faNum(customers.length)+' مشتری';const host=$('customersGrid');if(!rows.length){host.innerHTML='<div class="empty">مشتری‌ای با این مشخصات پیدا نشد.</div>';return;}host.innerHTML=rows.map(c=>'<article class="customer-card"><strong>'+esc(c.display_name||'بدون نام')+'</strong><p>'+esc(c.email||'ایمیل ثبت نشده')+'<br>'+esc(c.phone||'شماره تماس ثبت نشده')+'</p><div class="order-meta"><span>'+faNum(c.order_count)+' درخواست سفارش</span><span>عضویت: '+date(c.created_at)+'</span></div></article>').join('');}
+function renderCustomers(){
+ const q=$('customerSearch').value.trim().toLocaleLowerCase();
+ const rows=customers.filter(c=>[c.display_name,c.email,c.phone].some(v=>String(v||'').toLocaleLowerCase().includes(q)));
+ $('customersCount').textContent=faNum(customers.length)+' مشتری';
+ const host=$('customersGrid');
+ if(!rows.length){host.innerHTML='<div class="empty">مشتری‌ای با این مشخصات پیدا نشد.</div>';return;}
+ host.innerHTML=rows.map(c=>'<article class="customer-card"><strong>'+esc(c.display_name||'بدون نام')+'</strong><p>'+esc(c.email||'ایمیل ثبت نشده')+'<br>'+esc(c.phone||'شماره تماس ثبت نشده')+'</p><div class="order-meta"><span>'+faNum(c.order_count)+' درخواست سفارش</span><span>عضویت: '+date(c.created_at)+'</span><span>آخرین ورود: '+date(c.last_sign_in_at)+'</span></div><div class="customer-actions"><button class="ghost-btn" type="button" data-edit-customer="'+esc(c.user_id)+'">ویرایش اطلاعات</button><button class="danger-btn" type="button" data-delete-customer="'+esc(c.user_id)+'">حذف حساب</button></div></article>').join('');
+ host.querySelectorAll('[data-edit-customer]').forEach(b=>b.addEventListener('click',()=>openCustomerEditor(b.dataset.editCustomer)));
+ host.querySelectorAll('[data-delete-customer]').forEach(b=>b.addEventListener('click',()=>deleteCustomer(b.dataset.deleteCustomer)));
+}
+let editingCustomerId=null;
+function closeCustomerEditor(){editingCustomerId=null;$('customerEditModal').hidden=true;$('customerEditForm').reset();say('customerEditFeedback','');}
+function openCustomerEditor(id){
+ const c=customers.find(x=>x.user_id===id);if(!c)return;
+ editingCustomerId=id;$('editCustomerName').value=c.display_name||'';$('editCustomerPhone').value=c.phone||'';
+ say('customerEditFeedback','');$('customerEditModal').hidden=false;$('editCustomerName').focus();
+}
+$('closeCustomerEdit').addEventListener('click',closeCustomerEditor);
+$('cancelCustomerEdit').addEventListener('click',closeCustomerEditor);
+$('customerEditModal').addEventListener('click',e=>{if(e.target===$('customerEditModal'))closeCustomerEditor();});
+$('customerEditForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!editingCustomerId)return;
+ const display_name=$('editCustomerName').value.trim(),phone=$('editCustomerPhone').value.trim(),b=$('saveCustomerEdit');
+ if(display_name.length<2||display_name.length>100){say('customerEditFeedback','نام باید بین ۲ تا ۱۰۰ نویسه باشد.','error');return;}
+ b.disabled=true;b.textContent='در حال ذخیره…';
+ try{
+  await api('update_customer',{id:editingCustomerId,display_name,phone});
+  const c=customers.find(x=>x.user_id===editingCustomerId);if(c){c.display_name=display_name;c.phone=phone||null;}
+  closeCustomerEditor();renderCustomers();await loadOverview();
+ }catch(err){say('customerEditFeedback',err.message,'error');}
+ finally{b.disabled=false;b.textContent='ذخیره تغییرات';}
+});
+async function deleteCustomer(id){
+ const c=customers.find(x=>x.user_id===id);if(!c)return;
+ const name=c.display_name||c.email||'این مشتری';
+ if(!confirm('حساب «'+name+'» برای همیشه حذف شود؟\nپروفایل و تمام درخواست‌های سفارش مرتبط با این حساب نیز حذف خواهند شد. این کار قابل بازگشت نیست.'))return;
+ const b=document.querySelector('[data-delete-customer="'+CSS.escape(id)+'"]');if(b){b.disabled=true;b.textContent='در حال حذف…';}
+ try{
+  await api('delete_customer',{id});
+  customers=customers.filter(x=>x.user_id!==id);renderCustomers();await loadAll();
+ }catch(err){alert(err.message);if(b){b.disabled=false;b.textContent='حذف حساب';}}
+}
 $('customerSearch').addEventListener('input',renderCustomers);
 $('passwordForm').addEventListener('submit',async e=>{e.preventDefault();const current=$('currentPassword').value,next=$('newPassword').value,confirmNext=$('confirmNewPassword').value,b=$('passwordSubmit');if(next.length<8||next.length>128){say('passwordFeedback','رمز جدید باید بین ۸ تا ۱۲۸ نویسه باشد.','error');return;}if(next!==confirmNext){say('passwordFeedback','تکرار رمز جدید یکسان نیست.','error');return;}b.disabled=true;try{await api('change_password',{current_password:current,new_password:next});adminPassword=next;e.currentTarget.reset();say('passwordFeedback','رمز مدیریت با موفقیت تغییر کرد.','success');}catch(err){say('passwordFeedback',err.message,'error');}finally{b.disabled=false;}});
 })();
