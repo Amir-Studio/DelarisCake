@@ -72,6 +72,8 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 .customer-modal-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
 .customer-modal-card .panel-title{align-items:center}
 .customer-modal-card .panel-title h3{font-size:16px}
+.analytics-chart-panel{margin-bottom:16px}.analytics-chart{height:230px;display:flex;align-items:end;gap:5px;padding:18px 2px 28px;overflow-x:auto;border-bottom:1px solid #ffffff16}.chart-bar{flex:1;min-width:5px;max-width:22px;position:relative;height:100%;display:flex;align-items:end;justify-content:center}.chart-bar i{display:block;width:100%;min-height:2px;border-radius:5px 5px 1px 1px;background:linear-gradient(180deg,#ead29a,#9d7945);opacity:.9}.chart-bar small{position:absolute;bottom:-25px;font-size:9px;color:#898174;white-space:nowrap}.chart-legend{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;color:var(--ad-muted);font-size:10px}.chart-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d7b879;margin-left:6px}.analytics-insights{grid-template-columns:repeat(3,minmax(0,1fr))}.visibility-list{display:grid;gap:12px;padding:14px 0 18px}.visibility-list label{display:flex;align-items:center;gap:10px;color:#d5cbb9;font-size:12px}.visibility-list input{accent-color:#d7b879;width:16px;height:16px}.sms-features{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.sms-features span{border:1px solid var(--ad-line);border-radius:30px;padding:7px 11px;color:#d8c59e;font-size:11px}.gallery-actions .move-image{flex:0 0 40px;padding:8px 4px}.gallery-card[data-legacy="true"]:after{content:'تصویر فعلی سایت';display:block;padding:0 12px 8px;color:#a89c85;font-size:10px}
+
 @media(max-width:420px){.customer-modal-card{padding:17px}.customer-modal-actions button{flex:1}}
 </style>
 </head>
@@ -96,10 +98,11 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div class="nav-label">WORKSPACE</div>
 <nav class="nav-list" id="sideNav">
 <button class="nav-item active" data-view="overview"><span class="nav-icon">◈</span>نمای کلی</button>
+<button class="nav-item" data-view="analytics"><span class="nav-icon">⌁</span>آمار و تحلیل</button>
 <button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>درخواست‌های سفارش</button>
 <button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری کیک‌ها</button>
 <button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
-<button class="nav-item" data-view="security"><span class="nav-icon">◇</span>امنیت و دسترسی</button>
+<button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>تنظیمات</button>
 </nav>
 <div class="sidebar-foot"><p class="muted">DELARIS CAKE<br>Elegant by design.</p><button class="ghost-btn" id="logoutBtn" style="width:100%">خروج امن از پنل</button></div>
 </aside>
@@ -119,6 +122,17 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </div>
 <div class="panel"><div class="panel-title"><h3>آخرین درخواست‌ها</h3><button class="ghost-btn" data-go="orders">مشاهده همه</button></div><div id="latestOrders" class="order-list"><div class="empty">در حال دریافت اطلاعات…</div></div></div>
 </section>
+<section class="view" id="view-analytics">
+<div class="section-head"><div><h2>آمار و تحلیل</h2><p>تصویر روشن‌تری از بازدید، مشتری و عملکرد فروشگاه در ۳۰ روز اخیر</p></div><span class="admin-pill">۳۰ روز گذشته</span></div>
+<div class="stats-grid analytics-stats">
+<article class="stat-card"><div class="stat-top"><span>بازدیدهای یکتا</span><span class="stat-icon">◉</span></div><div class="stat-value" id="analyticsViews">—</div><div class="stat-note">هر مرورگر در هر صفحه، روزی یک‌بار</div></article>
+<article class="stat-card"><div class="stat-top"><span>بازدیدکنندگان یکتا</span><span class="stat-icon">♙</span></div><div class="stat-value" id="analyticsVisitors">—</div><div class="stat-note">شناسه ناشناس مرورگرها</div></article>
+<article class="stat-card"><div class="stat-top"><span>سفارش‌های جدید</span><span class="stat-icon">▤</span></div><div class="stat-value" id="analyticsOrders">—</div><div class="stat-note">در همین بازه زمانی</div></article>
+<article class="stat-card"><div class="stat-top"><span>مشتریان جدید</span><span class="stat-icon">＋</span></div><div class="stat-value" id="analyticsCustomers">—</div><div class="stat-note">ثبت‌نام‌های جدید</div></article>
+</div>
+<div class="panel analytics-chart-panel"><div class="panel-title"><h3>روند بازدید روزانه</h3><span id="analyticsToday">امروز: —</span></div><div id="analyticsChart" class="analytics-chart"><div class="empty">در حال دریافت داده‌ها…</div></div><div class="chart-legend"><span><i></i>بازدیدهای یکتا</span><span>اطلاعات از زمان فعال‌شدن آمار جمع‌آوری می‌شود.</span></div></div>
+<div class="quick-grid analytics-insights"><article class="quick-card"><b id="todayVisitors">—</b><strong>بازدیدکننده امروز</strong><small>مرورگرهای یکتای امروز</small></article><article class="quick-card"><b id="todayViews">—</b><strong>بازدید صفحه امروز</strong><small>صفحه‌های دیده‌شده به‌صورت یکتا</small></article><article class="quick-card"><b id="conversionRate">—</b><strong>نسبت سفارش به بازدید</strong><small>شاخص تقریبی، نه نرخ خرید قطعی</small></article></div>
+</section>
 <section class="view" id="view-orders">
 <div class="section-head"><div><h2>درخواست‌های سفارش</h2><p>بررسی درخواست‌ها، اطلاعات تماس و مدیریت وضعیت هر سفارش</p></div><span class="admin-pill" id="ordersCount">۰ درخواست</span></div>
 <div class="toolbar"><input id="orderSearch" class="search" type="search" placeholder="جست‌وجو در نام، مناسبت، تلفن یا توضیحات…"><div class="filter-row" id="orderFilters"><button class="filter-btn active" data-filter="all">همه</button><button class="filter-btn" data-filter="pending">در انتظار</button><button class="filter-btn" data-filter="reviewing">در بررسی</button><button class="filter-btn" data-filter="approved">تأییدشده</button><button class="filter-btn" data-filter="completed">تکمیل‌شده</button><button class="filter-btn" data-filter="rejected">ردشده</button></div></div>
@@ -135,8 +149,13 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div class="toolbar"><input id="customerSearch" class="search" type="search" placeholder="جست‌وجوی نام، ایمیل یا شماره تماس…"></div>
 <div id="customersGrid" class="customer-grid"><div class="empty">در حال دریافت…</div></div>
 </section>
-<section class="view" id="view-security">
-<div class="section-head"><div><h2>امنیت و دسترسی</h2><p>مدیریت رمز ورود اختصاصی مدیر</p></div></div>
+<section class="view" id="view-settings">
+<div class="section-head"><div><h2>تنظیمات دلاریس</h2><p>کنترل اطلاعات عمومی سایت، حریم نمایش و دسترسی مدیر</p></div></div>
+<div class="panel settings-public-panel"><div class="panel-title"><h3>اطلاعات قابل نمایش در سایت</h3><span>ذخیره‌سازی امن در پایگاه داده</span></div>
+<form id="siteSettingsForm"><div class="field"><label for="settingInstagram">لینک اینستاگرام</label><input id="settingInstagram" type="url" maxlength="240" placeholder="https://www.instagram.com/..."></div><div class="field"><label for="settingPhone">شماره تماس</label><input id="settingPhone" type="tel" maxlength="40" placeholder="شماره تماس دلاریس"></div><div class="field"><label for="settingAddress">نشانی</label><input id="settingAddress" type="text" maxlength="180" placeholder="نشانی یا محدوده فعالیت"></div>
+<div class="visibility-list"><label><input id="showInstagram" type="checkbox"> نمایش لینک اینستاگرام در سایت</label><label><input id="showPhone" type="checkbox"> نمایش شماره تماس در سایت</label><label><input id="showAddress" type="checkbox"> نمایش نشانی در سایت</label></div>
+<button class="gold-btn" id="saveSiteSettings" type="submit">ذخیره تنظیمات سایت</button><p id="siteSettingsFeedback" class="feedback" role="status"></p></form></div>
+<div class="panel sms-panel"><div class="panel-title"><h3>مرکز پیامک</h3><span class="status-badge" id="smsStatus">نیازمند راه‌اندازی</span></div><p class="muted">زیرساخت آماده اتصال است. پس از انتخاب ارائه‌دهنده و ثبت کلیدهای محرمانه در Secrets سمت سرور، می‌توان پیامک ثبت سفارش و تغییر وضعیت را ارسال کرد.</p><div class="sms-features"><span>اعلان سفارش جدید</span><span>تغییر وضعیت سفارش</span><span>گزارش ارسال و خطا</span></div><p class="muted" id="smsSetupHint">هنوز سرویس پیامکی به سرور متصل نشده است؛ ارسال واقعی غیرفعال می‌ماند تا کلید معتبر تنظیم شود.</p></div>
 <div class="settings-grid"><div class="panel"><div class="panel-title"><h3>تغییر رمز مدیریت</h3></div><p class="muted">رمز جدید حداقل ۸ و حداکثر ۱۲۸ نویسه داشته باشد. پس از تغییر، رمز جدید برای درخواست‌های بعدی استفاده می‌شود.</p>
 <form id="passwordForm"><div class="field"><label for="currentPassword">رمز فعلی</label><input id="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label for="newPassword">رمز جدید</label><input id="newPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></div><div class="field"><label for="confirmNewPassword">تکرار رمز جدید</label><input id="confirmNewPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></div><button class="gold-btn" type="submit" id="passwordSubmit">به‌روزرسانی رمز</button><p id="passwordFeedback" class="feedback"></p></form></div>
 <div class="panel"><div class="panel-title"><h3>وضعیت دسترسی</h3></div><p class="muted">این پنل از درگاه اختصاصی سمت سرور استفاده می‌کند. رمز مدیر در پایگاه داده به‌صورت هش‌شده نگهداری می‌شود و در حافظه دائمی مرورگر ذخیره نمی‌شود.</p><div class="order-meta"><span>● محدودیت تلاش ورود فعال</span><span>● نشست فقط در حافظه صفحه</span><span>● عملیات مدیریتی از Edge Function</span></div><button class="danger-btn" id="logoutBtn2">خروج از مدیریت</button></div></div>
@@ -145,10 +164,11 @@ button,input,textarea,select{font:inherit}button{cursor:pointer}
 </section>
 <nav class="mobile-nav" id="mobileNav">
 <button class="nav-item active" data-view="overview"><span class="nav-icon">◈</span>نمای کلی</button>
+<button class="nav-item" data-view="analytics"><span class="nav-icon">⌁</span>آمار</button>
 <button class="nav-item" data-view="orders"><span class="nav-icon">▤</span>سفارش‌ها</button>
 <button class="nav-item" data-view="gallery"><span class="nav-icon">▧</span>گالری</button>
 <button class="nav-item" data-view="customers"><span class="nav-icon">♙</span>مشتریان</button>
-<button class="nav-item" data-view="security"><span class="nav-icon">◇</span>امنیت</button>
+<button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>تنظیمات</button>
 </nav>
 </section>
 </main>
