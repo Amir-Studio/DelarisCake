@@ -2192,3 +2192,52 @@ textarea {
     object-fit: cover;
     object-position: center;
 }
+
+
+/* Delaris customer voices — quiet luxury, mobile-first */
+.delaris-reviews{width:min(1120px,calc(100% - 32px));margin:clamp(42px,7vw,82px) auto 34px;padding:clamp(22px,4vw,42px);border:1px solid rgba(212,175,55,.19);border-radius:28px;background:radial-gradient(ellipse at 12% 0%,rgba(212,175,55,.09),transparent 42%),linear-gradient(145deg,#151412 0%,#0c0c0d 72%);box-shadow:0 24px 70px rgba(0,0,0,.26)}
+.reviews-heading{text-align:center;margin:0 auto 28px;max-width:620px}
+.reviews-eyebrow{display:block;color:#c9a85f;font-family:var(--font-display);font-size:.66rem;letter-spacing:2.6px}
+.reviews-heading h2{color:#f1dfb2;font-size:clamp(1.35rem,3vw,2rem);margin:10px 0 7px}
+.reviews-heading p,.review-form-heading p{color:#aaa;font-size:.86rem;line-height:1.9;margin:0}
+.reviews-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:18px;align-items:stretch}
+.reviews-display,.review-form{min-width:0;border:1px solid rgba(255,255,255,.075);border-radius:20px;background:rgba(255,255,255,.025);padding:20px}
+.reviews-display-top{display:flex;justify-content:space-between;align-items:center;gap:10px;color:#e7d8b6;font-size:.84rem;margin-bottom:12px}
+.reviews-live-mark{display:inline-flex;align-items:center;gap:7px;color:#9d967f;font-size:.68rem}
+.reviews-live-mark i{width:6px;height:6px;border-radius:50%;background:#bda16a;box-shadow:0 0 10px #bda16a}
+.public-reviews-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.public-review-card{min-width:0;padding:16px;border-radius:15px;border:1px solid rgba(212,175,55,.12);background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012))}
+.public-review-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.public-review-name{color:#f0e4c9;font-size:.82rem;font-weight:600;overflow-wrap:anywhere}
+.public-review-stars{color:#d4b36e;letter-spacing:1px;font-size:.78rem;white-space:nowrap}
+.public-review-text{color:#c5beb1;font-size:.78rem;line-height:2;margin:11px 0 8px;overflow-wrap:anywhere}
+.public-review-date{color:#837d72;font-size:.65rem}
+.reviews-empty{grid-column:1/-1;padding:30px 16px;text-align:center;color:#a9a193;border:1px dashed rgba(212,175,55,.2);border-radius:15px;font-size:.8rem;line-height:2}
+.review-form-heading{margin-bottom:18px}
+.review-form-heading h3{color:#f1dfb2;font-size:1.18rem;margin:7px 0}
+.review-form .field{margin-bottom:12px}
+.review-form .field label{display:flex;justify-content:space-between;align-items:center;color:#cfc5b3;font-size:.76rem;margin-bottom:7px}
+.review-form .field label span{color:#918875;font-size:.68rem}
+.review-form input,.review-form select,.review-form textarea{width:100%;box-sizing:border-box;border:1px solid rgba(212,175,55,.16);border-radius:11px;background:#0b0b0c;color:#eee7d8;padding:11px 12px;font:inherit;font-size:.78rem;outline:none}
+.review-form textarea{resize:vertical;min-height:100px;line-height:1.9}
+.review-form input:focus,.review-form select:focus,.review-form textarea:focus{border-color:rgba(212,175,55,.55);box-shadow:0 0 0 3px rgba(212,175,55,.07)}
+.review-honeypot{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.review-submit{width:100%;display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border:1px solid rgba(212,175,55,.35);border-radius:12px;background:linear-gradient(110deg,#b99552,#e0c789);color:#17130c;font:inherit;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s}
+.review-submit:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.review-submit:disabled{opacity:.55;cursor:wait;transform:none}
+.review-submit span{font-size:1rem}
+.review-feedback{min-height:22px;margin:10px 0 0;color:#9e967f;font-size:.68rem;line-height:1.8}
+.review-feedback.success{color:#b7d2a5}.review-feedback.error{color:#e0a29a}
+.delaris-story-card{width:min(1120px,calc(100% - 32px));box-sizing:border-box;margin:26px auto 44px;padding:0;overflow:hidden;border:1px solid rgba(212,175,55,.18);border-radius:24px;background:linear-gradient(130deg,#171614,#0d0d0e 72%);box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.story-card-top,.story-card-foot{display:flex;justify-content:space-between;gap:12px;padding:15px clamp(18px,4vw,34px);color:#9d8b66;font-family:var(--font-display);font-size:.62rem;letter-spacing:1.6px}
+.story-card-top{border-bottom:1px solid rgba(255,255,255,.055)}
+.story-card-body{max-width:780px;margin:auto;padding:clamp(24px,5vw,44px) clamp(20px,5vw,46px);text-align:right}
+.story-kicker{color:#c9a85f;font-size:.75rem}
+.story-card-body h2{color:#f0dfb8;font-size:clamp(1.25rem,3vw,1.8rem);line-height:1.7;margin:8px 0 14px}
+.story-card-body p{color:#b6b0a5;font-size:.83rem;line-height:2.1;margin:8px 0}
+.story-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.story-action{display:inline-flex;align-items:center;justify-content:space-between;gap:25px;padding:11px 16px;border:1px solid rgba(212,175,55,.22);border-radius:30px;color:#dfcca2;text-decoration:none;font-size:.76rem;transition:.2s}
+.story-action:hover{background:rgba(212,175,55,.09);border-color:rgba(212,175,55,.55)}
+.story-action span{color:#c9a85f}
+.story-card-foot{border-top:1px solid rgba(255,255,255,.055);color:#777064;letter-spacing:1px}
+@media(max-width:760px){.delaris-reviews{width:calc(100% - 24px);padding:18px;margin-top:40px;border-radius:21px}.reviews-layout{grid-template-columns:1fr}.reviews-display,.review-form{padding:15px}.public-reviews-grid{grid-template-columns:1fr}.delaris-story-card{width:calc(100% - 24px);border-radius:20px}.story-card-top,.story-card-foot{font-size:.56rem;padding:13px 16px}.story-actions{display:grid;grid-template-columns:1fr}.story-action{width:auto}.story-card-body{padding:25px 20px}}
